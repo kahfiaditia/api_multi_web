@@ -9,15 +9,17 @@
             <a href="javascript: void(0);"><i data-feather="grid" class="align-self-center menu-icon"></i><span>Data Master</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
             <ul class="nav-second-level" aria-expanded="false">
                 <li class="nav-item"><a class="nav-link" href="{{ route('data_user.index') }}"><i class="ti-control-record"></i>User</a></li>
-                <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Customer</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Member</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Rak</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Buku</a></li>
             </ul>
         </li> 
 
         <li>
             <a href="javascript: void(0);"><i data-feather="lock" class="align-self-center menu-icon"></i><span>Transaksi</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
             <ul class="nav-second-level" aria-expanded="false">
-                <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Log in</a></li>
-                <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Register</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Peminjaman</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Pengembalian</a></li>
             </ul>
         </li> 
 
