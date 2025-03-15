@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('roles', 30);
             $table->string('email', 40)->unique();
             $table->string('telepon', 18)->unique()->nullable();
+            $table->string('qr_code_path')->nullable();
             $table->string('password', 255);
             $table->string('status', 10);
             $table->datetime('date_login')->nullable();
