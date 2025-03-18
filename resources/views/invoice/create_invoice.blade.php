@@ -452,7 +452,7 @@ $(document).ready(function () {
                     dataTable.push({ deskripsi, harga, kuantiti, subtotal });
                     });
 
-                // Jika ada error dalam form atau tabel, tampilkan SweetAlert
+                    // Jika ada error dalam form atau tabel, tampilkan SweetAlert
                     if (errors.length > 0 || tableErrors.length > 0) {
                         Swal.fire({
                             icon: 'error',

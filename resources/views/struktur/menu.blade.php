@@ -10,7 +10,7 @@
             <ul class="nav-second-level" aria-expanded="false">
                 <li class="nav-item"><a class="nav-link" href="{{ route('data_user.index') }}"><i class="ti-control-record"></i>User</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('member.index') }}"><i class="ti-control-record"></i>Member</a></li>
-                <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Rak</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('rak.index') }}"><i class="ti-control-record"></i>Rak</a></li>
                 <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Buku</a></li>
             </ul>
         </li> 

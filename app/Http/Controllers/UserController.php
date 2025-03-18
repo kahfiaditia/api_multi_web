@@ -32,7 +32,7 @@ class UserController extends Controller
      public function index()
     {
         $data = [
-            'data_user' => User::where('roles', '!=', 'Customer')->get()
+            'data_user' => User::where('roles', '!=', 'Member')->get()
         ];
 
         return view('user.data_user', $data);

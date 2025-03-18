@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\RakController;
 use App\Http\Controllers\SuratPemController;
 use App\Http\Controllers\UserController;
 use App\Models\InvDataModel;
@@ -40,8 +41,9 @@ Route::group(
         Route::resource('/data_user', UserController::class);
         Route::get('/users/qrcode/{id}', [UserController::class, 'generateQRCode'])->name('users.qrcode');
 
-        //member
+        //perpustakaan
         Route::resource('/member', MemberController::class);
+        Route::resource('/rak', RakController::class);
 
         //invoice
         Route::resource('/data_invoice', InvoiceController::class);
