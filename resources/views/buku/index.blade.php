@@ -6,23 +6,22 @@
         <div class="page-title-box">
             <div class="row">
                 <div class="col">
-                    <h4 class="page-title">User</h4>
+                    <h4 class="page-title">{{ $submenu }}</h4>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">{{ $menu }}</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">{{ $submenu }}</a></li>
                         <li class="breadcrumb-item active">List</li>
                     </ol>
                 </div><!--end col-->
                 <div class="col-auto align-self-center">
-                    <a href="{{ route('data_user.create') }}" class="btn btn-sm btn-outline-primary">
+                    <a href="{{ route('buku.create') }}" class="btn btn-sm btn-outline-primary">
                         <i data-feather="file-plus" class="align-self-center icon-xs"></i>
                         <span class="" id="Select_date">Tambah Data</span> 
                     </a>
-                </div><!--end col-->  
-            </div><!--end row-->                                                              
-        </div><!--end page-title-box-->
-    </div><!--end col-->
-</div><!--end row-->
+                </div> 
+            </div>                                                            
+        </div>
+    </div>
+</div>
 <!-- end page title end breadcrumb -->
 <div class="row">
     <div class="col-12">
@@ -31,30 +30,27 @@
                 <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                             <tr>
-                                <th>Nama</th>
-                                <th>Email</th>
-                                <th>Username</th>
-                                <th>Roles</th>
-                                <th>Telepon</th>
+                                <th>Kode Buku</th>
+                                <th>Judul</th>
+                                <th>Kategori</th>
+                                <th>Pengarang</th>
+                                <th>Penerbit</th>
+                                <th>Tahun</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr> 
                     </thead>
                     <tbody>
-                        @foreach ($data_user as $item)
+                        @foreach ($buku as $item)
                             <tr>
                                 <td>
-                                    <img src="assets/user_foto/{{ $item->image }}" alt="" height="40">
-                                    <p class="d-inline-block align-middle mb-0">
-                                       {{ $item->nama }}
-                                        <br>
-                                        <span class="text-muted font-13">{{ $item->kode }}</span> 
-                                    </p>
+                                    {{ $item->kode }}
                                 </td>
-                                <td>{{ $item->email }}</td>
-                                <td>{{ $item->username }}</td>
-                                <td>{{ $item->roles }}</td>
-                                <td>{{ $item->telepon }}</td>
+                                <td>{{ $item->nama_buku }}</td>
+                                <td>{{ $item->kategori }}</td>
+                                <td>{{ $item->pengarang }}</td>
+                                <td>{{ $item->penerbit }}</td>
+                                <td>{{ $item->tahun }}</td>
                                 <td>
                                         @if($item->status == 0)
                                             <span class="badge badge-soft-success"> Aktif </span>
@@ -81,12 +77,12 @@
                                 </td>
                             </tr>
                         
-                    @endforeach
+                        @endforeach
                    
                     </tbody>
                 </table>        
             </div>
         </div>
-    </div> <!-- end col -->
-</div> <!-- end row -->
+    </div>
+</div>
 @endsection

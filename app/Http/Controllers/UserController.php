@@ -25,6 +25,8 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
+    protected $menu ="Data Master";
+    protected $submenu ="User";
     /**
      * Display a listing of the resource.
      */
@@ -32,6 +34,8 @@ class UserController extends Controller
      public function index()
     {
         $data = [
+            'menu' => $this->menu,
+            'submenu' => $this->submenu,
             'data_user' => User::where('roles', '!=', 'Member')->get()
         ];
 
@@ -70,8 +74,14 @@ class UserController extends Controller
 
      public function create()
     {
+        $data =[
+            'menu' => $this->menu,
+            'submenu' => $this->submenu,
+            'level' => 'Create',
+        ];
+
         $adminCode = $this->generateCustomerCode();
-        return view('user.data_create', compact('adminCode'));
+        return view('user.data_create', compact('adminCode'), $data);
     }
 
     /**

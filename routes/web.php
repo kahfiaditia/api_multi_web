@@ -1,6 +1,7 @@
 <?php
 
 use App\Exports\InvoiceExport;
+use App\Http\Controllers\BukuController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LoginController;
@@ -44,6 +45,7 @@ Route::group(
         //perpustakaan
         Route::resource('/member', MemberController::class);
         Route::resource('/rak', RakController::class);
+        Route::resource('/buku', BukuController::class);
 
         //invoice
         Route::resource('/data_invoice', InvoiceController::class);
