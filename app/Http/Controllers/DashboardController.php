@@ -6,12 +6,19 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    protected $menu ="Data Master";
+    protected $submenu = "Dashboard";
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('dashboard.dashboard');
+        $data = [
+            'menu' => $this->menu,
+            'submenu' => $this->submenu,
+        ];
+        return view('dashboard.dashboard', $data);
     }
 
     /**

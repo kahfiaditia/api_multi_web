@@ -12,17 +12,17 @@
                         <li class="breadcrumb-item"><a href="javascript:void(0);">{{ $submenu }}</a></li>
                         <li class="breadcrumb-item active">List</li>
                     </ol>
-                </div><!--end col-->
+                </div>
                 <div class="col-auto align-self-center">
                     <a href="{{ route('data_user.create') }}" class="btn btn-sm btn-outline-primary">
                         <i data-feather="file-plus" class="align-self-center icon-xs"></i>
                         <span class="" id="Select_date">Tambah Data</span> 
                     </a>
-                </div><!--end col-->  
-            </div><!--end row-->                                                              
-        </div><!--end page-title-box-->
-    </div><!--end col-->
-</div><!--end row-->
+                </div> 
+            </div>                                                            
+        </div>
+    </div>
+</div>
 <!-- end page title end breadcrumb -->
 <div class="row">
     <div class="col-12">
@@ -76,8 +76,6 @@
 
                                     </div>
                                 </form>                                                  
-                                   
-                                    
                                 </td>
                             </tr>
                         
@@ -87,6 +85,6 @@
                 </table>        
             </div>
         </div>
-    </div> <!-- end col -->
-</div> <!-- end row -->
+    </div>
+</div>
 @endsection
