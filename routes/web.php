@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\PenyimpananController;
 use App\Http\Controllers\RakController;
 use App\Http\Controllers\SuratPemController;
 use App\Http\Controllers\UserController;
@@ -46,6 +47,7 @@ Route::group(
         Route::resource('/member', MemberController::class);
         Route::resource('/rak', RakController::class);
         Route::resource('/buku', BukuController::class);
+        Route::resource('/penyimpanan', PenyimpananController::class);
 
         //invoice
         Route::resource('/data_invoice', InvoiceController::class);

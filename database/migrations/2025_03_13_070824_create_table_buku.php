@@ -22,8 +22,6 @@ return new class extends Migration
             $table->string('pengarang', 70);
             $table->string('penerbit', 50);
             $table->string('nama_barcode', 80)->nullable();
-            $table->unsignedBigInteger('barcode_rak')->nullable();
-            $table->foreign('barcode_rak')->references('id')->on('data_rak');
             $table->year('tahun')->nullable();
             $table->string('sumber_buku', 20)->nullable();
             $table->longText('deskripsi')->nullable();
