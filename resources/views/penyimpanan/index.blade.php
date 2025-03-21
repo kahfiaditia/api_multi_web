@@ -13,7 +13,7 @@
                     </ol>
                 </div>
                 <div class="col-auto align-self-center">
-                    <a href="{{ route('member.create') }}" class="btn btn-sm btn-outline-primary">
+                    <a href="{{ route('penyimpanan.create') }}" class="btn btn-sm btn-outline-primary">
                         <i data-feather="file-plus" class="align-self-center icon-xs"></i>
                         <span class="" id="Select_date">Tambah Data</span> 
                     </a>
@@ -30,29 +30,23 @@
                 <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                             <tr>
-                                <th>kode</th>
-                                <th>Buku</th>
-                                <th>Rak</th>
+                                <th>Kode</th>
+                                <th>Data Rak</th>
+                                <th>Nama Buku</th>
                                 <th>Jumlah</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr> 
                     </thead>
                     <tbody>
-                        {{-- @foreach ($data_member as $item)
+                        @foreach ($penyimpanan as $item)
                             <tr>
                                 <td>
-                                    <img src="assets/user_foto/{{ $item->image }}" alt="" height="40">
-                                    <p class="d-inline-block align-middle mb-0">
-                                       {{ $item->nis }}
-                                        <br>
-                                        <span class="text-muted font-13">{{ $item->kode }}</span> 
-                                    </p>
+                                    {{ $item->kode_simpan }}
                                 </td>
-                                <td>{{ $item->nama }}</td>
-                                <td>{{ $item->user->username }}</td>
-                                <td>{{ $item->email }}</td>
-                                <td>{{ $item->telepon }}</td>
+                                <td>{{ $item->id_rak }}</td>
+                                <td>{{ $item->nama_buku->nama_buku }}</td>
+                                <td>{{ $item->jumlah }}</td>
                                 <td>
                                         @if($item->status == 0)
                                             <span class="badge badge-soft-success"> Aktif </span>
@@ -62,13 +56,13 @@
                                 </td>
                                 <td>
                                     <form class="delete-form"
-                                    action="{{ route('data_user.destroy', Crypt::encryptString($item->id)) }}"
+                                    action="{{ route('penyimpanan.destroy', Crypt::encryptString($item->id)) }}"
                                     method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <div class="d-flex gap-3">
 
-                                        <a href="{{ route('data_user.edit', Crypt::encryptString($item->id)) }}" class="mr-2"><i class="las la-pen text-info font-18"></i></a>
+                                        <a href="{{ route('penyimpanan.edit', Crypt::encryptString($item->id)) }}" class="mr-2"><i class="las la-pen text-info font-18"></i></a>
                                         <a href class="text-danger delete_confirm"><i
                                                 class="las la-trash-alt text-danger font-18"></i></a>
 
@@ -79,7 +73,7 @@
                                 </td>
                             </tr>
                         
-                        @endforeach --}}
+                        @endforeach
                    
                     </tbody>
                 </table>        

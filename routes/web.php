@@ -48,6 +48,10 @@ Route::group(
         Route::resource('/rak', RakController::class);
         Route::resource('/buku', BukuController::class);
         Route::resource('/penyimpanan', PenyimpananController::class);
+        Route::post('/get_rak', [PenyimpananController::class, 'data_rak'])->name('pilih.rak');
+        Route::post('/get_buku', [PenyimpananController::class, 'data_buku'])->name('pilih.buku');
+        
+
 
         //invoice
         Route::resource('/data_invoice', InvoiceController::class);
