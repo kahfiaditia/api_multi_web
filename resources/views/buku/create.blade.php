@@ -109,7 +109,7 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('../plugins/tinymce/tinymce.min.js') }}"></script>
 <script src="{{ asset('assets/pages/jquery.form-editor.init.js') }}"></script>
     <script>

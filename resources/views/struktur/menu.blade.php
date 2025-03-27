@@ -19,7 +19,7 @@
             <a href="javascript: void(0);"><i data-feather="lock" class="align-self-center menu-icon"></i><span>Transaksi</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
             <ul class="nav-second-level" aria-expanded="false">
                 <li class="nav-item"><a class="nav-link" href="{{ route('penyimpanan.index') }}"><i class="ti-control-record"></i>Penyimpanan</a></li>
-                <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Peminjaman</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('peminjaman.index') }}"><i class="ti-control-record"></i>Peminjaman</a></li>
                 <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Pengembalian</a></li>
             </ul>
         </li> 

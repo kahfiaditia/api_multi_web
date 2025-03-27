@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\PenyimpananController;
 use App\Http\Controllers\RakController;
 use App\Http\Controllers\SuratPemController;
@@ -50,6 +51,11 @@ Route::group(
         Route::resource('/penyimpanan', PenyimpananController::class);
         Route::post('/get_rak', [PenyimpananController::class, 'data_rak'])->name('pilih.rak');
         Route::post('/get_buku', [PenyimpananController::class, 'data_buku'])->name('pilih.buku');
+        Route::resource('/peminjaman', PeminjamanController::class);
+        Route::post('/pinjam_buku', [PeminjamanController::class, 'scanBarcode1'])->name('pinjambuku.scanBarcode1');
+        Route::get('/get-siswa', [PeminjamanController::class, 'getSiswa'])->name('get.siswa');
+        Route::get('/get-guru', [PeminjamanController::class, 'getGuru'])->name('get.guru');
+        Route::post('/dropdown', [PeminjamanController::class, 'buku_ambil'])->name('buku.buku_ambil');
         
 
 
