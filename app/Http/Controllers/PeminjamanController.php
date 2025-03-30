@@ -119,7 +119,27 @@ class PeminjamanController extends Controller
         'data' => $guru
         ]);
     }
+    
+    public function checkBarcode($barcode)
+    {
+        // Cek apakah buku dengan barcode tertentu ada di database
+        $book = BukuModel::where('kode', $barcode)->first();
 
+        if ($book) {
+            return response()->json([
+                'success' => true,
+                'book' => [
+                    'id' => $book->id,
+                    'judul' => $book->nama_buku,
+                ]
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Tidak ada buku dengan barcode tersebut.'
+            ]);
+        }
+    }
     /**
      * Store a newly created resource in storage.
      */

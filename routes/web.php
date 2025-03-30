@@ -56,6 +56,7 @@ Route::group(
         Route::get('/get-siswa', [PeminjamanController::class, 'getSiswa'])->name('get.siswa');
         Route::get('/get-guru', [PeminjamanController::class, 'getGuru'])->name('get.guru');
         Route::post('/dropdown', [PeminjamanController::class, 'buku_ambil'])->name('buku.buku_ambil');
+        Route::get('/check-barcode/{barcode}', [PeminjamanController::class, 'checkBarcode']);
         
 
 

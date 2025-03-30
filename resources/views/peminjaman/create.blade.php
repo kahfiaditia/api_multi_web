@@ -1,6 +1,21 @@
 @extends('welcome')
 @section('isicontent')
+<style>
 
+    .container {
+        max-width: 400px;
+        margin: auto;
+    }
+    .hidden {
+        display: none;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    label {
+        font-weight: bold;
+    }
+</style>
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -33,61 +48,23 @@
                         <div class="card-body">
 
                            {{-- barcode --}}
-                           <div class="accordion" id="accordionExample">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingOne">
-                                    <button class="accordion-button fw-medium collapsed" type="button"
-                                        id="accordion-button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseOne" aria-expanded="true"
-                                        aria-controls="collapseOne">
-                                        <i class="bx bx-search-alt font-size-18"></i>
-                                        <b>Barcode</b>
-                                    </button>
-                                </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse show"
-                                    aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body barcodeScanner">
-                                        <div class="row text-muted">
-                                            <div class="col-md-4"></div>
-                                            <div class="col-md-4 text-center">
-                                                <label class="form-label">Metode Scan</label>
-                                                <div class="mb-3">
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input radio" type="radio"
-                                                            name="toggle" id="inlineRadio1" value="Barcode">
-                                                        <label class="form-check-label"
-                                                            for="inlineRadio1">Barcode</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input radio" type="radio"
-                                                            name="toggle" id="inlineRadio2"
-                                                            value="Scan Kamera">
-                                                        <label class="form-check-label" for="inlineRadio2">Scan
-                                                            Kamera</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row text-muted div_barcode">
-                                            <div class="col-md-4"></div>
-                                            <div class="col-md-4">
-                                                <input type="text" name="scanner_barcode" autofocus
-                                                    class="form-control scanner_barcode" id="scanner_barcode"
-                                                    placeholder="Barcode">
-                                            </div>
-                                        </div>
-                                        <div class="row text-muted div_scan_camera">
-                                            <div class="col-md-4"></div>
-                                            <div class="col-md-4">
-                                                <div id="qr-reader"></div>
-                                                <div id="qr-reader-results"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
-                        <br>
+                           <div class="form-group">
+                            <label>Pilih Metode Input:</label>
+                            <select id="inputMethod" class="form-control">
+                                <option value="barcode" selected>Barcode</option>
+                                <option value="scan">Scan Kamera</option>
+                            </select>
+                        </div>
+                
+                        <div id="barcodeInput" class="form-group">
+                            <label>Masukkan Barcode:</label>
+                            <input type="text" id="barcode" class="form-control" placeholder="Scan atau ketik barcode">
+                        </div>
+                
+                        <div id="scanCamera" class="form-group hidden">
+                            <label>Scan Barcode dengan Kamera:</label>
+                            <div id="reader" style="width: 300px;"></div>
+                        </div>
                 
                 {{-- akhir barcode --}}
 
@@ -105,7 +82,7 @@
                                         </div>
                                         {!! $errors->first('peminjam', '<div class="invalid-validasi">:message</div>') !!}
                                 </div>
-                                <div class="col-md-3 peminjam_siswa" style="display: none;">
+                                <div class="col-md-4 peminjam_siswa" style="display: none;">
                                     <div class="mb-3">
                                         <label class="form-label">Siswa <code>*</code></label>
                                         <select class="form-control select select2 classes" name="siswa" required
@@ -208,7 +185,7 @@
 
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
-<script src="{{ asset('assets/alert.js') }}"></script>
+{{-- <script src="{{ asset('assets/alert.js') }}"></script> --}}
 <script src="{{ asset('assets/scanner/html5-qrcode.min.js') }}"></script>
 <script>
     $(document).ready(function () {
@@ -469,6 +446,100 @@
             });
     });
 
+    //barcode
+    document.getElementById('inputMethod').addEventListener('change', function() {
+            if (this.value === 'scan') {
+                document.getElementById('barcodeInput').classList.add('hidden');
+                document.getElementById('scanCamera').classList.remove('hidden');
+                startScanner();
+            } else {
+                document.getElementById('barcodeInput').classList.remove('hidden');
+                document.getElementById('scanCamera').classList.add('hidden');
+                stopScanner();
+            }
+        });
+
+        let html5QrCode;
+
+        function startScanner() {
+            html5QrCode = new Html5Qrcode("reader");
+            html5QrCode.start(
+                { facingMode: "environment" },
+                { fps: 10, qrbox: 250 },
+                qrCodeMessage => {
+                    document.getElementById('barcode').value = qrCodeMessage;
+                    checkBarcode(qrCodeMessage);
+                    stopScanner();
+                },
+                errorMessage => {
+                    console.log(errorMessage);
+                }
+            ).catch(err => console.log(err));
+        }
+
+        function stopScanner() {
+            if (html5QrCode) {
+                html5QrCode.stop().catch(err => console.log(err));
+            }
+        }
+
+        document.getElementById('barcode').addEventListener('change', function() {
+            checkBarcode(this.value);
+        });
+
+        function checkBarcode(barcode) {
+    fetch(`/check-barcode/${barcode}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                if (!isBookInTable(data.book.id)) {
+                    addToTable(data.book);
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Buku Sudah Ada',
+                        text: 'Buku ini sudah ada dalam daftar peminjaman.',
+                    });
+                }
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Tidak Ditemukan',
+                    text: 'Tidak ada buku dengan barcode tersebut.',
+                });
+            }
+            // Kosongkan input setelah pengecekan
+            setTimeout(() => {
+                document.getElementById('barcode').value = '';
+            }, 500);
+        })
+        .catch(error => console.log(error));
+}
+
+// Fungsi untuk mengecek apakah buku sudah ada di tabel
+function isBookInTable(bookId) {
+    let rows = document.querySelectorAll("#data_peminjaman tbody tr");
+    for (let row of rows) {
+        if (row.cells[0].innerText === bookId.toString()) {
+            return true; // Buku sudah ada di tabel
+        }
+    }
+    return false; // Buku belum ada
+}
+
+function addToTable(book) {
+    let table = document.getElementById('data_peminjaman').getElementsByTagName('tbody')[0];
+    let row = table.insertRow();
+    row.insertCell(0).innerText = book.id;
+    row.insertCell(1).innerText = book.judul;
+    row.insertCell(2).innerHTML = 1;
+    row.insertCell(3).innerHTML = '<button type="button" class="btn btn-danger btn-sm remove">Hapus</button>';
+}
+
+function removeRow(button) {
+    let row = button.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+}
 
 
 </script>
