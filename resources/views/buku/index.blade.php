@@ -60,13 +60,14 @@
                                 </td>
                                 <td>
                                     <form class="delete-form"
-                                    action="{{ route('data_user.destroy', Crypt::encryptString($item->id)) }}"
+                                    action="{{ route('buku.destroy', Crypt::encryptString($item->id)) }}"
                                     method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <div class="d-flex gap-3">
 
-                                        <a href="{{ route('data_user.edit', Crypt::encryptString($item->id)) }}" class="mr-2"><i class="las la-pen text-info font-18"></i></a>
+                                        <a href="{{ route('buku.edit', Crypt::encryptString($item->id)) }}" class="mr-2"><i class="las la-pen text-info font-18"></i></a>
+                                        <a href="{{ route('buku.show', Crypt::encryptString($item->id)) }}" class="mr-2"><i class="las la-print text-info font-18"></i></a>
                                         <a href class="text-danger delete_confirm"><i
                                                 class="las la-trash-alt text-danger font-18"></i></a>
 

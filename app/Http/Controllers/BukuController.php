@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BukuBarcode;
 use App\Helper\AlertHelper;
 use App\Models\BukuModel;
 use Endroid\QrCode\Builder\Builder;
@@ -12,6 +13,7 @@ use Endroid\QrCode\Label\LabelAlignment;
 use Endroid\QrCode\RoundBlockSizeMode;
 use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -153,7 +155,13 @@ class BukuController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $id_decrypt = Crypt::decryptString($id);
+        $buku = BukuModel::findOrFail($id_decrypt);
+        
+
+        // Kirim ke Export
+        $export = new BukuBarcode($buku);
+        return $export->download();
     }
 
     /**

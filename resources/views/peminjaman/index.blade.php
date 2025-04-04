@@ -40,20 +40,19 @@
                             </tr> 
                     </thead>
                     <tbody>
-                        {{-- @foreach ($penyimpanan as $item)
+                        @foreach ($penyimpanan as $item)
                             <tr>
                                 <td>
-                                    {{ $item->kode_simpan }}
+                                    {{ $item->kode_pinjam }}
                                 </td>
-                                <td>{{ $item->id_rak }}</td>
-                                <td>{{ $item->nama_buku->nama_buku }}</td>
-                                <td>{{ $item->jumlah }}</td>
+                                <td>{{ $item->tanggal_pinjam }}</td>
+                                <td>{{ $item->id_siswa }}</td>
+                                <td>{{ $item->denda }}</td>
                                 <td>
-                                        @if($item->status == 0)
-                                            <span class="badge badge-soft-success"> Aktif </span>
-                                        @else
-                                            <span class="badge badge-soft-primary"> Tidak Aktif </span>
-                                        @endif
+                                    {{ $item->jumlah_buku}}
+                                </td>
+                                <td>
+                                    {{ $item->status}}
                                 </td>
                                 <td>
                                     <form class="delete-form"
@@ -74,7 +73,7 @@
                                 </td>
                             </tr>
                         
-                        @endforeach --}}
+                        @endforeach
                    
                     </tbody>
                 </table>        

@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\BukuModel;
+use Illuminate\Support\Str;
+use App\Models\DetilPinjamModel;
 use App\Models\MemberModel;
+use App\Models\PeminjamanModel;
+use App\Models\PenyimpananModel;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,10 +23,15 @@ class PeminjamanController extends Controller
      */
     public function index()
     {
+        $penyimpanan = PeminjamanModel::where([
+            ['deleted_at', '=', null],
+            ['status', '=', 'dipinjam']
+        ])->get();
+
         $data = [
             'menu' => $this->menu,
             'submenu' => $this->submenu,
-            // 'penyimpanan' => PenyimpananModel::whereNull('deleted_at')->get(),
+            'penyimpanan' => $penyimpanan,
         ];
         return view('peminjaman.index', $data);
     }
@@ -145,7 +155,39 @@ class PeminjamanController extends Controller
      */
     public function store(Request $request)
     {
-        dd(request()->all());
+        
+        DB::beginTransaction();
+        try {
+            // Generate kode pinjam unik
+            $kodePinjam = 'P' . now()->format('YmdHis') . Str::random(5);
+            
+            // Simpan data peminjaman
+            $peminjaman = PeminjamanModel::create([
+                'kode_pinjam' => $kodePinjam,
+                'id_siswa' => $request->siswa,
+                'id_guru' => $request->guru,
+                'tanggal_pinjam' => Carbon::now(),
+                'jumlah_hari' => 7, // Default 7 hari
+                'jumlah_buku' => count($request->data_peminjaman),
+                'status' => 'dipinjam'
+            ]);
+            
+            // Simpan detail peminjaman
+            foreach ($request->data_peminjaman as $item) {
+                DetilPinjamModel::create([
+                    'id_pinjam' => $peminjaman->id,
+                    'id_buku' => $item['buku_id'],
+                    'jumlah' => $item['jumlah']
+                ]);
+            }
+            
+            DB::commit();
+            return response()->json(['message' => 'Peminjaman berhasil disimpan', 'kode_pinjam' => $kodePinjam], 201);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['error' => 'Gagal menyimpan peminjaman', 'message' => $e->getMessage()], 500);
+        }
+    
     }
 
     /**
