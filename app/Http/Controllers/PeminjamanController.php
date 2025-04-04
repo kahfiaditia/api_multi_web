@@ -140,6 +140,10 @@ class PeminjamanController extends Controller
                 'success' => true,
                 'book' => [
                     'id' => $book->id,
+                    'kode' => $book->kode,
+                    'kategori' => $book->kategori,
+                    'jumlah' => $book->jumlah,
+                    'harga' => $book->harga,
                     'judul' => $book->nama_buku,
                 ]
             ]);

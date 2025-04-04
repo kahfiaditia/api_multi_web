@@ -155,7 +155,8 @@
                                <table id="data_peminjaman" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
-                                            <th>ID Buku</th>
+                                            <th hidden>ID Buku</th>
+                                            <th>Barcode</th>
                                             <th>Judul</th>
                                             <th>Jumlah</th>
                                             <th>Action</th>
@@ -280,206 +281,260 @@
     });
 
     $(document).ready(function () {
-    // Load daftar buku saat halaman dimuat
-    $.ajax({
-        type: "POST",
-        url: "{{ route('buku.buku_ambil') }}",
-        data: { _token: "{{ csrf_token() }}" },
-        success: function (response) {
-            $("#buku").empty().append(`<option value="">-- Pilih Buku --</option>`);
-            $.each(response.data, function (i, item) {
-                $("#buku").append(
-                    `<option value="${item.id}"
-                        data-nama="${item.nama_buku}"
-                        data-kode="${item.kode}"
-                        data-kategori="${item.kategori}"
-                        data-harga="${item.harga}"
-                        data-pengarang="${item.pengarang}"
-                        data-tahun="${item.tahun}">
-                        ${item.nama_buku} - ${item.kode}
-                    </option>`
-                );
-            });
-        },
-        error: function (err) {
-            console.log("Error: ", err);
-        },
-    });
-
-    // Event saat buku dipilih dari dropdown
-    $("#buku").change(function () {
-        var selectedOption = $(this).find('option:selected');
-        $("#kategori").val(selectedOption.data('kategori'));
-    });
-
-    // Fungsi untuk menambahkan buku ke tabel
-    function addBookToTable(bookId, bookName, quantity) {
-        if (!bookId) {
-            Swal.fire({
-                icon: "warning",
-                title: "Pilih Buku Terlebih Dahulu!",
-                text: "Silakan pilih buku sebelum menambahkannya.",
-            });
-            return;
+        
+        function countBooks() {
+            return $("#data_peminjaman tbody tr").length;
         }
 
-        // Cek apakah buku sudah ada di tabel
-        let existingRow = $("#data_peminjaman tbody tr[data-id='" + bookId + "']");
-        if (existingRow.length > 0) {
+        function showLimitAlert() {
             Swal.fire({
-                icon: "error",
-                title: "Buku Sudah Ditambahkan!",
-                text: "Buku ini sudah ada dalam daftar peminjaman.",
-                timer: 2000, // Waktu
+                icon: "warning",
+                title: "Batas Maksimal Tercapai!",
+                text: "Anda hanya bisa meminjam maksimal 3 buku.",
+                timer: 2000,
                 timerProgressBar: true,
                 showConfirmButton: true,
             });
-            resetForm();
-            return;
         }
-
-        // Tambahkan buku ke tabel
-        let newRow = `
-            <tr data-id="${bookId}">
-                <td>${bookId}</td>
-                <td>${bookName}</td>
-                <td>${quantity}</td>
-                <td><button type="button" class="btn btn-danger btn-sm remove">Hapus</button></td>
-            </tr>
-        `;
-        $("#data_peminjaman tbody").append(newRow);
-
-        // Reset form
-        resetForm();
-    }
-
-    // Event klik tombol "Tambah Buku"
-    $("#add").click(function (e) {
-        e.preventDefault();
-        var selectedOption = $("#buku option:selected");
-        var bookId = selectedOption.val();
-        var bookName = selectedOption.data('nama');
-        var quantity = $("#jml_buku").val();
-        addBookToTable(bookId, bookName, quantity);
-    });
-
-    // Event untuk menghapus baris dari tabel
-    $("#data_peminjaman").on("click", ".remove", function () {
-        $(this).closest("tr").remove();
-    });
-
-    // Barcode scanner
-    let html5QrCode;
-    $("#inputMethod").change(function () {
-        if ($(this).val() === "scan") {
-            $("#barcodeInput").addClass("hidden");
-            $("#scanCamera").removeClass("hidden");
-            startScanner();
-        } else {
-            $("#barcodeInput").removeClass("hidden");
-            $("#scanCamera").addClass("hidden");
-            stopScanner();
-        }
-    });
-
-    function startScanner() {
-        if (!html5QrCode) {
-            html5QrCode = new Html5Qrcode("reader");
-        }
-        html5QrCode.start(
-            { facingMode: "environment" },
-            { fps: 10, qrbox: 250 },
-            function (qrCodeMessage) {
-                $("#barcode").val(qrCodeMessage);
-                checkBarcode(qrCodeMessage);
-                stopScanner();
-            },
-            function (errorMessage) {
-                console.log(errorMessage);
-            }
-        ).catch(err => console.log(err));
-    }
-
-    function stopScanner() {
-        if (html5QrCode) {
-            html5QrCode.stop().catch(err => console.log(err));
-        }
-    }
-
-    $("#barcode").change(function () {
-        checkBarcode($(this).val());
-    });
-
-    function checkBarcode(barcode) {
-        if (!barcode.trim()) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Barcode Kosong',
-                text: 'Harap masukkan atau scan barcode terlebih dahulu.',
-            });
-            return;
-        }
-
-        // AJAX untuk memeriksa barcode di server
+        // Load daftar buku saat halaman dimuat
         $.ajax({
-            url: `/check-barcode/${barcode}`,
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
-                if (data.success) {
-                    addBookToTable(data.book.id, data.book.judul, 1);
-                    $("#barcode").val(""); // Reset barcode input
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Tidak Ditemukan',
-                        text: 'Tidak ada buku dengan barcode tersebut.',
-                        timer: 2000, // Waktu
-                        timerProgressBar: true,
-                        showConfirmButton: true,
-                        willClose: () => {
-                            $("#barcode").val(""); // Reset barcode setelah alert ditutup
-                        }
-                    });
-                }
-            },
-            error: function () {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Terjadi kesalahan saat mengambil data buku.',
+            type: "POST",
+            url: "{{ route('buku.buku_ambil') }}",
+            data: { _token: "{{ csrf_token() }}" },
+            success: function (response) {
+                $("#buku").empty().append(`<option value="">-- Pilih Buku --</option>`);
+                $.each(response.data, function (i, item) {
+                    $("#buku").append(
+                        `<option value="${item.id}"
+                            data-nama="${item.nama_buku}"
+                            data-kode="${item.kode}"
+                            data-kategori="${item.kategori}"
+                            data-harga="${item.harga}"
+                            data-pengarang="${item.pengarang}"
+                            data-tahun="${item.tahun}">
+                            ${item.nama_buku} - ${item.kode}
+                        </option>`
+                    );
                 });
+            },
+            error: function (err) {
+                console.log("Error: ", err);
+            },
+        });
+
+        // Event saat buku dipilih dari dropdown
+        $("#buku").change(function () {
+            var selectedOption = $(this).find('option:selected');
+            $("#kategori").val(selectedOption.data('kategori'));
+        });
+
+        // Fungsi untuk menambahkan buku ke tabel
+        function addBookToTable(bookId, bookKode, bookName, quantity) {
+            if (countBooks() >= 3) {
+                showLimitAlert();
+                return;
+            }
+
+            if (!bookId) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Pilih Buku Terlebih Dahulu!",
+                    text: "Silakan pilih buku sebelum menambahkannya.",
+                    timer: 2000, // Waktu
+                    timerProgressBar: true,
+                    showConfirmButton: true,
+                });
+                return;
+            }
+
+            // Cek apakah buku sudah ada di tabel
+            let existingRow = $("#data_peminjaman tbody tr[data-id='" + bookId + "']");
+            if (existingRow.length > 0) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Buku Sudah Ditambahkan!",
+                    text: "Buku ini sudah ada dalam daftar peminjaman.",
+                    timer: 2000, // Waktu
+                    timerProgressBar: true,
+                    showConfirmButton: true,
+                });
+                resetForm();
+                return;
+            }
+
+            // Tambahkan buku ke tabel
+            let newRow = `
+                <tr data-id="${bookId}">
+                    <td hidden>${bookId}</td>
+                    <td>${bookKode}</td>
+                    <td>${bookName}</td>
+                    <td>${quantity}</td>
+                    <td><button type="button" class="btn btn-danger btn-sm remove">Hapus</button></td>
+                </tr>
+            `;
+            $("#data_peminjaman tbody").append(newRow);
+
+            // Reset form
+            resetForm();
+        }
+
+        // Event klik tombol "Tambah Buku"
+        $("#add").click(function (e) {
+            e.preventDefault();
+            var selectedOption = $("#buku option:selected");
+            var bookId = selectedOption.val();
+            var bookKode = selectedOption.data('kode');
+            var bookName = selectedOption.data('nama');
+            var quantity = $("#jml_buku").val();
+            addBookToTable(bookId, bookKode, bookName, quantity);
+        });
+
+        // Event untuk menghapus baris dari tabel
+        $("#data_peminjaman").on("click", ".remove", function () {
+            $(this).closest("tr").remove();
+        });
+
+        // Barcode scanner
+        let html5QrCode;
+        $("#inputMethod").change(function () {
+            if ($(this).val() === "scan") {
+                $("#barcodeInput").addClass("hidden");
+                $("#scanCamera").removeClass("hidden");
+                startScanner();
+            } else {
+                $("#barcodeInput").removeClass("hidden");
+                $("#scanCamera").addClass("hidden");
+                stopScanner();
             }
         });
-    }
 
-    function resetForm() {
-        $("#buku").val(""); 
-        $("#kategori").val("");
-        $("#jml_buku").val("1");
-    }
-});
+        function startScanner() {
+            if (!html5QrCode) {
+                html5QrCode = new Html5Qrcode("reader");
+            }
+            html5QrCode.start(
+                { facingMode: "environment" },
+                { fps: 10, qrbox: 250 },
+                function (qrCodeMessage) {
+                    $("#barcode").val(qrCodeMessage);
+                    checkBarcode(qrCodeMessage);
+                    stopScanner();
+                },
+                function (errorMessage) {
+                    console.log(errorMessage);
+                }
+            ).catch(err => console.log(err));
+        }
 
+        function stopScanner() {
+            if (html5QrCode) {
+                html5QrCode.stop().catch(err => console.log(err));
+            }
+        }
 
+        $("#barcode").change(function () {
+            checkBarcode($(this).val());
+        });
 
-         //kirim ke controller
+        function checkBarcode(barcode) {
+            if (countBooks() >= 3) {
+                showLimitAlert();
+                return;
+            }
+
+            if (!barcode.trim()) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Barcode Kosong',
+                    text: 'Harap masukkan atau scan barcode terlebih dahulu.',
+                });
+                return;
+            }
+
+            // AJAX untuk memeriksa barcode di server
+            $.ajax({
+                url: `/check-barcode/${barcode}`,
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    if (data.success) {
+                        addBookToTable(data.book.id, data.book.kode, data.book.judul, 1);
+                        $("#barcode").val(""); // Reset barcode input
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Tidak Ditemukan',
+                            text: 'Tidak ada buku dengan barcode tersebut.',
+                            timer: 2000, // Waktu
+                            timerProgressBar: true,
+                            showConfirmButton: true,
+                            willClose: () => {
+                                $("#barcode").val(""); // Reset barcode setelah alert ditutup
+                            }
+                        });
+                    }
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Terjadi kesalahan saat mengambil data buku.',
+                    });
+                }
+            });
+        }
+
+        function resetForm() {
+            $("#buku").val(""); 
+            $("#kategori").val("");
+            $("#jml_buku").val("1");
+        }
+    });
+
+    //kirim ke controller
     $(document).ready(function () {
             $("#kirim_peminjaman").click(function (e) {
                 e.preventDefault(); // Mencegah form submit langsung
+
+                function countBooks() {
+                            return $("#data_peminjaman tbody tr").length;
+                }
+
+                function showLimitAlert() {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Batas Maksimal Tercapai!",
+                        text: "Anda hanya bisa meminjam maksimal 3 buku.",
+                        timer: 2000,
+                        timerProgressBar: true,
+                        showConfirmButton: true,
+                    });
+                }
 
                 let siswaId = $("#siswa").find(":selected").val();
                 console.log(siswaId);
                 let guruId = $("#guru").find(":selected").val();
                 console.log(guruId);
 
+                if (countBooks() > 3) {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Terlalu Banyak Buku!",
+                        text: "Kurangi jumlah buku karena maksimal hanya 3.",
+                    });
+                    return;
+                }
+
                 let dataPeminjaman = [];
                 $("#data_peminjaman tbody tr").each(function () {
                     let bukuId = $(this).find("td:eq(0)").text();
-                    let bukuNama = $(this).find("td:eq(1)").text();
-                    let jumlah = $(this).find("td:eq(2)").text();
+                    let bukuKode = $(this).find("td:eq(1)").text();
+                    let bukuNama = $(this).find("td:eq(2)").text();
+                    let jumlah = $(this).find("td:eq(3)").text();
 
                     dataPeminjaman.push({
                         buku_id: bukuId,
+                        buku_kode: bukuKode,
                         buku_nama: bukuNama,
                         jumlah: jumlah
                     });
