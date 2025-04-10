@@ -163,7 +163,8 @@ class PeminjamanController extends Controller
         DB::beginTransaction();
         try {
             // Generate kode pinjam unik
-            $kodePinjam = 'P' . now()->format('YmdHis') . Str::random(5);
+            $randomLength = rand(5, 9); // Panjang acak antara 5 hingga 9 karakter
+            $kodePinjam = Str::random($randomLength);
             
             // Simpan data peminjaman
             $peminjaman = PeminjamanModel::create([

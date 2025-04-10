@@ -1,6 +1,6 @@
 <div class="menu-content h-100" data-simplebar>
     <ul class="metismenu left-sidenav-menu">
-        <li class="menu-label mt-0">Menu</li>
+        <li class="menu-label mt-0">Sistem Perpustakaan</li>
         
         <li>
             <a href="{{ route('dashboard') }}"><i data-feather="home" class="align-self-center menu-icon"></i><span>Dashboard</span></a>
@@ -35,28 +35,48 @@
        
         
         <hr class="hr-dashed hr-menu">
-        <li class="menu-label my-2">Sistem Perpustakaan</li>
-        {{-- <li>
-            <a href="javascript: void(0);"><i data-feather="file" class="align-self-center menu-icon"></i><span>Invoice</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+        <li class="menu-label my-2">Sistem Desa</li>
+        <li>
+            <a href="javascript: void(0);"><i data-feather="file" class="align-self-center menu-icon"></i><span>Manajemen Web</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
             <ul class="nav-second-level" aria-expanded="false">
-                <li class="nav-item"><a class="nav-link" href="{{ route('data_invoice.index') }}"><i class="ti-control-record"></i>Data Pengirim</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('data_penerima.index') }}"><i class="ti-control-record"></i>Data Penerima</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('invoice') }}"><i class="ti-control-record"></i>Data Invoice</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('profil_desa.index') }}"><i class="ti-control-record"></i>Profil Desa</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('desa_blog.index') }}"><i class="ti-control-record"></i>Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('desa_perangkat.index') }}"><i class="ti-control-record"></i>Perangkat Desa</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('desa_sambutan.index') }}"><i class="ti-control-record"></i>Sambutan</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="ti-control-record"></i>Visi dan Misi</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#">
+                    <i class="ti-control-record"></i>Sosial Media</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#">
+                    <i class="ti-control-record"></i>Gallery</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="ti-control-record"></i>Kegiatan</a>
+                </li>
             </ul>
         </li>
         <li>
-            <a href="javascript: void(0);"><i data-feather="file" class="align-self-center menu-icon"></i><span>Surat</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+            <a href="javascript: void(0);"><i data-feather="file" class="align-self-center menu-icon"></i><span>Data Masyarakat</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
             <ul class="nav-second-level" aria-expanded="false">
-                <li class="nav-item"><a class="nav-link" href="{{ route('surat_pemberitahuan.index') }}"><i class="ti-control-record"></i>Pemberitahuan</a></li>
-                <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Surat Kuasa</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>RT</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>RW</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Data Pekerjaan</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Agama</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('invoice') }}"><i class="ti-control-record"></i>Kartu Keluarga</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('data_invoice.index') }}"><i class="ti-control-record"></i>KTP</a></li>
             </ul>
-        </li> 
-        <li>
-            <a href="javascript: void(0);"><i data-feather="file-plus" class="align-self-center menu-icon"></i><span>Keterangan</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
-            <ul class="nav-second-level" aria-expanded="false">
-                <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Template</a></li>
-                <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Sistem Versi</a></li>
-            </ul>
-        </li>            --}}
+        </li>
+       
     </ul>
 </div>

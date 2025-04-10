@@ -3,6 +3,10 @@
 use App\Exports\InvoiceExport;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DesaBlog;
+use App\Http\Controllers\DesaPerangkatController;
+use App\Http\Controllers\DesaProfilController;
+use App\Http\Controllers\DesaSambutanController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MemberController;
@@ -80,6 +84,11 @@ Route::group(
         //surat
         Route::resource('/surat_pemberitahuan', SuratPemController::class);
         Route::get('/surat_pemberitahuan/{id}/pdf', [SuratPemController::class, 'download_surat'])->name('surat.download');
-        
+
+        //website desa
+        Route::resource('/profil_desa', DesaProfilController::class);
+        Route::resource('/desa_blog', DesaBlog::class);
+        Route::resource('/desa_perangkat', DesaPerangkatController::class);
+        Route::resource('/desa_sambutan', DesaSambutanController::class);
     }
 );

@@ -76,6 +76,7 @@
 
         <script src="{{ asset('../plugins/datatables/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('../plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
+        <script src="{{ asset('../plugins/tinymce/tinymce.min.js') }}"></script>
         <script src="{{ asset('assets/pages/jquery.form-upload.init.js') }}"></script>
 
         <!-- App js -->
