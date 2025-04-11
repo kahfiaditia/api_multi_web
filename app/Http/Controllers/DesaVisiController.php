@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DesaSamModel;
+use App\Models\DesaVMModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class DesaSambutanController extends Controller
+class DesaVisiController extends Controller
 {
-    protected $title = 'Sambutan Kepala Desa';
-    protected $menu = 'Manajamen Web';
-    protected $submenu = 'Sambutan';
-
+    protected $title = 'Visi dan Misi';
+    protected $menu = 'Visi dan Misi';
+    protected $submenu = 'Visi dan Misi';
     /**
      * Display a listing of the resource.
      */
@@ -26,7 +25,7 @@ class DesaSambutanController extends Controller
             // 'perangkat_desa' => DesaPerangkat::orderBy('id', 'desc')->get(),
 
         ];
-        return view('desa.sambutan.index')->with($data);
+        return view('desa.visi_misi.index')->with($data);
     }
 
     /**
@@ -38,10 +37,10 @@ class DesaSambutanController extends Controller
             'title' => $this->title,
             'menu' => $this->menu,
             'submenu' => $this->submenu,
-            'label' => 'Sambutan',
+            'label' => 'Visi dan Misi',
             'level' => 'Create',
         ];
-        return view('desa.sambutan.tambah')->with($data);
+        return view('desa.visi_misi.tambah')->with($data);
     }
 
     /**
@@ -52,7 +51,8 @@ class DesaSambutanController extends Controller
         // dd($request->all());
         $request->validate([
             'keterangan' => 'required|string',
-            'area' => 'required|string',
+            'visi' => 'required|string',
+            'misi' => 'required|string',
             'status1' => 'required|boolean',
             'gambar_sambutan' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048',
         ]);
@@ -60,25 +60,39 @@ class DesaSambutanController extends Controller
         DB::beginTransaction();
         try {
             // Simpan data awal
-            $sambutan = new DesaSamModel();
-            $sambutan->keterangan = $request->keterangan;
-            $sambutan->area = $request->area;
-            $sambutan->status1 = $request->status1;
-            $sambutan->dibuat_oleh = Auth::user()->id;
-            $sambutan->save();
+            $visi_misi = new DesaVMModel();
+            $visi_misi->keterangan = $request->keterangan;
+            $visi_misi->visi = $request->visi;
+            $visi_misi->misi = $request->misi;
+            $visi_misi->status1 = $request->status1;
+            $visi_misi->dibuat_oleh = Auth::user()->id;
+            $visi_misi->save();
     
             // Upload dan simpan nama foto jika ada
-            if ($request->hasFile('gambar_sambutan')) {
-                $file = $request->file('gambar_sambutan');
+            if ($request->hasFile('gambar_visi')) {
+                $file = $request->file('gambar_visi');
                 $extension = $file->getClientOriginalExtension();
-                $filename = 'sambutan_' . $sambutan->id . '.' . $extension;
+                $filename = 'visi_' . $visi_misi->id . '.' . $extension;
     
-                $destinationPath = public_path('assets/images/sambutan');
+                $destinationPath = public_path('assets/images/visi_misi');
                 $file->move($destinationPath, $filename);
     
                 // Simpan nama file ke database
-                $sambutan->gambar_sambutan = $filename;
-                $sambutan->save();
+                $visi_misi->gambar_visi = $filename;
+                $visi_misi->save();
+            }
+
+            if ($request->hasFile('gambar_misi')) {
+                $file = $request->file('gambar_misi');
+                $extension = $file->getClientOriginalExtension();
+                $filename = 'misi_' . $visi_misi->id . '.' . $extension;
+    
+                $destinationPath = public_path('assets/images/visi_misi');
+                $file->move($destinationPath, $filename);
+    
+                // Simpan nama file ke database
+                $visi_misi->gambar_misi = $filename;
+                $visi_misi->save();
             }
     
             DB::commit();
@@ -93,6 +107,7 @@ class DesaSambutanController extends Controller
                 'message' => 'Gagal Input Data: ' . $err->getMessage(),
             ]);
         }
+        
     }
 
     /**

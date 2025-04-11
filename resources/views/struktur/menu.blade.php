@@ -53,7 +53,7 @@
                     <a class="nav-link" href="{{ route('desa_sambutan.index') }}"><i class="ti-control-record"></i>Sambutan</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="ti-control-record"></i>Visi dan Misi</a>
+                    <a class="nav-link" href="{{ route('desa_visi.index') }}"><i class="ti-control-record"></i>Visi dan Misi</a>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="#">
                     <i class="ti-control-record"></i>Sosial Media</a>

@@ -13,7 +13,7 @@
                     </ol>
                 </div><!--end col-->
                 <div class="col-auto align-self-center">
-                    <a href="{{ route('desa_sambutan.create') }}" class="btn btn-sm btn-outline-primary">
+                    <a href="{{ route('desa_visi.create') }}" class="btn btn-sm btn-outline-primary">
                         <i data-feather="file-plus" class="align-self-center icon-xs"></i>
                         <span class="" id="Select_date">Tambah Data</span> 
                     </a>
