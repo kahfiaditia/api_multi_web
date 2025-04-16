@@ -3,10 +3,14 @@
 use App\Exports\InvoiceExport;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DesaBannerController;
 use App\Http\Controllers\DesaBlog;
+use App\Http\Controllers\DesaGalleryController;
 use App\Http\Controllers\DesaPerangkatController;
 use App\Http\Controllers\DesaProfilController;
 use App\Http\Controllers\DesaSambutanController;
+use App\Http\Controllers\DesaSosialController;
+use App\Http\Controllers\DesaUtamaController;
 use App\Http\Controllers\DesaVisiController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LoginController;
@@ -25,7 +29,9 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', [LoginController::class, 'index'])->name('login');
+ //website desa utama
+ Route::get('/', [DesaUtamaController::class, 'utama'])->name('utama');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('login.logout');
 // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -86,11 +92,18 @@ Route::group(
         Route::resource('/surat_pemberitahuan', SuratPemController::class);
         Route::get('/surat_pemberitahuan/{id}/pdf', [SuratPemController::class, 'download_surat'])->name('surat.download');
 
-        //website desa
+
+
+       
+
+        //website desa admin
         Route::resource('/profil_desa', DesaProfilController::class);
+        Route::resource('/desa_banner', DesaBannerController::class);
         Route::resource('/desa_blog', DesaBlog::class);
         Route::resource('/desa_perangkat', DesaPerangkatController::class);
         Route::resource('/desa_sambutan', DesaSambutanController::class);
         Route::resource('/desa_visi', DesaVisiController::class);
+        Route::resource('/desa_sosial', DesaSosialController::class);
+        Route::resource('/desa_galery', DesaGalleryController::class);
     }
 );

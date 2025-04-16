@@ -1,8 +1,8 @@
 <div class="menu-content h-100" data-simplebar>
     <ul class="metismenu left-sidenav-menu">
-        <li class="menu-label mt-0">Sistem Perpustakaan</li>
+        {{-- <li class="menu-label mt-0">Sistem Perpustakaan</li> --}}
         
-        <li>
+        {{-- <li>
             <a href="{{ route('dashboard') }}"><i data-feather="home" class="align-self-center menu-icon"></i><span>Dashboard</span></a>
         </li>
         <li>
@@ -30,11 +30,11 @@
                 <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Laporan Pengembalian</a></li>
                 <li class="nav-item"><a class="nav-link" href="#"><i class="ti-control-record"></i>Laporan Denda</a></li>
             </ul>
-        </li> 
+        </li>  --}}
         
        
         
-        <hr class="hr-dashed hr-menu">
+        {{-- <hr class="hr-dashed hr-menu"> --}}
         <li class="menu-label my-2">Sistem Desa</li>
         <li>
             <a href="javascript: void(0);"><i data-feather="file" class="align-self-center menu-icon"></i><span>Manajemen Web</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
@@ -42,6 +42,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('profil_desa.index') }}"><i class="ti-control-record"></i>Profil Desa</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('desa_banner.index') }}"><i class="ti-control-record"></i>Banner</a>
+                </li>
+
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('desa_blog.index') }}"><i class="ti-control-record"></i>Blog</a>
@@ -55,10 +60,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('desa_visi.index') }}"><i class="ti-control-record"></i>Visi dan Misi</a>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="#">
+                <li class="nav-item"><a class="nav-link" href="{{ route('desa_sosial.index') }}">
                     <i class="ti-control-record"></i>Sosial Media</a>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="#">
+                <li class="nav-item"><a class="nav-link" href="{{ route('desa_galery.index') }}">
                     <i class="ti-control-record"></i>Gallery</a>
                 </li>
                 <li class="nav-item">
