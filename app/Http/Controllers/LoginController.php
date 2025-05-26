@@ -64,4 +64,16 @@ class LoginController extends Controller
         }
         return back()->with('loginError', 'Login Fail!');
     }
+
+    public function pengaduan(Request $request)
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => $this->menu,
+            'submenu' => $this->menu,
+            'level' => $this->menu,
+            'label' => 'pengaduan',
+        ];
+        return view('pengaduan.pengaduan')->with($data);
+    }
 }

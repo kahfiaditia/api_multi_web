@@ -3,9 +3,11 @@
 use App\Exports\InvoiceExport;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DepanIsiController;
 use App\Http\Controllers\DesaBannerController;
 use App\Http\Controllers\DesaBlog;
 use App\Http\Controllers\DesaGalleryController;
+use App\Http\Controllers\DesaKegiatanController;
 use App\Http\Controllers\DesaPerangkatController;
 use App\Http\Controllers\DesaProfilController;
 use App\Http\Controllers\DesaSambutanController;
@@ -30,7 +32,17 @@ use Illuminate\Support\Facades\Route;
 // });
 
  //website desa utama
- Route::get('/', [DesaUtamaController::class, 'utama'])->name('utama');
+Route::get('/', [DesaUtamaController::class, 'utama'])->name('utama');
+Route::get('/tentang', [DesaUtamaController::class, 'tentang'])->name('tentang');
+Route::get('/artikel', [DesaUtamaController::class, 'artikel'])->name('artikel');
+Route::get('/kegiatan', [DesaUtamaController::class, 'kegiatan'])->name('kegiatan');
+Route::get('/kegiatan/{id}', [DesaUtamaController::class, 'show'])->name('kegiatan.show');
+Route::get('/jadwal', [DesaUtamaController::class, 'jadwal'])->name('jadwal');
+Route::get('/kontak', [DesaUtamaController::class, 'kontak'])->name('kontak');
+Route::get('/jadwal', [DepanIsiController::class, 'jadwal'])->name('jadwal');
+
+
+Route::get('/pengaduan', [LoginController::class, 'pengaduan'])->name('pengaduan');
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('login.logout');
 // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -105,5 +117,6 @@ Route::group(
         Route::resource('/desa_visi', DesaVisiController::class);
         Route::resource('/desa_sosial', DesaSosialController::class);
         Route::resource('/desa_galery', DesaGalleryController::class);
+        Route::resource('/desa_kegiatan', DesaKegiatanController::class);
     }
 );

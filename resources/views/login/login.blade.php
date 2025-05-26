@@ -35,8 +35,8 @@
                                         <a href="" class="logo logo-admin">
                                             <img src="assets/images/logo-sm.png" height="50" alt="logo" class="auth-logo">
                                         </a>
-                                        <h4 class="mt-3 mb-1 font-weight-semibold text-white font-18">Let's Get Started Dastyle</h4>   
-                                        <p class="text-muted  mb-0">Sign in to continue to Dastyle.</p>  
+                                        <h4 class="mt-3 mb-1 font-weight-semibold text-white font-18">Desa Pasirkecapi</h4>   
+                                        <p class="text-muted  mb-0">Silahkan Login</p>  
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -77,7 +77,7 @@
                                                 <div class="form-group">
                                                     <label for="username">Username</label>
                                                     <div class="input-group mb-3">                                                                                         
-                                                        <input type="text" class="form-control" name="username" id="username" placeholder="Enter username" required>
+                                                        <input type="text" class="form-control" name="username" id="username" placeholder="Masukan username" required>
                                                         <div class="invalid-feedback">
                                                             Silahkan Masukan kata Sandi dan kata Sandi harus terdiri dari 5
                                                             karakter
@@ -89,7 +89,7 @@
                                                 <div class="form-group">
                                                     <label for="userpassword">Password</label>                                            
                                                     <div class="input-group mb-3">                                  
-                                                        <input type="password" class="form-control" name="password" id="password" placeholder="Enter password" required>
+                                                        <input type="password" class="form-control" name="password" id="password" placeholder="Masukan password" required>
                                                         <div class="invalid-feedback">
                                                             Silahkan Masukan kata Sandi dan kata Sandi harus terdiri dari 5
                                                             karakter
@@ -98,16 +98,16 @@
                                                     </div>                               
                                                 </div>
                     
-                                                <div class="form-group row mt-4">
+                                                {{-- <div class="form-group row mt-4">
                                                     <div class="col-sm-6">
                                                         <a href="#" class="text-muted font-13"><i class="dripicons-lock"></i> Forgot password?</a>                                    
                                                     </div> 
-                                                </div>
+                                                </div> --}}
                     
                                                 <div class="form-group mb-0 row">
                                                     <div class="col-12 mt-2">
                                                         <button class="btn btn-primary btn-block waves-effect waves-light" type="submit">
-                                                            Log In2 <i class="fas fa-sign-in-alt ml-1"></i>
+                                                            Log In <i class="fas fa-sign-in-alt ml-1"></i>
                                                         </button>
                                                     </div> 
                                                 </div>                          

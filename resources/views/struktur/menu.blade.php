@@ -37,6 +37,9 @@
         {{-- <hr class="hr-dashed hr-menu"> --}}
         <li class="menu-label my-2">Sistem Desa</li>
         <li>
+            <a href="{{ route('dashboard') }}"><i data-feather="home" class="align-self-center menu-icon"></i><span>Dashboard</span></a>
+        </li>
+        <li>
             <a href="javascript: void(0);"><i data-feather="file" class="align-self-center menu-icon"></i><span>Manajemen Web</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
             <ul class="nav-second-level" aria-expanded="false">
                 <li class="nav-item">
@@ -67,7 +70,7 @@
                     <i class="ti-control-record"></i>Gallery</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="ti-control-record"></i>Kegiatan</a>
+                    <a class="nav-link" href="{{ route('desa_kegiatan.index') }}"><i class="ti-control-record"></i>Kegiatan</a>
                 </li>
             </ul>
         </li>

@@ -55,6 +55,8 @@ class DesaProfilController extends Controller
             'provinsi'   => 'required|string|max:45',
             'kabupaten'  => 'required|string|max:45',
             'kecamatan'  => 'required|string|max:45',
+            'jumlah_rumah'  => 'nullable|integer',
+            'jumlah_warga'  => 'nullable|integer',
             'jumlah_rt'  => 'nullable|integer',
             'jumlah_rw'  => 'nullable|integer',
             'telepon'    => 'nullable|string|max:20',
@@ -65,16 +67,19 @@ class DesaProfilController extends Controller
         DB::beginTransaction();
         try {
                 DesaProfil::create([
-                    'kode_pos'   => $request->kode_pos,
-                    'nama_desa'  => $request->nama_desa,
-                    'provinsi'   => $request->provinsi,
-                    'kabupaten'  => $request->kabupaten,
-                    'kecamatan'  => $request->kecamatan,
-                    'jumlah_rt'  => $request->jumlah_rt,
-                    'jumlah_rw'  => $request->jumlah_rw,
-                    'telepon'    => $request->telepon,
-                    'email'      => $request->email,
-                    'deskripsi'  => $request->deskripsi,
+                    'kepala_desa'   => $request->kepala_desa,
+                    'kode_pos'      => $request->kode_pos,
+                    'nama_desa'     => $request->nama_desa,
+                    'provinsi'      => $request->provinsi,
+                    'kabupaten'     => $request->kabupaten,
+                    'kecamatan'     => $request->kecamatan,
+                    'jumlah_rumah'  => $request->jumlah_rumah,
+                    'jumlah_warga'  => $request->jumlah_warga,
+                    'jumlah_rt'     => $request->jumlah_rt,
+                    'jumlah_rw'     => $request->jumlah_rw,
+                    'telepon'       => $request->telepon,
+                    'email'         => $request->email,
+                    'deskripsi'     => $request->deskripsi,
                 ]);
 
             DB::commit();

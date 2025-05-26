@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DesaSamModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
 class DesaSambutanController extends Controller
@@ -23,7 +24,7 @@ class DesaSambutanController extends Controller
             'menu' => $this->menu,
             'submenu' => $this->submenu,
             'label' => 'Profil',
-            // 'perangkat_desa' => DesaPerangkat::orderBy('id', 'desc')->get(),
+            'sambutan' => DesaSamModel::orderBy('id', 'desc')->get(),
 
         ];
         return view('desa.sambutan.index')->with($data);
@@ -108,7 +109,17 @@ class DesaSambutanController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $id_decrypt = Crypt::decryptString($id);
+
+        $data = [
+            'title' => $this->title,
+            'menu' => $this->menu,
+            'submenu' => $this->submenu,
+            'label' => 'Sambutan',
+            'level' => 'Edit',
+            'edit' => DesaSamModel::find($id_decrypt),
+        ];
+        return view('desa.sambutan.edit')->with($data);
     }
 
     /**

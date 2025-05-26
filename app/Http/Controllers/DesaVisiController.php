@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DesaVMModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
 class DesaVisiController extends Controller
@@ -22,7 +23,7 @@ class DesaVisiController extends Controller
             'menu' => $this->menu,
             'submenu' => $this->submenu,
             'label' => 'Profil',
-            // 'perangkat_desa' => DesaPerangkat::orderBy('id', 'desc')->get(),
+            'data' => DesaVMModel::first(),
 
         ];
         return view('desa.visi_misi.index')->with($data);
@@ -123,7 +124,17 @@ class DesaVisiController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $id_decrypt = Crypt::decryptString($id);
+        // dd($id_decrypt);
+        $data = [
+            'title' => $this->title,
+            'menu' => $this->menu,
+            'submenu' => $this->submenu,
+            'label' => 'Visi dan Misi',
+            'level' => 'Create',
+            'visi_misi' => DesaVMModel::findOrfail($id_decrypt),
+        ];
+        return view('desa.visi_misi.edit')->with($data);
     }
 
     /**
@@ -131,7 +142,63 @@ class DesaVisiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'keterangan' => 'required|string',
+            'visi' => 'required|string',
+            'misi' => 'required|string',
+            'status1' => 'required|boolean',
+            'gambar_visi' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048',
+            'gambar_misi' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048',
+        ]);
+    
+        DB::beginTransaction();
+        try {
+            $visi_misi = DesaVMModel::findOrFail($id);
+            $visi_misi->keterangan = $request->keterangan;
+            $visi_misi->visi = $request->visi;
+            $visi_misi->misi = $request->misi;
+            $visi_misi->status1 = $request->status1;
+            $visi_misi->dibuat_oleh = Auth::user()->id;
+            $visi_misi->save();
+    
+            // Jika gambar_visi di-upload, baru update
+            if ($request->hasFile('gambar_visi')) {
+                $file = $request->file('gambar_visi');
+                $extension = $file->getClientOriginalExtension();
+                $filename = 'visi_' . $visi_misi->id . '.' . $extension;
+    
+                $destinationPath = public_path('assets/images/visi_misi');
+                $file->move($destinationPath, $filename);
+    
+                $visi_misi->gambar_visi = $filename;
+                $visi_misi->save();
+            }
+    
+            // Jika gambar_misi di-upload, baru update
+            if ($request->hasFile('gambar_misi')) {
+                $file = $request->file('gambar_misi');
+                $extension = $file->getClientOriginalExtension();
+                $filename = 'misi_' . $visi_misi->id . '.' . $extension;
+    
+                $destinationPath = public_path('assets/images/visi_misi');
+                $file->move($destinationPath, $filename);
+    
+                $visi_misi->gambar_misi = $filename;
+                $visi_misi->save();
+            }
+    
+            DB::commit();
+            return response()->json([
+                'code' => 200,
+                'message' => 'Berhasil Update Data',
+            ]);
+        } catch (\Throwable $err) {
+            DB::rollBack();
+            return response()->json([
+                'code' => 400,
+                'message' => 'Gagal Update Data: ' . $err->getMessage(),
+            ]);
+        }
     }
 
     /**

@@ -38,26 +38,26 @@
                     </thead>
                     <tbody>
                         {{-- {{ dd($data_desa) }} --}}
-                        {{-- @foreach ($perangkat_desa as $item)
+                        @foreach ($sambutan as $item)
                             <tr>
                                 <td>
-                                    {{ $item->nama_lengkap }}
+                                    {{ $item->keterangan }}
                                 </td>
-                                <td>{{ $item->jabatan }}</td>
-                                <td>{{ $item->telepon }}</td>
-                                <td>{{ $item->email }}</td>
+                                <td>{{ substr($item->area, 0, 50) }}</td>
+                                <td>{{ $item->status1 }}</td>
+                                
                                 
                               
                                 <td>
                                     <form class="delete-form"
-                                    action="{{ route('desa_perangkat.destroy', Crypt::encryptString($item->id)) }}"
+                                    action="{{ route('desa_sambutan.destroy', Crypt::encryptString($item->id)) }}"
                                     method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <div class="d-flex gap-3">
 
-                                        <a href="{{ route('desa_perangkat.edit', Crypt::encryptString($item->id)) }}" class="mr-2"><i class="las la-pen text-info font-18"></i></a>
-                                        <a href="{{ route('desa_perangkat.show', Crypt::encryptString($item->id)) }}" class="mr-2"><i class="las la-print text-info font-18"></i></a>
+                                        <a href="{{ route('desa_sambutan.edit', Crypt::encryptString($item->id)) }}" class="mr-2"><i class="las la-pen text-info font-18"></i></a>
+                                        <a href="{{ route('desa_sambutan.show', Crypt::encryptString($item->id)) }}" class="mr-2"><i class="las la-print text-info font-18"></i></a>
                                         <a href class="text-danger delete_confirm"><i
                                                 class="las la-trash-alt text-danger font-18"></i></a>
 
@@ -68,7 +68,7 @@
                                 </td>
                             </tr>
                         
-                        @endforeach --}}
+                        @endforeach
                    
                     </tbody>
                 </table>        

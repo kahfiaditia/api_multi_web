@@ -36,7 +36,7 @@
                                 <th>Kabupaten</th>
                                 <th>Kecamatan</th>
                                 <th>Jumlah RT</th>
-                                <th>Tlp</th>
+                                <th>Jumlah Warga</th>
                                 <th>Action</th>
                             </tr> 
                     </thead>
@@ -44,15 +44,14 @@
                         {{-- {{ dd($data_desa) }} --}}
                         {{-- @foreach ($data_desa as $item) --}}
                             <tr>
-                                <td>
-                                    {{ $data_desa->kode_pos }}
-                                </td>
+                                <td>{{ $data_desa->kepala_desa }}</td>
+                                <td>{{ $data_desa->kode_pos }}</td>
                                 <td>{{ $data_desa->nama_desa }}</td>
                                 <td>{{ $data_desa->provinsi }}</td>
                                 <td>{{ $data_desa->kabupaten }}</td>
                                 <td>{{ $data_desa->kecamatan }}</td>
-                                <td>{{ $data_desa->jumlah_rw }}</td>
-                                <td>{{ $data_desa->telepon }}</td>
+                                <td>{{ $data_desa->jumlah_warga }}</td>
+                              
                                 {{-- <td>
                                         @if($item->status == 0)
                                             <span class="badge badge-soft-success"> Aktif </span>

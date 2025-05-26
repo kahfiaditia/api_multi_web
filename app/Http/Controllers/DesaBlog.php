@@ -23,7 +23,7 @@ class DesaBlog extends Controller
             'menu' => $this->menu,
             'submenu' => $this->submenu,
             'label' => 'Profil',
-            'blog_desa' => DesaBlogModel::orderBy('id', 'desc')->get(),
+            'blog_desa' => DesaBlogModel::where('kategori', 'Blog')->orderBy('id', 'desc')->get(),
 
         ];
         return view('desa.blog.index')->with($data);

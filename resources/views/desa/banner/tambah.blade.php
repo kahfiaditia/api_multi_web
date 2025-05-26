@@ -106,7 +106,7 @@
                     if (response.code === 200) {
                         Swal.fire(
                             'Success',
-                            'Blog berhasil disimpan!',
+                            'Banner berhasil disimpan!',
                             'success'
                         ).then(() => {
                             var APP_URL = {!! json_encode(url('/')) !!};

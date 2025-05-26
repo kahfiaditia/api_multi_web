@@ -42,11 +42,7 @@
 
                         <div class="col-md-6 mt-3">
                             <label>Kategori <code>*</code></label>
-                            <select name="kategori" id="kategori" class="form-control" required>
-                                <option value="">-- Pilih Kategori --</option>
-                                <option value="bantuan">Bantuan Sosial</option>
-                                <option value="kegiatan">Kegiatan</option>
-                            </select>
+                            <input type="text" name="kategori" id="kategori" value="Blog" class="form-control" placeholder="Masukkan Judul Blog" disabled>
                         </div>
 
                         <div class="col-md-12 mt-3">                                                  

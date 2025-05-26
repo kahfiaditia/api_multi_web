@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DesaBannerModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
 class DesaBannerController extends Controller
@@ -23,7 +24,7 @@ class DesaBannerController extends Controller
             'menu' => $this->menu,
             'submenu' => $this->submenu,
             'label' => 'Profil',
-            // 'perangkat_desa' => DesaPerangkat::orderBy('id', 'desc')->get(),
+            'banner' => DesaBannerModel::orderBy('id', 'desc')->get(),
 
         ];
         return view('desa.banner.index')->with($data);
@@ -111,7 +112,20 @@ class DesaBannerController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        
+        $id_decode = Crypt::decryptString($id);
+        
+       
+        $data = [
+            'title' => $this->title,
+            'menu' => $this->menu,
+            'submenu' => $this->submenu,
+            'label' => 'Banner',
+            'level' => 'Edit',
+            'banner' => DesaBannerModel::findOrFail($id_decode),
+        ];
+
+        return view('desa.banner.edit')->with($data);
     }
 
     /**
@@ -119,7 +133,51 @@ class DesaBannerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'judul_banner' => 'required|string|max:255',
+            'link' => 'nullable|string|max:255',
+            'keterangan' => 'nullable|string|max:255',
+            'gambar_banner' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'status' => 'required|in:0,1',
+        ]);
+    
+        DB::beginTransaction();
+        try {
+            $banner = DesaBannerModel::findOrFail($id);
+            $banner->judul_banner = $request->judul_banner;
+            $banner->link = $request->link;
+            $banner->keterangan = $request->keterangan;
+            $banner->status = $request->status;
+            
+    
+            // Cek dan simpan gambar jika ada
+            if ($request->hasFile('gambar_banner')) {
+                $file = $request->file('gambar_banner');
+                $extension = $file->getClientOriginalExtension();
+                $filename = 'banner_' . $banner->id . '.' . $extension;
+    
+                $destinationPath = public_path('assets/images/banner');
+                $file->move($destinationPath, $filename);
+    
+                // Update nama file ke database
+                $banner->gambar_banner = $filename;
+            }
+    
+            $banner->save();
+            DB::commit();
+    
+            return response()->json([
+                'code' => 200,
+                'message' => 'Banner berhasil disimpan',
+            ]);
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return response()->json([
+                'code' => 400,
+                'message' => 'Gagal menyimpan banner: ' . $e->getMessage(),
+            ]);
+        }
+        
     }
 
     /**

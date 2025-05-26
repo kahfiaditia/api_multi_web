@@ -43,6 +43,11 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-3 mt-3">
+                                    <label class="mb-2">Kepala Desa <code>*</code></label>
+                                    <input type="text" name="kepala_desa" id="kepala_desa" placeholder="Masukkan Kepala Desa" class="form-control" maxlength="35" />
+                                </div>
+
+                                <div class="col-md-3 mt-3">
                                     <label class="mb-2">Kode Pos <code>*</code></label>
                                     <input type="number" name="kode_pos" id="kode_pos" placeholder="Masukkan Kode POS" class="form-control" maxlength="5" />
                                 </div>
@@ -68,6 +73,16 @@
                                 </div>
 
                                 <div class="col-md-3 mt-3">
+                                    <label class="mb-2">Jumlah Rumah <code>*</code></label>
+                                    <input type="number" id="jumlah_rumah" name="jumlah_rumah" class="form-control" placeholder="Masukkan Jumlah Rumah" maxlength="60" required />
+                                </div>
+
+                                <div class="col-md-3 mt-3">
+                                    <label class="mb-2">Jumlah Warga <code>*</code></label>
+                                    <input type="number" id="jumlah_warga" name="jumlah_warga" class="form-control" placeholder="Masukkan Jumlah Warga" maxlength="60" required />
+                                </div>
+
+                                <div class="col-md-3 mt-3">
                                     <label class="mb-2">Jumlah RT <code>*</code></label>
                                     <input type="number" id="jumlah_rt" name="jumlah_rt" class="form-control" placeholder="Masukkan Jumlah RT" maxlength="60" required />
                                 </div>
@@ -84,7 +99,7 @@
 
                                 <div class="col-md-3 mt-3">
                                     <label class="mb-2">Email <code>*</code></label>
-                                    <input type="text" id="email" name="email" class="form-control" placeholder="Masukkan Telepon" required />
+                                    <input type="text" id="email" name="email" class="form-control" placeholder="Masukkan Email" required />
                                 </div>
 
                                 <div class="col-md-3 mt-3">
