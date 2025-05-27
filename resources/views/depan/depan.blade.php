@@ -114,7 +114,9 @@
                             <div class="shape2"><img src="assets2/images/shapes/about-v2-shape2.png" alt=""></div>
                             <div class="about-two__img-inner">
                                 <div class="shape1"><img src="assets2/images/shapes/about-v2-shape1.png" alt=""></div>
-                                <img src="{{ asset('assets/images/sambutan/'. $sambutan->gambar_sambutan) }}" alt="#">
+                                 @if (!empty($sambutan->gambar_sambutan))
+                                    <img src="{{ asset('assets/images/sambutan/' . $sambutan->gambar_sambutan) }}" alt="#">
+                                 @endif
                             </div>
 
                             <div class="about-two__experience-box">
@@ -137,11 +139,15 @@
                                 <div class="section-title__tagline title-animation">
                                     <h4>Sambutan Kepala Desa Pasir Kecapi</h4>
                                 </div>
-                                <h2 class="section-title__title title-animation">{{ $sambutan->keterangan }}</h2>
+                                @if(!empty($sambutan->keterangan))
+                                    <h2 class="section-title__title title-animation">{{ $sambutan->keterangan }}</h2>
+                                @endif
                             </div>
 
                             <div class="about-two__content-text">
-                                <p>{!! $sambutan->area !!}</p>
+                                 @if(!empty($sambutan->area))
+                                    <p>{!! $sambutan->area !!}</p>
+                                @endif
                             </div>
 
                             <div class="about-two__content-middle">

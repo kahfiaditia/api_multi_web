@@ -165,7 +165,7 @@
                                     
 
                                     <li>
-                                        <a href="{{ route('kontak') }}">Kontak</a>
+                                        <a href="{{ route('Pengaduan') }}">Kontak</a>
                                     </li>
                                 </ul>
                             </div>

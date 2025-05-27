@@ -16,12 +16,12 @@ class UserSeeder extends Seeder
     {
         $users = [
             [
-                'nama' => 'Leo Aditia',
+                'nama' => 'Silmi',
                 'kode' => 'A032500001',
-                'username' => 'leoaditia',
+                'username' => 'silmi',
                 'image' => 'leoaditia',
                 'roles' => 'Administrator',
-                'email' => 'leoaditia@gmail.com',
+                'email' => 'silmi@gmail.com',
                 'telepon' => '0812345678',
                 'password' => Hash::make('password123'),
                 'status' => 0,

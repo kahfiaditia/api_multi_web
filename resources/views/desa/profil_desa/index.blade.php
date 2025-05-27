@@ -52,13 +52,7 @@
                                 <td>{{ $data_desa->kecamatan }}</td>
                                 <td>{{ $data_desa->jumlah_warga }}</td>
                               
-                                {{-- <td>
-                                        @if($item->status == 0)
-                                            <span class="badge badge-soft-success"> Aktif </span>
-                                        @else
-                                            <span class="badge badge-soft-primary"> Tidak Aktif </span>
-                                        @endif
-                                </td> --}}
+                               
                                 <td>
                                     <form class="delete-form"
                                     action="{{ route('profil_desa.destroy', Crypt::encryptString($data_desa->id)) }}"
