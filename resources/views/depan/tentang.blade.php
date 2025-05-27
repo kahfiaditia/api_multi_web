@@ -11,7 +11,10 @@
                             <div class="section-title__tagline title-animation">
                                 <h4>Tentang</h4>
                             </div>
-                            <h2 class="section-title__title title-animation">{{ $profils->nama_desa }}</h2>
+                           @if(!empty($profils->nama_desa))
+                                <h2 class="section-title__title title-animation">{{ $profils->nama_desa }}</h2>
+                            @endif
+
                         </div>
 
                         <div class="accrodion-grp faq-one-accrodion" data-grp-name="faq-one-accrodion-1">
@@ -147,14 +150,18 @@
             <div class="project-details__inner">
                 <div class="project-details__text1">
                     <h2>Visi Desa Pasirkecapi</h2>
-                    <p>{!! $visi->visi !!}</p>
+                    @if(!empty( $visi->visi))
+                        <p>{!! $visi->visi !!}</p>
+                    @endif
                     </p>
                 </div>
                 <div class="project-details__text1">
                     <h2>Misi Desa Pasirkecapi</h2>
-                    <p>
-                        {!! $visi->misi !!}
-                    </p>
+                     @if(!empty( $visi->misi))
+                        <p>
+                            {!! $visi->misi !!}
+                        </p>
+                    @endif
                 </div>
             </div>
         </div>
@@ -189,8 +196,11 @@
                                                 <div class="icon-box">
                                                     <span class="icon-roof-6"></span>
                                                 </div>
+
                                                 <div class="title-box">
-                                                    <h3>{{ $profils->kecamatan }}</h3>
+                                                    @if(!empty($profils->kecamatan))
+                                                     <h3>{{ $profils->kecamatan }}</h3>
+                                                    @endif
                                                 </div>
                                             </div>
 

@@ -144,7 +144,7 @@
                                     <li>
                                         <a href="{{ route('tentang') }}">Profil</a>
                                     </li>
-                                    <li class="dropdown">
+                                    {{-- <li class="dropdown">
                                         <a href="#">Data Desa +</a>
                                         <ul>
                                             <li><a href="#">Data Pekerjaan</a></li>
@@ -152,7 +152,7 @@
                                             <li><a href="#">Data Jenis Kelamin</a></li>
                                           
                                         </ul>
-                                    </li>
+                                    </li> --}}
                                     <li class="dropdown">
                                         <a href="#">Tranparansi +</a>
                                         <ul>
@@ -165,7 +165,7 @@
                                     
 
                                     <li>
-                                        <a href="{{ route('Pengaduan') }}">Kontak</a>
+                                         <a href="{{ route('pengaduan') }}" target="_blank" rel="noopener noreferrer">Kontak</a>
                                     </li>
                                 </ul>
                             </div>

@@ -3,20 +3,28 @@
     
 
         <!-- Banner-->
-        <section class="hero-slider">
-            <div class="container">
-            <div id="carouselBanner" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner" style="border-radius: 20px; overflow: hidden;">
-                <div class="carousel-item active">
-                    <div class="slide" style="background-image: url('{{ asset('assets/images/banner/banner_1.png') }}'); height: 350px; background-size: cover; background-position: center;"></div>
+        @if($banner->isNotEmpty())
+            <section class="hero-slider">
+                <div class="container">
+                    <div id="carouselBanner" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner" style="border-radius: 20px; overflow: hidden;">
+                            @foreach ($banner as $index => $banner)
+                                @if (!empty($banner->gambar_banner))
+                                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                                        <div class="slide"
+                                            style="background-image: url('{{ asset('assets/images/banner/' . $banner->gambar_banner) }}');
+                                                    height: 350px;
+                                                    background-size: cover;
+                                                    background-position: center;">
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
-                <div class="carousel-item">
-                    <div class="slide" style="background-image: url('{{ asset('assets/images/banner/banner_2.png') }}'); height: 350px; background-size: cover; background-position: center;"></div>
-                </div>
-                </div>
-            </div>
-            </div>
-        </section>
+            </section>
+        @endif
         <!-- Banner-->
 
 

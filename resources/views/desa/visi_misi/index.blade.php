@@ -40,10 +40,12 @@
                         {{-- {{ dd($data_desa) }} --}}
                         {{-- @foreach ($perangkat_desa as $item) --}}
                             <tr>
-                                <td>{{ Str::limit($data->keterangan, 50, '...') }}</td>
-                                <td>{{ Str::limit($data->visi, 50, '...') }}</td>
-                                <td>{{ Str::limit($data->misi, 50, '...') }}</td>
+                                <td>{{ !empty($data->keterangan) ? Str::limit($data->keterangan, 50, '...') : '-' }}</td>
+                                <td>{{ !empty($data->visi) ? Str::limit($data->visi, 50, '...') : '-' }}</td>
+                                <td>{{ !empty($data->misi) ? Str::limit($data->misi, 50, '...') : '-' }}</td>
+
                                 <td>
+                                    @if(!empty($data->id))
                                     <form class="delete-form"
                                     action="{{ route('desa_visi.destroy', Crypt::encryptString($data->id)) }}"
                                     method="POST">
@@ -51,12 +53,18 @@
                                     @method('DELETE')
                                     <div class="d-flex gap-3">
 
-                                        <a href="{{ route('desa_visi.edit', Crypt::encryptString($data->id)) }}" class="mr-2"><i class="las la-pen text-info font-18"></i></a>
-                                        <a href="{{ route('desa_visi.show', Crypt::encryptString($data->id)) }}" class="mr-2"><i class="las la-print text-info font-18"></i></a>
-                                        <a href class="text-danger delete_confirm"><i
+                                        
+                                            <a href="{{ route('desa_visi.edit', Crypt::encryptString($data->id)) }}" class="mr-2">
+                                                <i class="las la-pen text-info font-18"></i>
+                                            </a>
+                                            <a href="{{ route('desa_visi.show', Crypt::encryptString($data->id)) }}" class="mr-2">
+                                                <i class="las la-print text-info font-18"></i>
+                                            </a>
+                                            <a href class="text-danger delete_confirm"><i
                                                 class="las la-trash-alt text-danger font-18"></i></a>
-
+                                       
                                     </div>
+                                     @endif
                                 </form>                                                  
                                    
                                     

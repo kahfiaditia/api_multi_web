@@ -35,6 +35,7 @@ class DesaUtamaController extends Controller
             'blog' => DesaBlogModel::where('kategori','!=', 'potensi')->orderBy('id', 'desc')->take(3)->get(),
             'potensi' => DesaBlogModel::where('kategori', 'potensi')->orderBy('id', 'desc')->take(3)->get(),
             'perangkats' => DesaPerangkat::orderBy('id', 'desc')->get(),
+            'banner' => DesaBannerModel::where('status', 1)->orderBy('id', 'asc')->get(),
         ];
     
         return view('depan.depan')->with($data);
