@@ -87,23 +87,23 @@
 
         <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
         <script type="text/javascript">
-        $('.delete_confirm').on('click', function(event) {
-            event.preventDefault();
-            Swal.fire({
-                title: 'Hapus Data',
-                text: 'Ingin menghapus data?',
-                icon: 'question',
-                showCloseButton: true,
-                showCancelButton: true,
-                cancelButtonText: "Batal",
-                focusConfirm: false,
-            }).then((value) => {
-                if (value.isConfirmed) {
-                    // console.log('confirmed');
-                    $(this).closest("form").submit()
-                }
+            $('.delete_confirm').on('click', function(event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Hapus Data',
+                    text: 'Ingin menghapus data?',
+                    icon: 'question',
+                    showCloseButton: true,
+                    showCancelButton: true,
+                    cancelButtonText: "Batal",
+                    focusConfirm: false,
+                }).then((value) => {
+                    if (value.isConfirmed) {
+                        // console.log('confirmed');
+                        $(this).closest("form").submit()
+                    }
+                });
             });
-        });
         </script>
         
     </body>

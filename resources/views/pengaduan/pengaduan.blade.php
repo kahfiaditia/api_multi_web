@@ -5,7 +5,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Shared on THEMELOCK.COM - Dastyle - Admin & Dashboard Template</title>
+        <title>Pengaduan</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="" name="author" />
@@ -52,36 +52,40 @@
                                     <div class="tab-content">
                                         
                                         <div class="tab-pane active px-3 pt-3" id="Register_Tab" role="tabpanel">
-                                            <form class="form-horizontal auth-form my-4" action="">
+                                            <form class="form-horizontal auth-form my-4" action="{{ route('adukan.store') }}" method="POST">
+                                                @csrf
             
                                                 <div class="form-group">
                                                     <label for="username">Nama Lengkap</label>
-                                                    <div class="input-group mb-3">                                                                                         
-                                                        <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukan Nama Lengkap">
+                                                    <div class="input-group mb-3">                   
+                                                        <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukan Nama Lengkap" autocomplete="off" autofocus required>
                                                     </div>                                    
                                                 </div><!--end form-group--> 
             
                                                 <div class="form-group">
                                                     <label for="useremail">Telepon</label>
                                                     <div class="input-group mb-3">                                                                                         
-                                                        <input type="text" class="form-control" name="telepon" id="telepon" placeholder="Masukan Telepon">
+                                                        <input type="text" class="form-control" name="telepon" id="telepon" placeholder="Masukan Telepon" autocomplete="off" autofocus required>
                                                     </div>                                    
                                                 </div><!--end form-group-->
                     
-                                               
+                                                 
             
                                                 <div class="form-group">
                                                     <label for="conf_password">Pengaduan</label>                                            
-                                                   <textarea id="pengaduan_editor" name="pengaduan" placeholder="Masukkan Pengaduan"></textarea>
+                                                   <textarea id="pengaduan_editor" name="isi" placeholder="Masukkan Pengaduan" required></textarea>
                                                 </div><!--end form-group-->
                                                 
                                                 
                                                 <div class="form-group mb-0 row">
                                                     <div class="col-12 mt-2">
-                                                        <button class="btn btn-primary btn-block waves-effect waves-light" type="button">Ajukan Pengaduan <i class="fas fa-sign-in-alt ml-1"></i></button>
-                                                    </div><!--end col--> 
-                                                </div> <!--end form-group-->                           
-                                            </form><!--end form-->
+                                                        <button class="btn btn-primary btn-block waves-effect waves-light" type="submit">
+                                                            Ajukan Pengaduan <i class="fas fa-sign-in-alt ml-1"></i>
+                                                        </button>
+                                                    </div> 
+                                                </div>                         
+                                            </form>
+                                            <!--end form-->
                                                                                         
                                         </div>
                                     </div>
@@ -104,20 +108,51 @@
         <script src="{{ asset('../plugins/tinymce/tinymce.min.js') }}"></script>
         <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                tinymce.init({
-                    selector: '#pengaduan_editor',
-                    height: 300,
+                document.addEventListener("DOMContentLoaded", function () {
+                    tinymce.init({
+                        selector: '#pengaduan_editor',
+                        height: 300,
+                        setup: function (editor) {
+                            // Sync content on submit
+                            editor.on('change', function () {
+                                editor.save();
+                            });
+
+                            // Ensure content is saved before form submission
+                            document.querySelector('form').addEventListener('submit', function () {
+                                editor.save();
+                            });
+                        }
+                    });
                 });
-            });
         </script>
+
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/bootstrap.bundle.min.js"></script>
         <script src="assets/js/waves.js"></script>
         <script src="assets/js/feather.min.js"></script>
         <script src="assets/js/simplebar.min.js"></script>
 
-        
+        <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
+        <script type="text/javascript">
+            $('.delete_confirm').on('click', function(event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Hapus Data',
+                    text: 'Ingin menghapus data?',
+                    icon: 'question',
+                    showCloseButton: true,
+                    showCancelButton: true,
+                    cancelButtonText: "Batal",
+                    focusConfirm: false,
+                }).then((value) => {
+                    if (value.isConfirmed) {
+                        // console.log('confirmed');
+                        $(this).closest("form").submit()
+                    }
+                });
+            });
+        </script>
     </body>
 
 </html>

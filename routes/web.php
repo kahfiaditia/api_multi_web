@@ -8,6 +8,7 @@ use App\Http\Controllers\DesaBannerController;
 use App\Http\Controllers\DesaBlog;
 use App\Http\Controllers\DesaGalleryController;
 use App\Http\Controllers\DesaKegiatanController;
+use App\Http\Controllers\DesaPengaduan;
 use App\Http\Controllers\DesaPerangkatController;
 use App\Http\Controllers\DesaProfilController;
 use App\Http\Controllers\DesaSambutanController;
@@ -43,6 +44,7 @@ Route::get('/jadwal', [DepanIsiController::class, 'jadwal'])->name('jadwal');
 
 
 Route::get('/pengaduan', [LoginController::class, 'pengaduan'])->name('pengaduan');
+Route::resource('/adukan', DesaPengaduan::class);
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('login.logout');
 // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
