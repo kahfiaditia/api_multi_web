@@ -41,7 +41,7 @@
 
                             <div class="counter-two__single-content">
                                 <div class="count-box">
-                                    <h2 class="count-text" data-stop="{{ $profils->jumlah_rumah }}" data-speed="1500">00</h2>
+                                    <h2 class="count-text" data-stop="{{ $profils->jumlah_rumah ?? '-' }}" data-speed="1500">00</h2>
                                     {{-- <span class="plus">+</span> --}}
                                 </div>
 
@@ -60,7 +60,7 @@
 
                             <div class="counter-two__single-content">
                                 <div class="count-box">
-                                    <h2 class="count-text" data-stop="{{ $profils->jumlah_rt }}" data-speed="1500">00</h2>
+                                    <h2 class="count-text" data-stop="{{ $profils->jumlah_rt ?? '-' }}" data-speed="1500">00</h2>
                                     {{-- <span class="plus">+</span> --}}
                                 </div>
 
@@ -79,7 +79,7 @@
 
                             <div class="counter-two__single-content">
                                 <div class="count-box">
-                                    <h2 class="count-text" data-stop="{{ $profils->jumlah_rw }}" data-speed="1500">00</h2>
+                                    <h2 class="count-text" data-stop="{{ $profils->jumlah_rw ?? '-' }}" data-speed="1500">00</h2>
                                     {{-- <span class="plus">+</span> --}}
                                 </div>
 
@@ -98,7 +98,7 @@
 
                             <div class="counter-two__single-content">
                                 <div class="count-box">
-                                    <h2 class="count-text" data-stop="{{ $profils->jumlah_warga }}" data-speed="1500">00</h2>
+                                    <h2 class="count-text" data-stop="{{ $profils->jumlah_warga ?? '-' }}" data-speed="1500">00</h2>
                                     <span class="plus">+</span>
                                 </div>
 
@@ -206,7 +206,7 @@
                                                     <span class="icon-roof-6"></span>
                                                 </div>
                                                 <div class="title-box">
-                                                    <h3>{{ $profils->kecamatan }}</h3>
+                                                    <h3>{{ $profils->kecamatan ?? '-' }}</h3>
                                                 </div>
                                             </div>
 
@@ -219,7 +219,7 @@
                                                     <span class="icon-roof-2"></span>
                                                 </div>
                                                 <div class="title-box">
-                                                    <h3>{{ $profils->kabupaten }}</h3>
+                                                    <h3>{{ $profils->kabupaten ?? '-' }}</h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -230,7 +230,7 @@
                                                     <span class="icon-roof-1"></span>
                                                 </div>
                                                 <div class="title-box">
-                                                    <h3>{{ $profils->provinsi }}</h3>
+                                                    <h3>{{ $profils->provinsi ?? '-' }}</h3>
                                                 </div>
                                             </div>
                                         </div>

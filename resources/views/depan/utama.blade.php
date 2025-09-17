@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +8,8 @@
     <!-- favicons Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets2/images/favicons/apple-touch-icon.png') }}" />
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets2/images/favicons/favicon-32x32.png') }}" />
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets2/images/favicons/favicon-16x16.png') }}" />
+    <link rel="icon" type="image/png" sizes="16x16"
+        href="{{ asset('assets2/images/favicons/favicon-16x16.png') }}" />
     <link rel="manifest" href="{{ asset('assets2/images/favicons/site.webmanifest') }}" />
     <meta name="description" content="ReRoof Multipurpose HTML 5 Template " />
 
@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="{{ asset('assets2/css/nice-select.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets2/css/jquery-ui.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets2/css/aos.css') }}" />
-    
+
 
 
     <link rel="stylesheet" href="{{ asset('assets2/css/module-css/slider.css') }}" />
@@ -65,9 +65,10 @@
             position: relative;
             height: 350px;
             border-radius: 20px;
-            overflow: hidden; /* Penting agar sudut rounded tidak bikin potongan aneh */
+            overflow: hidden;
+            /* Penting agar sudut rounded tidak bikin potongan aneh */
         }
-        
+
         .slide {
             width: 100%;
             height: 100%;
@@ -77,7 +78,8 @@
 
         .hero-slider {
             margin: 20px auto;
-            max-width: 1400px; /* atau sesuaikan lebar banner */
+            max-width: 1400px;
+            /* atau sesuaikan lebar banner */
         }
 
         /* //whatsapp */
@@ -89,22 +91,23 @@
             background-color: #25D366;
             border-radius: 50%;
             padding: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease;
         }
+
         .floating-whatsapp:hover {
             transform: scale(1.1);
         }
+
         .floating-whatsapp img {
             width: 40px;
             height: 40px;
         }
-    
     </style>
-        
-        
-        
-        
+
+
+
+
 </head>
 
 <body class="custom-cursor">
@@ -130,7 +133,8 @@
                             <div class="main-menu__left">
                                 <div class="main-menu__logo">
                                     {{-- <a href="#"><img src="{{ asset('assets/images/lebak_banten.png') }}" alt="" style="width: 70px; height: 70px;"></a> --}}
-                                    <a href="#"><img src="{{ asset('assets/images/desaku_3.png') }}" alt="" ></a>
+                                    <a href="#"><img src="{{ asset('assets/images/desaku_3.png') }}"
+                                            alt=""></a>
                                 </div>
                             </div>
 
@@ -140,7 +144,7 @@
                                     <li>
                                         <a href="{{ route('utama') }}">Home</a>
                                     </li>
-                                   
+
                                     <li>
                                         <a href="{{ route('tentang') }}">Profil</a>
                                     </li>
@@ -159,13 +163,14 @@
                                             <li><a href="{{ route('artikel') }}">Artikel</a></li>
                                             <li><a href="{{ route('kegiatan') }}">Kegiatan</a></li>
                                             <li><a href="{{ route('jadwal') }}">Kalender Kegiatan</a></li>
-                                         
+
                                         </ul>
                                     </li>
-                                    
+
 
                                     <li>
-                                         <a href="{{ route('pengaduan') }}" target="_blank" rel="noopener noreferrer">Kontak</a>
+                                        <a href="{{ route('pengaduan') }}" target="_blank"
+                                            rel="noopener noreferrer">Kontak</a>
                                     </li>
                                 </ul>
                             </div>
@@ -177,8 +182,7 @@
                                 </div> --}}
 
                                 <div class="main-menu__btn">
-                                    <a href="#" class="thm-btn">Pengaduan <span
-                                            class="icon-next1"></span></a>
+                                    <a href="{{ route('pengaduan') }}" target="_blank" class="thm-btn">Pengaduan <span class="icon-next1"></span></a>
                                 </div>
                             </div>
                         </div>
@@ -191,8 +195,9 @@
             <div class="sticky-header__content"></div><!-- /.sticky-header__content -->
         </div><!-- /.stricky-header -->
 
-            @yield('contentx')
-       
+        @include('sweetalert::alert')
+        @yield('contentx')
+
 
         <!--Start Newsletter Two-->
         {{-- <section class="newsletter-two">
@@ -220,10 +225,11 @@
             </div>
         </section> --}}
         <!--End Newsletter Two-->
-        <a href="https://wa.me/{{ $profils->telepon }}" class="floating-whatsapp" target="_blank">
-            <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp">
-        </a>
-
+        @if (optional($profils)->telepon)
+            <a href="https://wa.me/{{ $profils->telepon }}" class="floating-whatsapp" target="_blank">
+                <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp">
+            </a>
+        @endif
         <!--Site Footer Two Start-->
         <footer class="site-footer site-footer--two">
             <div class="site-footer--two__pattern"
@@ -234,7 +240,8 @@
                         <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0ms">
                             <div class="footer-widget__about">
                                 <div class="footer-widget__about-logo">
-                                    <a href="#"><img src="{{ asset('assets/images/desaku.png') }}" alt="" ></a>
+                                    <a href="#"><img src="{{ asset('assets/images/desaku.png') }}"
+                                            alt=""></a>
                                     {{-- <a href="#"><img src="{{ asset('assets/images/nama.png') }}" alt="" style="width: 100px; height: 200px;"></a> --}}
                                 </div>
 
@@ -266,7 +273,7 @@
                                 <ul class="footer-widget__links-list">
                                     <li><a href=""> Perangkat Desa</a>
                                     </li>
-                                    
+
                                 </ul>
                             </div>
                         </div>
@@ -277,21 +284,27 @@
 
                                 <ul class="footer-widget__contact-list">
                                     <li>
-                                        <div class="text">
-                                            <p>{{ \Str::limit($profils->deskripsi, 50) }}</p>
-                                        </div>
+                                        @if (optional($profils)->deskripsi)
+                                            <div class="text">
+                                                <p>{{ \Str::limit($profils->deskripsi, 50) }}</p>
+                                            </div>
+                                        @endif
                                     </li>
 
                                     <li>
-                                        <div class="text">
-                                            <p><a href="{{ $profils->telepon }}">{{ $profils->telepon }}</a></p>
-                                        </div>
+                                        @if (optional($profils)->telepon)
+                                            <div class="text">
+                                                <p><a href="{{ $profils->telepon }}">{{ $profils->telepon }}</a></p>
+                                            </div>
+                                        @endif
                                     </li>
 
                                     <li>
-                                        <div class="text">
-                                            <p><a href="{{ $profils->email }}">{{ $profils->email }}</a></p>
-                                        </div>
+                                        @if (optional($profils)->email)
+                                            <div class="text">
+                                                <p><a href="{{ $profils->email }}">{{ $profils->email }}</a></p>
+                                            </div>
+                                        @endif
                                     </li>
                                 </ul>
                             </div>
@@ -308,7 +321,7 @@
                                 <div class="site-footer__copyright">
                                     <p class="site-footer__copyright-text">
                                         &copy; 2025 Desa Pasirkecapi By Silmi Nasution.
-                                        
+
                                         All Rights Reserved.
                                     </p>
                                 </div>
@@ -343,8 +356,8 @@
         <div class="mobile-nav__content">
             <span class="mobile-nav__close mobile-nav__toggler"><i class="fa fa-times"></i></span>
             <div class="logo-box">
-                <a href="index.html" aria-label="logo image"><img src="assets2/images/resources/logo-4.png" width="140"
-                        alt="" /></a>
+                <a href="index.html" aria-label="logo image"><img src="assets2/images/resources/logo-4.png"
+                        width="140" alt="" /></a>
             </div>
             <!-- /.logo-box -->
             <div class="mobile-nav__container"></div>

@@ -1,139 +1,139 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
-    <head>
-        <meta charset="utf-8" />
-        <title>Login Akun</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-        <meta content="" name="author" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<head>
 
-        <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <meta charset="utf-8" />
+    <title>Login | CMS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesdesign" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
-        <!-- App css -->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-        {{-- <link href="assets/css/app-rtl.min.css" rel="stylesheet" type="text/css" /> --}}
-        <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap Css -->
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
 
-    </head>
+</head>
 
-    <body class="account-body accountbg">
+<body class="auth-body-bg">
+    <div class="bg-overlay"></div>
+    <div class="wrapper-page">
+        <div class="container-fluid p-0">
+            <div class="card">
+                <div class="card-body">
 
-        <!-- Log In page -->
-        <div class="container">
-            <div class="row vh-100 d-flex justify-content-center">
-                <div class="col-12 align-self-center">
-                    <div class="row">
-                        <div class="col-lg-5 mx-auto">
-                            <div class="card">
-                                <div class="card-body p-0 auth-header-box">
-                                    <div class="text-center p-3">
-                                        <a href="" class="logo logo-admin">
-                                            <img src="assets/images/logo-sm.png" height="50" alt="logo" class="auth-logo">
-                                        </a>
-                                        <h4 class="mt-3 mb-1 font-weight-semibold text-white font-18">Desa Pasirkecapi</h4>   
-                                        <p class="text-muted  mb-0">Silahkan Login</p>  
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    
-                                    <div class="tab-content">
-                                        <div class="tab-pane active p-3 pt-3" id="LogIn_Tab" role="tabpanel">
-                                            @if (count($errors) > 0)
-                                                <div class="p-2">
-                                                    <div class="alert alert-danger" role="alert">
-                                                        Login Fail!
-                                                    </div>
-                                                </div>
-                                            @endif
-                                            @if (session()->has('Error'))
-                                                <div class="p-2">
-                                                    <div class="alert alert-danger" role="alert">
-                                                        Verifikasi Fail!
-                                                    </div>
-                                                </div>
-                                            @endif
-                                            @if (session()->has('loginError'))
-                                                <div class="p-2">
-                                                    <div class="alert alert-danger" role="alert">
-                                                        {{ session('loginError') }}
-                                                    </div>
-                                                </div>
-                                            @endif
-                                            @if (session()->has('registerSucces'))
-                                                <div class="p-2">
-                                                    <div class="alert alert-success" role="alert">
-                                                        Register Succes!
-                                                    </div>
-                                                </div>
-                                            @endif
-
-                                            <form class="form-horizontal" action="{{ route ('login.proses') }}" method="POST" novalidate>
-                                                @csrf
-                                                <div class="form-group">
-                                                    <label for="username">Username</label>
-                                                    <div class="input-group mb-3">                                                                                         
-                                                        <input type="text" class="form-control" name="username" id="username" placeholder="Masukan username" required>
-                                                        <div class="invalid-feedback">
-                                                            Silahkan Masukan kata Sandi dan kata Sandi harus terdiri dari 5
-                                                            karakter
-                                                            atau lebih!
-                                                        </div>
-                                                    </div>                                    
-                                                </div> 
-                    
-                                                <div class="form-group">
-                                                    <label for="userpassword">Password</label>                                            
-                                                    <div class="input-group mb-3">                                  
-                                                        <input type="password" class="form-control" name="password" id="password" placeholder="Masukan password" required>
-                                                        <div class="invalid-feedback">
-                                                            Silahkan Masukan kata Sandi dan kata Sandi harus terdiri dari 5
-                                                            karakter
-                                                            atau lebih!
-                                                        </div>
-                                                    </div>                               
-                                                </div>
-                    
-                                                {{-- <div class="form-group row mt-4">
-                                                    <div class="col-sm-6">
-                                                        <a href="#" class="text-muted font-13"><i class="dripicons-lock"></i> Forgot password?</a>                                    
-                                                    </div> 
-                                                </div> --}}
-                    
-                                                <div class="form-group mb-0 row">
-                                                    <div class="col-12 mt-2">
-                                                        <button class="btn btn-primary btn-block waves-effect waves-light" type="submit">
-                                                            Log In <i class="fas fa-sign-in-alt ml-1"></i>
-                                                        </button>
-                                                    </div> 
-                                                </div>                          
-                                            </form>
-                                        </div>
-                                       
-                                    </div>
-                                </div>
-                                
-                            </div>
+                    <div class="text-center mt-4">
+                        <div class="mb-3">
+                            <a href="index.html" class="auth-logo">
+                                <img src="assets/images/logo-dark.png" height="30" class="logo-dark mx-auto"
+                                    alt="">
+                                <img src="assets/images/logo-light.png" height="30" class="logo-light mx-auto"
+                                    alt="">
+                            </a>
                         </div>
                     </div>
+
+                    <h4 class="text-muted text-center font-size-18"><b>Sign In</b></h4>
+                    @if (count($errors) > 0)
+                        <div class="p-2">
+                            <div class="alert alert-danger" role="alert">
+                                Login Fail!
+                            </div>
+                        </div>
+                    @endif
+                    @if (session()->has('Error'))
+                        <div class="p-2">
+                            <div class="alert alert-danger" role="alert">
+                                Verifikasi Fail!
+                            </div>
+                        </div>
+                    @endif
+                    @if (session()->has('loginError'))
+                        <div class="p-2">
+                            <div class="alert alert-danger" role="alert">
+                                {{ session('loginError') }}
+                            </div>
+                        </div>
+                    @endif
+                    @if (session()->has('registerSucces'))
+                        <div class="p-2">
+                            <div class="alert alert-success" role="alert">
+                                Register Succes!
+                            </div>
+                        </div>
+                    @endif
+                    <div class="p-3">
+                        <form class="form-horizontal mt-3" action="{{ route('login.proses') }}" method="POST">
+                            @csrf
+                            <div class="form-group mb-3 row">
+                                <div class="col-12">
+                                    <input class="form-control" type="email" name="email" id="email" required=""
+                                        placeholder="Masukan Email">
+                                    <div class="invalid-feedback">
+                                        Silahkan Masukan Email dan Password harus terdiri dari 5
+                                        karakter
+                                        atau lebih!
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-3 row">
+                                <div class="col-12">
+                                    <input class="form-control" type="password" name="password" required=""
+                                        placeholder="Masukan Password">
+                                    <div class="invalid-feedback">
+                                        Silahkan Masukan Email dan Password harus terdiri dari 5
+                                        karakter
+                                        atau lebih!
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group mb-3 text-center row mt-3 pt-1">
+                                <div class="col-12">
+                                    <button class="btn btn-info w-100 waves-effect waves-light" type="submit">Log
+                                        In</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-0 row mt-2">
+                                <div class="col-sm-7 mt-3">
+                                    <a href="auth-recoverpw.html" class="text-muted"><i class="mdi mdi-lock"></i> Forgot
+                                        your password?</a>
+                                </div>
+                                <div class="col-sm-5 mt-3">
+                                    <a href="auth-register.html" class="text-muted"><i
+                                            class="mdi mdi-account-circle"></i> Create an account</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- end -->
                 </div>
+                <!-- end cardbody -->
             </div>
+            <!-- end card -->
         </div>
-        <!-- End Log In page -->
+        <!-- end container -->
+    </div>
+    <!-- end -->
 
-    
-        <!-- jQuery  -->
-        <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-        <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ asset('assets/js/waves.js') }}"></script>
-        <script src="{{ asset('assets/js/feather.min.js') }}"></script>
-        <script src="{{ asset('assets/js/simplebar.min.js') }}"></script>
+    <!-- JAVASCRIPT -->
+    <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/metismenu/metisMenu.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
 
-        
-    </body>
+    <script src="{{ asset('assets/js/app.js') }}"></script>
+
+</body>
 
 </html>

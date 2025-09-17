@@ -9,9 +9,15 @@ use Illuminate\Support\Facades\DB;
 
 class DesaPengaduan extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      */
+     public function pengaduan(Request $request)
+    {
+            //
+            return view('pengaduan.pengaduan');
+        }
     public function index()
     {
         //

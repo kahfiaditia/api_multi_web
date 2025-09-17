@@ -40,7 +40,7 @@ class LoginController extends Controller
     {
         // dd($request->all());
         $credentials = $request->validate([
-            'username' => 'required',
+            'email' => 'required',
             'password' => 'required',
             'aktif' => '0',
         ]);

@@ -52,7 +52,7 @@
                                     <div class="tab-content">
                                         
                                         <div class="tab-pane active px-3 pt-3" id="Register_Tab" role="tabpanel">
-                                            <form class="form-horizontal auth-form my-4" action="{{ route('adukan.store') }}" method="POST">
+                                            <form class="form-horizontal auth-form my-4" action="{{ route('pengaduan.store') }}" method="POST">
                                                 @csrf
             
                                                 <div class="form-group">
