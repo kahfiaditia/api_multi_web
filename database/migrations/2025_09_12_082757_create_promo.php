@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('cms_promo', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_web')->nullable();
+            $table->foreign('id_web')->references('id')->on('cms_profils');
             $table->string('nama_promo', 20)->nullable();
             $table->string('order', 3)->nullable();
             $table->string('path_gambar', 95)->nullable();

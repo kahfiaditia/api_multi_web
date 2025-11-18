@@ -25,21 +25,38 @@
                         <div class="card-body">
                             <h5 class="card-title mb-4 text-primary"><i class="fas fa-plus-circle"></i> Form Tambah Banner</h5>
 
-                            <form action="{{ route('banner_Web.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('banner_web.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row g-3">
                                     <!-- Judul Banner -->
-                                    <div class="col-md-6">
+
+                                    <div class="col-md-3">
+                                        <label for="nama_web" class="form-label">Pilih Website <span class="text-danger">*</span></label>
+                                        <select name="nama_web" id="nama_web" class="form-control" required>
+                                            <option value="">Pilih</option>
+                                            @foreach ($website as $data )
+                                                <option value="{{ $data->id }}" data-subweb="{{ $data->sub_web }}">{{ $data->nama_web }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="sub_web" class="form-label">Sub Domain <span class="text-danger">*</span></label>
+                                        <input type="text" name="sub_web" id="sub_web" class="form-control"
+                                            placeholder="Masukkan Sub Domain" readonly>
+                                    </div>
+
+                                    <div class="col-md-3">
                                         <label for="judul_banner" class="form-label">Judul Banner <span class="text-danger">*</span></label>
                                         <input type="text" name="judul_banner" id="judul_banner" class="form-control"
                                             placeholder="Masukkan judul banner" required>
                                     </div>
 
                                     <!-- Gambar -->
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <label for="gambar" class="form-label">Upload Gambar <span class="text-danger">*</span></label>
                                         <input type="file" name="gambar" id="gambar" class="form-control"
-                                            accept="image/*" required>
+                                            accept=".jpg,.jpeg,.png" required>
                                     </div>
 
                                     <!-- Link -->
@@ -60,15 +77,16 @@
                                     <div class="col-md-6">
                                         <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
                                         <select name="status1" id="status1" class="form-select" required>
-                                            <option value="1">Aktif</option>
-                                            <option value="0">Nonaktif</option>
+                                            <option value="">Pilih Status</option>
+                                            <option value="Aktif">Aktif</option>
+                                            <option value="Nonaktif">Nonaktif</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <!-- Tombol -->
                                 <div class="mt-4 d-flex justify-content-end gap-2">
-                                    <a href="{{ route('banner_Web.index') }}" class="btn btn-light">
+                                    <a href="{{ route('banner_web.index') }}" class="btn btn-light">
                                         <i class="fas fa-arrow-left"></i> Batal
                                     </a>
                                     <button type="submit" class="btn btn-success">
@@ -84,4 +102,12 @@
 
         </div>
     </div>
+    <script>
+            document.getElementById('nama_web').addEventListener('change', function() {
+                    let selected = this.options[this.selectedIndex];
+                    let subWeb = selected.getAttribute('data-subweb');
+
+                    document.getElementById('sub_web').value = subWeb ?? '';
+            });
+    </script>
 @endsection

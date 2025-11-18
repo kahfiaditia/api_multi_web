@@ -3,7 +3,7 @@
     <div class="page-content">
         <div class="container-fluid">
 
-            <!-- start page title -->
+            <!-- Start Page Title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -17,78 +17,131 @@
                     </div>
                 </div>
             </div>
-            <!-- end page title -->
+            <!-- End Page Title -->
 
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card shadow-sm border-0">
-                        <div class="card-body">
-                            <h5 class="card-title mb-4 text-primary"><i class="fas fa-plus-circle"></i> Form Tambah Profil
+                        <div class="card-header bg-light py-3">
+                            <h5 class="card-title mb-0 text-primary">
+                                <i class="fas fa-plus-circle me-2"></i>Form Tambah Profil Perusahaan
                             </h5>
-
-                            <form action="{{ route('profil_web.store') }}" method="POST" enctype="multipart/form-data">
+                        </div>
+                        <div class="card-body">
+                            <form action="{{ route('profil_web.store') }}" method="POST" enctype="multipart/form-data" id="form-profil">
                                 @csrf
+                                
                                 <div class="row g-3">
-                                    <!-- Nama PT -->
-                                    <div class="col-md-6">
-                                        <label for="nama_pt" class="form-label">Nama Perusahaan <span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" name="nama_pt" id="nama_pt" class="form-control"
-                                            placeholder="Masukkan nama perusahaan" required>
+                                    <!-- Informasi Perusahaan -->
+                                    <div class="col-12">
+                                        <h6 class="text-uppercase text-muted mb-3 border-bottom pb-2">
+                                            <i class="fas fa-building me-2"></i>Informasi Perusahaan
+                                        </h6>
                                     </div>
 
-                                    <!-- Nama Web -->
-                                    <div class="col-md-6">
-                                        <label for="nama_web" class="form-label">Nama Website</label>
-                                        <input type="text" name="nama_web" id="nama_web" class="form-control"
-                                            placeholder="Contoh: www.perusahaan.com">
+                                    <div class="col-md-4">
+                                        <label for="nama_pt" class="form-label fw-semibold">
+                                            Nama Perusahaan <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" name="nama_pt" id="nama_pt" class="form-control" 
+                                               placeholder="Masukkan nama perusahaan" required>
                                     </div>
 
-                                    <!-- Alamat -->
-                                    <div class="col-md-12">
-                                        <label for="alamat_lengkap" class="form-label">Alamat Lengkap</label>
+                                    <div class="col-md-4">
+                                        <label for="nama_web" class="form-label fw-semibold">Domain</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">https://</span>
+                                            <input type="text" name="nama_web" id="nama_web" class="form-control" 
+                                                   placeholder="perusahaan.com">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="sub_web" class="form-label fw-semibold">Sub Domain</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">https://</span>
+                                            <input type="text" name="sub_web" id="sub_web" class="form-control" 
+                                                   placeholder="subdomain.perusahaan.com">
+                                        </div>
+                                    </div>
+
+                                    <!-- Alamat Perusahaan -->
+                                    <div class="col-12 mt-4">
+                                        <h6 class="text-uppercase text-muted mb-3 border-bottom pb-2">
+                                            <i class="fas fa-map-marker-alt me-2"></i>Alamat Perusahaan
+                                        </h6>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="alamat_lengkap" class="form-label fw-semibold">Alamat Lengkap</label>
                                         <textarea name="alamat_lengkap" id="alamat_lengkap" class="form-control" rows="3"
-                                            placeholder="Masukkan alamat lengkap perusahaan"></textarea>
+                                                  placeholder="Masukkan alamat lengkap perusahaan"></textarea>
                                     </div>
 
-                                    <!-- Telepon -->
                                     <div class="col-md-6">
-                                        <label for="telepon_1" class="form-label">Telepon</label>
-                                        <input type="text" name="telepon_1" id="telepon_1" class="form-control"
-                                            placeholder="Nomor telepon kantor">
+                                        <label for="alamat_cabang" class="form-label fw-semibold">Alamat Cabang</label>
+                                        <textarea name="alamat_cabang" id="alamat_cabang" class="form-control" rows="3"
+                                                  placeholder="Masukkan alamat cabang perusahaan (opsional)"></textarea>
                                     </div>
 
-                                    <!-- HP -->
                                     <div class="col-md-6">
-                                        <label for="telepon_2" class="form-label">Nomor HP</label>
-                                        <input type="text" name="telepon_2" id="telepon_2" class="form-control"
-                                            placeholder="Nomor handphone">
+                                        <label for="alamat_workshop" class="form-label fw-semibold">Alamat Workshop</label>
+                                        <textarea name="alamat_workshop" id="alamat_workshop" class="form-control" rows="3"
+                                                  placeholder="Masukkan alamat workshop perusahaan (opsional)"></textarea>
                                     </div>
 
-                                    <!-- Email utama -->
                                     <div class="col-md-6">
-                                        <label for="email_1" class="form-label">Email Utama</label>
-                                        <input type="email" name="email_1" id="email_1" class="form-control"
-                                            placeholder="email@utama.com">
+                                        <label for="alamat_lain" class="form-label fw-semibold">Alamat Lainnya</label>
+                                        <textarea name="alamat_lain" id="alamat_lain" class="form-control" rows="3"
+                                                  placeholder="Masukkan alamat lainnya (opsional)"></textarea>
                                     </div>
 
-                                    <!-- Email cadangan -->
+                                    <!-- Kontak & Informasi -->
+                                    <div class="col-12 mt-4">
+                                        <h6 class="text-uppercase text-muted mb-3 border-bottom pb-2">
+                                            <i class="fas fa-phone-alt me-2"></i>Kontak & Informasi
+                                        </h6>
+                                    </div>
+
                                     <div class="col-md-6">
-                                        <label for="email_2" class="form-label">Email Cadangan</label>
-                                        <input type="email" name="email_2" id="email_2" class="form-control"
-                                            placeholder="email@cadangan.com">
+                                        <label for="telepon_1" class="form-label fw-semibold">Telepon</label>
+                                        <input type="text" name="telepon_1" id="telepon_1" class="form-control" 
+                                               placeholder="Contoh: (021) 1234567">
                                     </div>
 
-                                    <!-- Deskripsi -->
-                                    <div class="col-md-12">
-                                        <label for="deskripsi" class="form-label">Deskripsi</label>
+                                    <div class="col-md-6">
+                                        <label for="telepon_2" class="form-label fw-semibold">Nomor HP/WhatsApp</label>
+                                        <input type="text" name="telepon_2" id="telepon_2" class="form-control" 
+                                               placeholder="Contoh: 0812-3456-7890">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="email_1" class="form-label fw-semibold">Email Utama</label>
+                                        <input type="email" name="email_1" id="email_1" class="form-control" 
+                                               placeholder="email@utama.com">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="email_2" class="form-label fw-semibold">Email Cadangan</label>
+                                        <input type="email" name="email_2" id="email_2" class="form-control" 
+                                               placeholder="email@cadangan.com">
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="deskripsi" class="form-label fw-semibold">Deskripsi Perusahaan</label>
                                         <textarea name="deskripsi" id="deskripsi" class="form-control" rows="4"
-                                            placeholder="Tuliskan deskripsi singkat perusahaan"></textarea>
+                                                  placeholder="Tuliskan deskripsi singkat tentang perusahaan"></textarea>
                                     </div>
 
-                                    <!-- Status -->
+                                    <!-- Pengaturan -->
+                                    <div class="col-12 mt-4">
+                                        <h6 class="text-uppercase text-muted mb-3 border-bottom pb-2">
+                                            <i class="fas fa-cogs me-2"></i>Pengaturan
+                                        </h6>
+                                    </div>
+
                                     <div class="col-md-6">
-                                        <label for="status1" class="form-label">Status</label>
+                                        <label for="status1" class="form-label fw-semibold">Status</label>
                                         <select name="status1" id="status1" class="form-select">
                                             <option value="aktif">Aktif</option>
                                             <option value="nonaktif">Non Aktif</option>
@@ -96,23 +149,30 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label for="gambar" class="form-label">Logo / Gambar Perusahaan</label>
-                                        <input type="file" name="gambar" id="gambar" class="form-control"
-                                           accept=".jpg,.jpeg,.png">
+                                        <label for="gambar" class="form-label fw-semibold">Logo Perusahaan</label>
+                                        <input type="file" name="gambar" id="gambar" class="form-control" 
+                                               accept=".jpg,.jpeg,.png,.gif">
+                                        <div class="form-text">Format: JPG, PNG, GIF (Maks. 2MB)</div>
                                     </div>
                                 </div>
 
-                                <!-- Tombol -->
-                                <div class="mt-4 d-flex justify-content-end gap-2">
-                                    <a href="{{ route('profil_web.index') }}" class="btn btn-light">
-                                        <i class="fas fa-arrow-left"></i> Batal
-                                    </a>
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="fas fa-save"></i> Simpan
-                                    </button>
+                                <!-- Action Buttons -->
+                                <div class="row mt-5">
+                                    <div class="col-12">
+                                        <div class="d-flex justify-content-end gap-2 border-top pt-4">
+                                            <a href="{{ route('profil_web.index') }}" class="btn btn-light px-4">
+                                                <i class="fas fa-arrow-left me-2"></i> Kembali
+                                            </a>
+                                            <button type="reset" class="btn btn-outline-secondary px-4">
+                                                <i class="fas fa-redo me-2"></i> Reset
+                                            </button>
+                                            <button type="submit" class="btn btn-primary px-4">
+                                                <i class="fas fa-save me-2"></i> Simpan Data
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
-
                         </div>
                     </div>
                 </div>

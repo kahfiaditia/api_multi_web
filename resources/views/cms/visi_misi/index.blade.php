@@ -34,7 +34,7 @@
                             </div>
 
                             <p class="card-title-desc">
-                                Halaman ini menampilkan data visi & misi website.  
+                                Halaman ini menampilkan data visi & misi website.
                                 Anda dapat menambah, melihat detail, mengubah, atau menghapus data di sini.
                             </p>
 
@@ -43,11 +43,12 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Keterangan</th>
+                                        <th>Nama Web</th>
+                                        {{-- <th>Keterangan</th> --}}
                                         <th>Visi</th>
                                         <th>Misi</th>
-                                        <th>Gambar Visi</th>
-                                        <th>Gambar Misi</th>
+                                        {{-- <th>Gambar Visi</th>
+                                        <th>Gambar Misi</th> --}}
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -57,10 +58,11 @@
                                     @forelse ($cms_visi_misi as $key => $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ Str::limit($item->keterangan, 50) }}</td>
+                                            <td>{{ $item->website->nama_web }}</td>
+                                            {{-- <td>{{ Str::limit($item->keterangan, 50) }}</td> --}}
                                             <td>{{ Str::limit($item->visi, 50) }}</td>
                                             <td>{{ Str::limit($item->misi, 50) }}</td>
-                                            <td>
+                                            {{-- <td>
                                                 @if ($item->path_gambar_visi)
                                                     <img src="{{ asset($item->path_gambar_visi) }}" alt="Gambar Visi"
                                                         class="img-thumbnail" width="70">
@@ -75,7 +77,7 @@
                                                 @else
                                                     <span class="text-muted">-</span>
                                                 @endif
-                                            </td>
+                                            </td> --}}
                                             <td>
                                                 @if ($item->status1 == 1)
                                                     <span class="badge bg-success">Aktif</span>

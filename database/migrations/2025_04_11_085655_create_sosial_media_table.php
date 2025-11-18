@@ -14,6 +14,8 @@ return new class extends Migration
        
             Schema::create('cms_sosial_media', function (Blueprint $table) {
                 $table->id();
+                $table->unsignedBigInteger('id_web')->nullable();
+                $table->foreign('id_web')->references('id')->on('cms_profils');
                 $table->string('nama_media', 60);
                 $table->text('link')->nullable();
                 $table->string('keterangan', 80)->nullable();

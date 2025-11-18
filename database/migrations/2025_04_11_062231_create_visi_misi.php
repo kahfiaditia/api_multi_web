@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('cms_visi_misi', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_web')->nullable();
+            $table->foreign('id_web')->references('id')->on('cms_profils');
             $table->text('keterangan')->nullable();
             $table->longText('visi');
             $table->longText('misi');

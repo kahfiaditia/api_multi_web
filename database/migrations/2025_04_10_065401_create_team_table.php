@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('cms_teams', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_web')->nullable();
+            $table->foreign('id_web')->references('id')->on('cms_profils');
             $table->string('nama_lengkap', 60);
             $table->string('nip', 50)->nullable();
             $table->string('jabatan', 80);

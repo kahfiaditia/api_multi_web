@@ -33,8 +33,22 @@
                                 @method('PUT')
 
                                 <div class="row g-3">
-                                    <!-- Nama Lengkap -->
+
                                     <div class="col-md-6">
+                                    <label for="nama_web" class="form-label">Pilih Website <span class="text-danger">*</span></label>
+                                    <select name="nama_web" id="nama_web" class="form-control" required>
+                                        <option value="">Pilih</option>
+                                        @foreach ($website as $data)
+                                            <option value="{{ $data->id }}"
+                                                data-subweb="{{ $data->sub_web }}"
+                                                {{ $team->id_web == $data->id ? 'selected' : '' }}>
+                                                {{ $data->nama_web }} - {{ $data->sub_web }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                    <!-- Nama Lengkap -->
+                                    <div class="col-md-3">
                                         <label for="nama_lengkap" class="form-label fw-bold">Nama Lengkap <span
                                                 class="text-danger">*</span></label>
                                         <input type="text" name="nama_lengkap" id="nama_lengkap" class="form-control"
@@ -42,7 +56,7 @@
                                     </div>
 
                                     <!-- NIP -->
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <label for="nip" class="form-label fw-bold">NIP</label>
                                         <input type="text" name="nip" id="nip" class="form-control"
                                             value="{{ old('nip', $team->nip) }}">
@@ -102,6 +116,8 @@
                                         <label for="status" class="form-label fw-bold">Status <span
                                                 class="text-danger">*</span></label>
                                         <select name="status1" id="status1" class="form-select" required>
+                                            <option value="">
+                                                Pilih</option>
                                             <option value="1" {{ old('status', $team->status) == '1' ? 'selected' : '' }}>
                                                 Aktif</option>
                                             <option value="0" {{ old('status', $team->status) == '0' ? 'selected' : '' }}>

@@ -22,7 +22,7 @@ class WebProfilController extends Controller
             'submenu' => $this->submenu,
             'label' => 'Profil',
             'list' => 'Data Profil',
-            'cms_profils' => WebProfilModel::first(), // ambil data pertama
+            'cms_profils' => WebProfilModel::whereNull('deleted_at')->get(),
         ];
         return view('cms.profil_web.index')->with($data);
     }
@@ -41,7 +41,11 @@ class WebProfilController extends Controller
         $request->validate([
             'nama_pt'        => 'required|string|max:65',
             'nama_web'       => 'required|string|max:45',
+            'sub_web'        => 'required|string|max:45',
             'alamat_lengkap' => 'nullable|string|max:255',
+            'alamat_cabang'  => 'nullable|string|max:255',
+            'alamat_workshop'  => 'nullable|string|max:255',
+            'alamat_lain'    => 'nullable|string|max:255',
             'telepon_1'      => 'nullable|string|max:255',
             'telepon_2'      => 'nullable|string|max:255',
             'email_1'        => 'nullable|email|max:255',
@@ -68,7 +72,11 @@ class WebProfilController extends Controller
             WebProfilModel::create([
                 'nama_pt'        => $request->nama_pt,
                 'nama_web'       => $request->nama_web,
+                'sub_web'       => $request->sub_web,
                 'alamat_lengkap' => $request->alamat_lengkap,
+                'alamat2'        => $request->alamat_cabang,
+                'alamat3'        => $request->alamat_workshop,
+                'alamat4'        => $request->alamat_lain,
                 'telepon_1'      => $request->telepon_1,
                 'telepon_2'      => $request->telepon_2,
                 'email_1'        => $request->email_1,
@@ -119,18 +127,23 @@ class WebProfilController extends Controller
 
     public function update(Request $request, string $id)
     {
+        // dd($request->all());
         $id_decrypt = Crypt::decryptString($id);
 
         $validated = $request->validate([
             'nama_pt'        => 'required|string|max:65',
             'nama_web'       => 'nullable|string|max:45',
+            'sub_web'       => 'nullable|string|max:45',
             'alamat_lengkap' => 'nullable|string|max:255',
+            'alamat_cabang'  => 'nullable|string|max:255',  // Ini akan di-map ke alamat2
+            'alamat_workshop'  => 'nullable|string|max:255', // Ini akan di-map ke alamat3
+            'alamat_lain'  => 'nullable|string|max:255',     // Ini akan di-map ke alamat4
             'email_1'        => 'nullable|email|max:255',
             'email_2'        => 'nullable|email|max:255',
             'telepon_1'      => 'nullable|string|max:255',
             'telepon_2'      => 'nullable|string|max:255',
             'deskripsi'      => 'nullable|string',
-            'status1'        => 'required|in:aktif,nonaktif',
+            'status1'        => 'required|in:aktif,nonaktif', // Ini akan di-map ke status
             'gambar'         => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
@@ -141,13 +154,17 @@ class WebProfilController extends Controller
             $dataUpdate = [
                 'nama_pt'        => $validated['nama_pt'],
                 'nama_web'       => $validated['nama_web'] ?? null,
+                'sub_web'        => $validated['sub_web'] ?? null,
                 'alamat_lengkap' => $validated['alamat_lengkap'] ?? null,
+                'alamat2'        => $validated['alamat_cabang'] ?? null,    // Map ke alamat2
+                'alamat3'        => $validated['alamat_workshop'] ?? null,  // Map ke alamat3
+                'alamat4'        => $validated['alamat_lain'] ?? null,      // Map ke alamat4
                 'email_1'        => $validated['email_1'] ?? null,
                 'email_2'        => $validated['email_2'] ?? null,
                 'telepon_1'      => $validated['telepon_1'] ?? null,
                 'telepon_2'      => $validated['telepon_2'] ?? null,
                 'deskripsi'      => $validated['deskripsi'] ?? null,
-                'status'         => $validated['status1'],
+                'status'         => $validated['status1'],  // Map ke status
             ];
 
             // Cek apakah ada gambar baru

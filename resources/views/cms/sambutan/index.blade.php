@@ -30,6 +30,7 @@
                     <thead class="table-light">
                         <tr>
                             <th>#</th>
+                            <th>Nama Web</th>
                             <th>Nama</th>
                             <th>Area</th>
                             <th>Foto</th>
@@ -41,6 +42,7 @@
                         @forelse($cms_sambutans as $sambutan)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
+                            <td>{{ $sambutan->website->nama_web }}</td>
                             <td>{{ $sambutan->nama }}</td>
                             <td>{{ $sambutan->area }}</td>
                             <td>

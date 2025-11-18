@@ -31,6 +31,18 @@
                                 @csrf
                                 <div class="row g-3">
                                     <!-- Nama -->
+
+                                    <div class="col-md-6">
+                                        <label for="nama_web" class="form-label">Nama Website <span
+                                                class="text-danger">*</span></label>
+                                        <select name="nama_web" id="nama_web" class="form-control" required>
+                                            <option value="" disabled selected>Pilih Nama Website</option>
+                                            @foreach ($website as $web)
+                                                <option value="{{ $web->id }}">{{ $web->nama_web }} ({{ $web->sub_web }})</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
                                     <div class="col-md-6">
                                         <label for="nama" class="form-label">Nama Sambutan <span
                                                 class="text-danger">*</span></label>
@@ -58,6 +70,7 @@
                                         <label for="status1" class="form-label">Status <span
                                                 class="text-danger">*</span></label>
                                         <select name="status1" id="status1" class="form-select" required>
+                                            <option value="">-- Pilih --</option>
                                             <option value="1">Aktif</option>
                                             <option value="0">Nonaktif</option>
                                         </select>

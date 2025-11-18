@@ -47,7 +47,8 @@
                                     <tr>
                                         <th>Nama Perusahaan</th>
                                         <th>Nama Web</th>
-                                        <th>Alamat Lengkap</th>
+                                        {{-- <th>Sub Web</th> --}}
+                                        <th>Subdomain</th>
                                         <th>Email</th>
                                         <th>Telepon</th>
                                         <th>Nomor HP</th>
@@ -57,41 +58,45 @@
 
                                 <tbody>
                                     @if ($cms_profils)
-                                        <tr>
-                                            <td>{{ $cms_profils->nama_pt }}</td>
-                                            <td>{{ $cms_profils->nama_web }}</td>
-                                            <td>{{ $cms_profils->alamat_lengkap }}</td>
-                                            <td>{{ $cms_profils->email_1 }}</td>
-                                            <td>{{ $cms_profils->telepon_1 }}</td>
-                                            <td>{{ $cms_profils->telepon_2 }}</td>
-                                            <td>
-                                                <form class="delete-form d-inline"
-                                                    action="{{ route('profil_web.destroy', Crypt::encryptString($cms_profils->id)) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
+                                        @foreach ($cms_profils as $item)
+                                            <tr>
+                                                    <td>{{ $item->nama_pt }}</td>
+                                                    <td>{{ $item->nama_web }}</td>
+                                                    {{-- <td>{{ $cms_profils->sub_web }}</td> --}}
+                                                    <td>{{ $item->sub_web }}</td>
+                                                    <td>{{ $item->email_1 }}</td>
+                                                    <td>{{ $item->telepon_1 }}</td>
+                                                    <td>{{ $item->telepon_2 }}</td>
+                                                    <td>
+                                                        <form class="delete-form d-inline"
+                                                            action="{{ route('profil_web.destroy', Crypt::encryptString($item->id)) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
 
-                                                    <div class="d-flex gap-2">
-                                                        <!-- View -->
-                                                        <a href="{{ route('profil_web.show', Crypt::encryptString($cms_profils->id)) }}"
-                                                            class="btn btn-sm btn-info">
-                                                            <i class="fas fa-eye"></i> View
-                                                        </a>
+                                                            <div class="d-flex gap-2">
+                                                                <!-- View -->
+                                                                <a href="{{ route('profil_web.show', Crypt::encryptString($item->id)) }}"
+                                                                    class="btn btn-sm btn-info">
+                                                                    <i class="fas fa-eye"></i> View
+                                                                </a>
 
-                                                        <!-- Edit -->
-                                                        <a href="{{ route('profil_web.edit', Crypt::encryptString($cms_profils->id)) }}"
-                                                            class="btn btn-sm btn-warning">
-                                                            <i class="fas fa-edit"></i> Edit
-                                                        </a>
+                                                                <!-- Edit -->
+                                                                <a href="{{ route('profil_web.edit', Crypt::encryptString($item->id)) }}"
+                                                                    class="btn btn-sm btn-warning">
+                                                                    <i class="fas fa-edit"></i> Edit
+                                                                </a>
 
-                                                        <!-- Delete -->
-                                                        <button type="button" class="btn btn-sm btn-danger delete_confirm">
-                                                            <i class="fas fa-trash"></i> Delete
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </td>
-                                        </tr>
+                                                                <!-- Delete -->
+                                                                <button type="button" class="btn btn-sm btn-danger delete_confirm">
+                                                                    <i class="fas fa-trash"></i> Delete
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                        @endforeach
+
                                     @else
                                         <tr>
                                             <td colspan="7" class="text-center text-muted">

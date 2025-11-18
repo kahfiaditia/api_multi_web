@@ -30,8 +30,14 @@ class TeamController extends Controller
 
     public function create()
     {
+        $result = DB::table('cms_profils')
+                    ->whereNull('deleted_at')
+                    ->select('id','sub_web', 'nama_web')
+                    ->get();
+
         return view('cms.team.create')->with([
             'title' => $this->title,
+            'website' => $result,
             'menu' => $this->menu,
             'submenu' => $this->submenu,
         ]);
@@ -43,6 +49,7 @@ class TeamController extends Controller
 
         $request->validate([
             'nama_lengkap' => 'required|string|max:60',
+            'nama_web'      => 'required',
             'nip'          => 'nullable|string|max:50',
             'jabatan'      => 'nullable|string|max:80',
             'email'        => 'nullable|email|max:50',
@@ -56,6 +63,7 @@ class TeamController extends Controller
         DB::beginTransaction();
         try {
             $data = [
+                'id_web'        => $request->nama_web,
                 'nama_lengkap' => $request->nama_lengkap,
                 'nip'          => $request->nip,
                 'jabatan'      => $request->jabatan,
@@ -106,12 +114,16 @@ class TeamController extends Controller
     {
 
         $id_decrypt = Crypt::decryptString($id);
-
         $team = TeamModel::findOrFail($id_decrypt);
+        $result = DB::table('cms_profils')
+                    ->whereNull('deleted_at')
+                    ->select('id','sub_web', 'nama_web')
+                    ->get();
 
         return view('cms.team.edit', compact('team'))
             ->with([
                 'title' => $this->title,
+                'website' => $result,
                 'menu' => $this->menu,
                 'submenu' => $this->submenu,
                 'team' => $team,
@@ -123,6 +135,7 @@ class TeamController extends Controller
         $id_decrypt = Crypt::decryptString($id);
 
         $request->validate([
+            'nama_web'      => 'required',
             'nama_lengkap' => 'required|string|max:60',
             'nip'          => 'nullable|string|max:50',
             'jabatan'      => 'nullable|string|max:80',
@@ -139,6 +152,7 @@ class TeamController extends Controller
             $team = TeamModel::findOrFail($id_decrypt);
 
             $data = [
+                'id_web'        => $request->nama_web,
                 'nama_lengkap' => $request->nama_lengkap,
                 'nip'          => $request->nip,
                 'jabatan'      => $request->jabatan,
@@ -195,7 +209,7 @@ class TeamController extends Controller
 
             DB::commit();
             AlertHelper::addAlert(true);
-            return redirect()->route('team.index');
+            return redirect()->route('team_web.index');
         } catch (\Throwable $err) {
             DB::rollback();
             AlertHelper::addAlert(false);

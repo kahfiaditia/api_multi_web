@@ -11,4 +11,10 @@ class BannerModel extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'cms_banners';
     protected $guarded = [];
+
+    public function webProfil()
+    {
+        return $this->belongsTo(WebProfilModel::class, 'id_web', 'id');
+    }
+
 }

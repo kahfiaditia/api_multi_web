@@ -3,7 +3,7 @@
 <html lang="en">
 
     <head>
-        
+
         <meta charset="utf-8" />
         <title>CMS - Data Website</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,13 +30,13 @@
     </head>
 
     <body data-topbar="dark">
-    
+
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
         <!-- Begin page -->
         <div id="layout-wrapper">
 
-            
+
             @include('upcube.header')
 
             <!-- ========== Left Sidebar Start ========== -->
@@ -62,7 +62,7 @@
             </div>
             <!-- Left Sidebar End -->
 
-            
+
 
             <!-- ============================================================== -->
             <!-- Start right Content here -->
@@ -71,9 +71,9 @@
                 @include('sweetalert::alert')
                 @yield('datacontent')
                 <!-- End Page-content -->
-                
+
                @include('upcube.footer')
-                
+
             </div>
             <!-- end main content-->
 
@@ -84,7 +84,7 @@
         <div class="right-bar">
             <div data-simplebar class="h-100">
                 <div class="rightbar-title d-flex align-items-center px-3 py-4">
-            
+
                     <h5 class="m-0 me-2">Settings</h5>
 
                     <a href="javascript:void(0);" class="right-bar-toggle ms-auto">
@@ -105,7 +105,7 @@
                         <input class="form-check-input theme-choice" type="checkbox" id="light-mode-switch" checked>
                         <label class="form-check-label" for="light-mode-switch">Light Mode</label>
                     </div>
-    
+
                     <div class="mb-2">
                         <img src="assets/images/layouts/layout-2.jpg" class="img-fluid img-thumbnail" alt="layout-2">
                     </div>
@@ -113,7 +113,7 @@
                         <input class="form-check-input theme-choice" type="checkbox" id="dark-mode-switch" data-bsStyle="assets/css/bootstrap.min.css" data-appStyle="assets/css/app.min.css">
                         <label class="form-check-label" for="dark-mode-switch">Dark Mode</label>
                     </div>
-    
+
                     <div class="mb-2">
                         <img src="assets/images/layouts/layout-3.jpg" class="img-fluid img-thumbnail" alt="layout-3">
                     </div>
@@ -122,7 +122,7 @@
                         <label class="form-check-label" for="rtl-mode-switch">RTL Mode</label>
                     </div>
 
-            
+
                 </div>
 
             </div> <!-- end slimscroll-menu-->
@@ -132,7 +132,7 @@
         <!-- Right bar overlay-->
         <div class="rightbar-overlay"></div>
 
-       
+
         <!-- JAVASCRIPT -->
         <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -186,6 +186,65 @@
                         // console.log('confirmed');
                         $(this).closest("form").submit()
                     }
+                });
+            });
+
+            document.addEventListener('DOMContentLoaded', function() {
+            // Fungsi untuk menangani delay pada tombol
+            function handleButtonDelay(button) {
+                // Simpan teks asli dan status disabled
+                const originalText = button.innerHTML;
+                const originalDisabled = button.disabled;
+
+                // Disable tombol dan ubah teks
+                button.disabled = true;
+                button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Memproses...';
+                button.style.opacity = '0.7';
+                button.style.cursor = 'not-allowed';
+
+                // Enable kembali setelah 3 detik
+                setTimeout(function() {
+                    button.disabled = originalDisabled;
+                    button.innerHTML = originalText;
+                    button.style.opacity = '1';
+                    button.style.cursor = 'pointer';
+                }, 3000);
+            }
+
+            // Terapkan ke semua tombol submit
+            const submitButtons = document.querySelectorAll('button[type="submit"]');
+            submitButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    // Untuk form submission, biarkan form submit setelah delay
+                    if (this.closest('form')) {
+                        const form = this.closest('form');
+                        e.preventDefault();
+
+                        handleButtonDelay(this);
+
+                        // Submit form setelah 3 detik
+                        setTimeout(function() {
+                            form.submit();
+                        }, 3000);
+                    } else {
+                        // Untuk tombol tanpa form
+                        handleButtonDelay(this);
+                    }
+                });
+            });
+
+                // Terapkan ke tombol reset
+                const resetButtons = document.querySelectorAll('button[type="reset"]');
+                resetButtons.forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        handleButtonDelay(this);
+
+                        // Reset form setelah 3 detik
+                        setTimeout(function() {
+                            button.closest('form').reset();
+                        }, 3000);
+                    });
                 });
             });
         </script>

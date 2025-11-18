@@ -28,6 +28,18 @@
                         <form action="{{ route('visi_misi_web.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row g-3">
+
+                                <div class="col-md-12">
+                                    <label for="nama_web" class="form-label">Nama Website</label>
+                                   <select name="nama_web" id="nama_web" class="form-control" required>
+                                        <option value=""> -- Pilih Website -- </option>
+                                            @foreach ($website as $data )
+                                                <option value="{{ $data->id }}">{{ $data->nama_web }} - {{ $data->sub_web }}</option>
+                                            @endforeach
+
+                                   </select>
+                                </div>
+
                                 <!-- Keterangan -->
                                 <div class="col-md-12">
                                     <label for="keterangan" class="form-label">Keterangan</label>
@@ -38,14 +50,14 @@
                                 <!-- Visi -->
                                 <div class="col-md-12">
                                     <label for="visi" class="form-label">Visi <span class="text-danger">*</span></label>
-                                    <textarea name="visi" id="visi" class="form-control editor" rows="4" 
+                                    <textarea name="visi" id="visi" class="form-control editor" rows="4"
                                               placeholder="Tuliskan visi organisasi" required>{{ old('visi') }}</textarea>
                                 </div>
 
                                 <!-- Gambar Visi -->
                                 <div class="col-md-6">
                                     <label for="path_gambar_visi" class="form-label">Gambar Visi</label>
-                                    <input type="file" name="path_gambar_visi" id="path_gambar_visi" class="form-control" 
+                                    <input type="file" name="path_gambar_visi" id="path_gambar_visi" class="form-control"
                                            accept=".jpg,.jpeg,.png">
                                     <small class="text-muted">Format: jpg, jpeg, png | Max 2MB</small>
                                 </div>
@@ -53,14 +65,14 @@
                                 <!-- Misi -->
                                 <div class="col-md-12">
                                     <label for="misi" class="form-label">Misi <span class="text-danger">*</span></label>
-                                    <textarea name="misi" id="misi" class="form-control editor" rows="5" 
+                                    <textarea name="misi" id="misi" class="form-control editor" rows="5"
                                               placeholder="Tuliskan misi organisasi" required>{{ old('misi') }}</textarea>
                                 </div>
 
                                 <!-- Gambar Misi -->
                                 <div class="col-md-6">
                                     <label for="path_gambar_misi" class="form-label">Gambar Misi</label>
-                                    <input type="file" name="path_gambar_misi" id="path_gambar_misi" class="form-control" 
+                                    <input type="file" name="path_gambar_misi" id="path_gambar_misi" class="form-control"
                                            accept=".jpg,.jpeg,.png">
                                     <small class="text-muted">Format: jpg, jpeg, png | Max 2MB</small>
                                 </div>
@@ -68,7 +80,8 @@
                                 <!-- Status -->
                                 <div class="col-md-6">
                                     <label for="status1" class="form-label">Status</label>
-                                    <select name="status1" id="status1" class="form-select">
+                                    <select name="status1" id="status1" class="form-select" required>
+                                        <option value="">-- Pilih Status --</option>
                                         <option value="1" {{ old('status1') == '1' ? 'selected' : '' }}>Aktif</option>
                                         <option value="0" {{ old('status1') == '0' ? 'selected' : '' }}>Non Aktif</option>
                                     </select>

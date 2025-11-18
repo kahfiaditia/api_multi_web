@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('menu_id');
             $table->foreign('menu_id')->references('id')->on('cms_menus');
+            $table->unsignedBigInteger('id_web')->nullable();
+            $table->foreign('id_web')->references('id')->on('cms_profils');
             $table->string('submenu', 20)->nullable();
             $table->string('route_menu', 30)->nullable();
             $table->string('typemenu', 20)->nullable();

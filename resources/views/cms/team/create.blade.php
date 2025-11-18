@@ -30,8 +30,21 @@
                             <form action="{{ route('team_web.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row g-3">
+
+                                     <!-- Nama Lengkap -->
+                                    <div class="col-md-4">
+                                        <label for="nama_lengkap" class="form-label fw-bold">Nama Webs <span
+                                                class="text-danger">*</span></label>
+                                        <select name="nama_web" id="nama_web" class="form-control" required>
+                                            <option value="">-- Pilih Nama Web --</option>
+                                            @foreach ($website as $web)
+                                                <option value="{{ $web->id }}">{{ $web->nama_web }} - {{ $web->sub_web }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
                                     <!-- Nama Lengkap -->
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <label for="nama_lengkap" class="form-label fw-bold">Nama Lengkap <span
                                                 class="text-danger">*</span></label>
                                         <input type="text" name="nama_lengkap" id="nama_lengkap" class="form-control"
@@ -39,7 +52,7 @@
                                     </div>
 
                                     <!-- NIP -->
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <label for="nip" class="form-label fw-bold">NIP</label>
                                         <input type="text" name="nip" id="nip" class="form-control"
                                             value="{{ old('nip') }}">
@@ -91,7 +104,8 @@
                                     <div class="col-md-6">
                                         <label for="status" class="form-label fw-bold">Status <span
                                                 class="text-danger">*</span></label>
-                                        <select name="status" id="status" class="form-select" required>
+                                        <select name="status1" id="status1" class="form-select" required>
+                                            <option value="">-- Pilih -- </option>
                                             <option value="1">Aktif</option>
                                             <option value="0">Nonaktif</option>
                                         </select>

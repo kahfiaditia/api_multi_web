@@ -30,8 +30,14 @@ class SambutanController extends Controller
 
     public function create()
     {
+        $result = DB::table('cms_profils')
+                    ->whereNull('deleted_at')
+                    ->select('id','sub_web', 'nama_web')
+                    ->get();
+
         return view('cms.sambutan.tambah')->with([
             'title' => $this->title,
+            'website' => $result,
             'menu' => $this->menu,
             'submenu' => $this->submenu,
         ]);
@@ -40,6 +46,7 @@ class SambutanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'nama_web'     => 'required',
             'nama'         => 'required|string|max:255',
             'area'         => 'nullable|string',
             'status1'      => 'required|boolean',
@@ -49,6 +56,7 @@ class SambutanController extends Controller
         DB::beginTransaction();
         try {
             $data = [
+                'id_web'     => $request->nama_web,
                 'nama'       => $request->nama,
                 'area'       => $request->area,
                 'status1'    => $request->status1,
@@ -79,10 +87,15 @@ class SambutanController extends Controller
     {
         $id_decrypt = Crypt::decryptString($id);
         $sambutan = SambutanModel::findOrFail($id_decrypt);
+        $result = DB::table('cms_profils')
+                    ->whereNull('deleted_at')
+                    ->select('id','sub_web', 'nama_web')
+                    ->get();
 
         return view('cms.sambutan.show', compact('sambutan'))
             ->with([
                 'title' => $this->title,
+                 'website' => $result,
                 'menu' => $this->menu,
                 'submenu' => $this->submenu,
             ]);
@@ -92,10 +105,15 @@ class SambutanController extends Controller
     {
         $id_decrypt = Crypt::decryptString($id);
         $sambutan = SambutanModel::findOrFail($id_decrypt);
+        $result = DB::table('cms_profils')
+                    ->whereNull('deleted_at')
+                    ->select('id','sub_web', 'nama_web')
+                    ->get();
 
         return view('cms.sambutan.edit', compact('sambutan'))
             ->with([
                 'title' => $this->title,
+                'website' => $result,
                 'menu' => $this->menu,
                 'submenu' => $this->submenu,
             ]);
@@ -106,6 +124,7 @@ class SambutanController extends Controller
         $id_decrypt = Crypt::decryptString($id);
 
         $request->validate([
+            'nama_web'     => 'required',
             'nama'         => 'required|string|max:255',
             'area'         => 'nullable|string',
             'status1'      => 'required|boolean',
@@ -117,6 +136,7 @@ class SambutanController extends Controller
             $sambutan = SambutanModel::findOrFail($id_decrypt);
 
             $data = [
+                'id_web'     => $request->nama_web,
                 'nama'       => $request->nama,
                 'area'       => $request->area,
                 'status1'    => $request->status1,

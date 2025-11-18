@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('cms_tagline', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_web')->nullable();
+            $table->foreign('id_web')->references('id')->on('cms_profils');
             $table->string('judul', 25)->nullable();
             $table->string('deskripsi', 50)->nullable();
+            $table->text('isi')->nullable();
             $table->string('path_gambar', 95)->nullable();
             $table->string('icon', 20)->nullable();
             $table->string('status', 15)->nullable();

@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Helper\AlertHelper;
 use App\Models\BannerModel;
+use App\Models\WebProfilModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class BannerController extends Controller
 {
@@ -29,8 +32,14 @@ class BannerController extends Controller
 
     public function create()
     {
+        $result = DB::table('cms_profils')
+                    ->whereNull('deleted_at')
+                    ->select('id','sub_web', 'nama_web')
+                    ->get();
+
         return view('cms.banner.tambah', [
             'title'   => $this->title,
+            'website' => $result,
             'menu'    => $this->menu,
             'submenu' => $this->submenu,
         ]);
@@ -38,11 +47,13 @@ class BannerController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
+            'nama_web'     => 'required',
             'judul_banner' => 'required|string|max:80',
-            'link'         => 'nullable|string|max:200',
+            'link'         => 'nullable|string',
             'keterangan'   => 'nullable|string',
-            'status1'       => 'required|in:0,1',
+            'status1'       => 'nullable|string',
             'gambar'       => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
@@ -57,12 +68,13 @@ class BannerController extends Controller
             }
 
             BannerModel::create([
+                'id_web'       => $request->nama_web,
                 'judul_banner' => $request->judul_banner,
                 'link'         => $request->link,
                 'keterangan'   => $request->keterangan,
                 'status'       => $request->status1,
                 'path_gambar'  => $path_gambar,
-                'dibuat_oleh'  => Auth::id(),
+                'dibuat_oleh'  => Auth::user()->id,
             ]);
 
             DB::commit();
@@ -70,6 +82,7 @@ class BannerController extends Controller
             return redirect()->route('banner_web.index');
         } catch (\Throwable $err) {
             DB::rollBack();
+            Log::error('Update FAQ Error: ' . $err->getMessage());
             AlertHelper::addAlert(false);
             return back()->withErrors(['error' => $err->getMessage()]);
         }
@@ -91,11 +104,16 @@ class BannerController extends Controller
     {
         $id_decrypt = Crypt::decryptString($id);
         $banner = BannerModel::findOrFail($id_decrypt);
+        $result = DB::table('cms_profils')
+                    ->whereNull('deleted_at')
+                    ->select('id','sub_web', 'nama_web')
+                    ->get();
 
         return view('cms.banner.edit', compact('banner'))->with([
             'title'   => $this->title,
             'menu'    => $this->menu,
             'submenu' => $this->submenu,
+            'website' => $result,
         ]);
     }
 
@@ -104,10 +122,11 @@ class BannerController extends Controller
         $id_decrypt = Crypt::decryptString($id);
 
         $request->validate([
+            'nama_web'      => 'required',
             'judul_banner' => 'required|string|max:80',
-            'link'         => 'nullable|string|max:200',
+            'link'         => 'nullable|string',
             'keterangan'   => 'nullable|string',
-            'status1'       => 'required|in:0,1',
+            'status1'       => 'nullable|in:Aktif,Nonaktif',
             'gambar'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
@@ -116,6 +135,7 @@ class BannerController extends Controller
             $banner = BannerModel::findOrFail($id_decrypt);
 
             $dataUpdate = [
+                'id_web'      => $request->nama_web,
                 'judul_banner' => $request->judul_banner,
                 'link'         => $request->link,
                 'keterangan'   => $request->keterangan,
@@ -137,9 +157,10 @@ class BannerController extends Controller
 
             DB::commit();
             AlertHelper::addAlert(true);
-            return redirect()->route('banner_Web.index');
+            return redirect()->route('banner_web.index');
         } catch (\Throwable $err) {
-            DB::rollBack();
+             DB::rollBack();
+            Log::error('Update FAQ Error: ' . $err->getMessage());
             AlertHelper::addAlert(false);
             return back()->withErrors(['error' => $err->getMessage()]);
         }
@@ -161,11 +182,26 @@ class BannerController extends Controller
 
             DB::commit();
             AlertHelper::addAlert(true);
-            return redirect()->route('banner_Web.index');
+            return redirect()->route('banner_web.index');
         } catch (\Throwable $err) {
-            DB::rollback();
+            DB::rollBack();
+            Log::error('Update FAQ Error: ' . $err->getMessage());
             AlertHelper::addAlert(false);
             return back()->withErrors(['error' => $err->getMessage()]);
         }
     }
+
+    public function api_ku(Request $request)
+    {
+       $banners = BannerModel::whereNull('deleted_at')
+              ->where('status', 'Aktif')
+              ->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $banners,
+            'message' => 'Success'
+        ]);
+    }
 }
+

@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('cms_client', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_web')->nullable();
+            $table->foreign('id_web')->references('id')->on('cms_profils');
             $table->string('client_name', 25)->nullable();
             $table->string('deskripsi', 50)->nullable();
             $table->string('path_gambar', 95)->nullable();

@@ -47,6 +47,7 @@
                         <thead class="table-light">
                             <tr>
                                 <th>No</th>
+                                <th>Nama Web</th>
                                 <th>Judul</th>
                                 <th>Kategori</th>
                                 <th>Status</th>
@@ -62,10 +63,11 @@
                             @forelse ($cms_blogs as $index => $blog)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $blog->website->nama_web }}</td>
                                     <td>{{ $blog->judul }}</td>
                                     <td>{{ $blog->kategori }}</td>
                                     <td>
-                                        <span class="badge 
+                                        <span class="badge
                                             {{ $blog->status == 'aktif' ? 'bg-success' : 'bg-secondary' }}">
                                             {{ ucfirst($blog->status) }}
                                         </span>
@@ -73,7 +75,7 @@
                                     <td>{{ Str::limit(strip_tags($blog->isi), 100, '...') }}</td>
                                     <td>
                                         @if($blog->path_gambar1)
-                                            <img src="{{ asset($blog->path_gambar1) }}" 
+                                            <img src="{{ asset($blog->path_gambar1) }}"
                                                 alt="gambar1" class="img-thumbnail" width="70">
                                         @else
                                             <span class="text-muted">-</span>
@@ -81,7 +83,7 @@
                                     </td>
                                     <td>
                                         @if($blog->path_gambar2)
-                                            <img src="{{ asset($blog->path_gambar2) }}" 
+                                            <img src="{{ asset($blog->path_gambar2) }}"
                                                 alt="gambar2" class="img-thumbnail" width="70">
                                         @else
                                             <span class="text-muted">-</span>
@@ -89,7 +91,7 @@
                                     </td>
                                     <td>
                                         @if($blog->path_gambar3)
-                                            <img src="{{ asset($blog->path_gambar3) }}" 
+                                            <img src="{{ asset($blog->path_gambar3) }}"
                                                 alt="gambar3" class="img-thumbnail" width="70">
                                         @else
                                             <span class="text-muted">-</span>

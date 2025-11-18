@@ -11,4 +11,9 @@ class SambutanModel extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'cms_sambutans';
     protected $guarded =[];
+
+    public function website()
+    {
+        return $this->belongsTo(WebProfilModel::class, 'id_web', 'id');
+    }
 }

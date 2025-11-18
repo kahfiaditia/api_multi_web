@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('cms_produks', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_produk', 20);
-            $table->string('deskripsi', 20)->nullable();
+            $table->unsignedBigInteger('id_web')->nullable();
+            $table->foreign('id_web')->references('id')->on('cms_profils');
+            $table->string('nama_produk', 100);
+            $table->string('deskripsi', 250)->nullable();
             $table->decimal('harga_normal', 15, 2)->default(0);
             $table->decimal('harga_diskon', 15, 2)->default(0);
             $table->text('keterangan', 200)->nullable();

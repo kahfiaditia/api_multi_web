@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('cms_sambutans', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_web')->nullable();
+            $table->foreign('id_web')->references('id')->on('cms_profils');
             $table->string('nama')->nullable();
             $table->text('area')->nullable(); // HTML content
             $table->string('path_sambutan', 95)->nullable(); // path gambar

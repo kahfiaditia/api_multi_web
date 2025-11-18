@@ -45,8 +45,8 @@
                                 <thead class="table-light">
                                     <tr class="text-center">
                                         <th>No</th>
+                                        <th>Nama Web</th>
                                         <th>Nama Lengkap</th>
-                                        <th>Nip</th>
                                         <th>Jabatan</th>
                                         <th>Email</th>
                                         <th>Telepon</th>
@@ -60,8 +60,8 @@
                                     @forelse ($cms_teams as $team)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $team->website->nama_web }}</td>
                                             <td>{{ $team->nama_lengkap }}</td>
-                                            <td>{{ $team->nip }}</td>
                                             <td>{{ $team->jabatan }}</td>
                                             <td>{{ $team->email }}</td>
                                             <td>{{ $team->telepon }}</td>
@@ -74,8 +74,8 @@
                                                 @endif
                                             </td>
                                              <td>{{ $team->status == 1 ? 'Aktif' : 'Non Aktif' }}</td>
-                                           
-                                            
+
+
                                             <td>
                                                 <form class="delete-form d-inline"
                                                     action="{{ route('team_web.destroy', Crypt::encryptString($team->id)) }}"

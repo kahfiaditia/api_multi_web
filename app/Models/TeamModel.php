@@ -11,4 +11,9 @@ class TeamModel extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'cms_teams';
     protected $guarded = [];
+
+    public function website()
+    {
+        return $this->belongsTo(WebProfilModel::class, 'id_web', 'id');
+    }
 }

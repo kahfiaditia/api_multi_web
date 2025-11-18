@@ -29,6 +29,20 @@
                             @csrf
                             @method('PUT')
                             <div class="row g-3">
+
+                                <div class="col-md-6">
+                                    <label for="nama_web" class="form-label">Pilih Website <span class="text-danger">*</span></label>
+                                    <select name="nama_web" id="nama_web" class="form-control" required>
+                                        <option value="">Pilih</option>
+                                        @foreach ($website as $data)
+                                            <option value="{{ $data->id }}"
+                                                data-subweb="{{ $data->sub_web }}"
+                                                {{ $blog->id_web == $data->id ? 'selected' : '' }}>
+                                                {{ $data->nama_web }} - {{ $data->sub_web }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <!-- Judul -->
                                 <div class="col-md-6">
                                     <label for="judul" class="form-label">Judul <span class="text-danger">*</span></label>
@@ -47,6 +61,7 @@
                                 <div class="col-md-6">
                                     <label for="status1" class="form-label">Status <span class="text-danger">*</span></label>
                                     <select name="status1" id="status1" class="form-select" required>
+                                        <option value="">-- Pilih --</option>
                                         <option value="aktif" {{ old('status1', $blog->status) == 'aktif' ? 'selected' : '' }}>Aktif</option>
                                         <option value="nonaktif" {{ old('status1', $blog->status) == 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
                                     </select>

@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('cms_galery', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_web')->nullable();
+            $table->foreign('id_web')->references('id')->on('cms_profils');
             $table->string('judul_galery', 80);
             $table->text('keterangan')->nullable();
             $table->string('path_foto_1', 80)->nullable();

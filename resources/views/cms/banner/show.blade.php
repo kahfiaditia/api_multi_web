@@ -10,7 +10,7 @@
                     <h4 class="mb-sm-0"><i class="fas fa-image text-primary"></i> Detail {{ $submenu }}</h4>
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="{{ route('banner_Web.index') }}">{{ $menu }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('banner_web.index') }}">{{ $menu }}</a></li>
                             <li class="breadcrumb-item active">Detail {{ $submenu }}</li>
                         </ol>
                     </div>
@@ -73,10 +73,10 @@
 
                         <!-- Tombol -->
                         <div class="mt-4 text-end">
-                            <a href="{{ route('banner_Web.index') }}" class="btn btn-light">
+                            <a href="{{ route('banner_web.index') }}" class="btn btn-light">
                                 <i class="fas fa-arrow-left"></i> Kembali
                             </a>
-                            <a href="{{ route('banner_Web.edit', Crypt::encryptString($banner->id)) }}" class="btn btn-warning">
+                            <a href="{{ route('banner_web.edit', Crypt::encryptString($banner->id)) }}" class="btn btn-warning">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
                         </div>

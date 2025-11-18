@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('faqs', function (Blueprint $table) {
+        Schema::create('cms_faqs', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_web')->nullable();
+            $table->foreign('id_web')->references('id')->on('cms_profils');
             $table->string('pertanyaan', 255);
             $table->text('jawaban');
-            $table->enum('status', ['aktif', 'nonaktif'])->default('aktif');
+            $table->string('keterangan', 100)->nullable();
+            $table->string('status', 10)->nullable();
             $table->timestamps();
             $table->softDeletes(); // untuk deleted_at
         });
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('faqs');
+        Schema::dropIfExists('cms_faqs');
     }
 };

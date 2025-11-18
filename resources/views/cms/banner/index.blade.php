@@ -30,7 +30,7 @@
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 class="card-title">{{ $list }}</h4>
                                 <!-- Tombol Tambah -->
-                                <a href="{{ route('banner_Web.create') }}" class="btn btn-success">
+                                <a href="{{ route('banner_web.create') }}" class="btn btn-success">
                                     <i class="fas fa-plus"></i> Tambah
                                 </a>
                             </div>
@@ -44,6 +44,8 @@
                                 style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead class="table-light">
                                     <tr class="text-center">
+                                        <th>Nomor</th>
+                                        <th>Website</th>
                                         <th>Judul</th>
                                         <th>Gambar</th>
                                         <th>Link</th>
@@ -56,6 +58,8 @@
                                 <tbody>
                                     @forelse ($cms_banners as $banner)
                                         <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $banner->webProfil->nama_web }}</td>
                                             <td>{{ $banner->judul_banner ?? 'Tidak ada data' }}</td>
                                             <td class="text-center">
                                                 @if ($banner->path_gambar && file_exists(public_path($banner->path_gambar)))
@@ -72,31 +76,26 @@
                                                     <span class="text-muted">Tidak ada data</span>
                                                 @endif
                                             </td>
-                                            <td>{{ $banner->keterangan ?? 'Tidak ada data' }}</td>
+                                            <td>{{ $banner->keterangan ? substr($banner->keterangan, 0, 10) . '...' : 'Tidak ada data' }}</td>
                                             <td>
-                                               
-                                                    <span
-                                                        class="badge bg-{{ $banner->status == 1 ? 'Aktif' : 'Non Aktif' }}">
-                                                        {{ ucfirst($banner->status) }}
-                                                    </span>
-                                                
+                                                        {{ $banner->status }}
                                             </td>
                                             <td>
                                                 <form class="delete-form d-inline"
-                                                    action="{{ route('banner_Web.destroy', Crypt::encryptString($banner->id)) }}"
+                                                    action="{{ route('banner_web.destroy', Crypt::encryptString($banner->id)) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
 
                                                     <div class="d-flex gap-2">
                                                         <!-- View -->
-                                                        <a href="{{ route('banner_Web.show', Crypt::encryptString($banner->id)) }}"
+                                                        <a href="{{ route('banner_web.show', Crypt::encryptString($banner->id)) }}"
                                                             class="btn btn-sm btn-info">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
 
                                                         <!-- Edit -->
-                                                        <a href="{{ route('banner_Web.edit', Crypt::encryptString($banner->id)) }}"
+                                                        <a href="{{ route('banner_web.edit', Crypt::encryptString($banner->id)) }}"
                                                             class="btn btn-sm btn-warning">
                                                             <i class="fas fa-edit"></i>
                                                         </a>

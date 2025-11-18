@@ -30,8 +30,14 @@ class BlogController extends Controller
 
     public function create()
     {
+         $result = DB::table('cms_profils')
+                    ->whereNull('deleted_at')
+                    ->select('id','sub_web', 'nama_web')
+                    ->get();
+
         return view('cms.blog.tambah', [
             'title'   => $this->title,
+            'website' => $result,
             'menu'    => $this->menu,
             'submenu' => $this->submenu,
         ]);
@@ -40,8 +46,8 @@ class BlogController extends Controller
     public function store(Request $request)
     {
 
-
         $request->validate([
+            'nama_web'   => 'required',
             'judul'     => 'required|string|max:150',
             'kategori'  => 'required|string|max:50',
             'status1'    => 'required|string|max:50',
@@ -65,6 +71,7 @@ class BlogController extends Controller
             }
 
             BlogModel::create([
+                'id_web'       => $request->nama_web,
                 'judul'        => $request->judul,
                 'kategori'     => $request->kategori,
                 'status'       => $request->status1,
@@ -79,6 +86,7 @@ class BlogController extends Controller
             return redirect()->route('blog_web.index');
         } catch (\Throwable $err) {
             DB::rollBack();
+            Log::error('Update FAQ Error: ' . $err->getMessage());
             AlertHelper::addAlert(false);
             return back()->withErrors(['error' => $err->getMessage()]);
         }
@@ -100,9 +108,14 @@ class BlogController extends Controller
     {
         $id_decrypt = Crypt::decryptString($id);
         $blog = BlogModel::findOrFail($id_decrypt);
+        $result = DB::table('cms_profils')
+                    ->whereNull('deleted_at')
+                    ->select('id','sub_web', 'nama_web')
+                    ->get();
 
         return view('cms.blog.edit', compact('blog'))->with([
             'title'   => $this->title,
+            'website' => $result,
             'menu'    => $this->menu,
             'submenu' => $this->submenu,
         ]);
@@ -113,10 +126,11 @@ class BlogController extends Controller
         // dd($request->all());
 
         $request->validate([
-            'judul'     => 'required|string|max:150',
-            'kategori'  => 'required|string|max:50',
-            'status1'    => 'required|string|max:50',
-            'isi'       => 'required|string',
+            'nama_web'      => 'required',
+            'judul'         => 'required|string|max:150',
+            'kategori'      => 'required|string|max:50',
+            'status1'       => 'required|string|max:50',
+            'isi'           => 'required|string',
             'path_gambar1'   => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'path_gambar2'   => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'path_gambar3'   => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
@@ -128,6 +142,7 @@ class BlogController extends Controller
             $blog = BlogModel::findOrFail($id_decrypt);
 
             $dataUpdate = [
+                'id_web'   => $request->nama_web,
                 'judul'    => $request->judul,
                 'kategori' => $request->kategori,
                 'status'   => $request->status1,
@@ -154,7 +169,7 @@ class BlogController extends Controller
             return redirect()->route('blog_web.index');
         } catch (\Throwable $err) {
             DB::rollBack();
-            Log::error('Update Blog Error: ' . $err->getMessage());
+            Log::error('Update FAQ Error: ' . $err->getMessage());
             AlertHelper::addAlert(false);
             return back()->withErrors(['error' => $err->getMessage()]);
         }
@@ -178,9 +193,10 @@ class BlogController extends Controller
 
             DB::commit();
             AlertHelper::addAlert(true);
-            return redirect()->route('cms.blog.index');
+            return redirect()->route('blog_web.index');
         } catch (\Throwable $err) {
-            DB::rollback();
+            DB::rollBack();
+            Log::error('Update Blog Error: ' . $err->getMessage());
             AlertHelper::addAlert(false);
             return back()->withErrors(['error' => $err->getMessage()]);
         }

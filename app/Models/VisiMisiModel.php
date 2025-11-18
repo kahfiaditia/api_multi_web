@@ -11,4 +11,9 @@ class VisiMisiModel extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'cms_visi_misi';
     protected $guarded =[];
+
+    public function website()
+    {
+        return $this->belongsTo(WebProfilModel::class, 'id_web', 'id');
+    }
 }

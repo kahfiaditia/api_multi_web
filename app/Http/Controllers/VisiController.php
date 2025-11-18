@@ -30,8 +30,14 @@ class VisiController extends Controller
 
     public function create()
     {
+        $result = DB::table('cms_profils')
+                    ->whereNull('deleted_at')
+                    ->select('id','sub_web', 'nama_web')
+                    ->get();
+
         return view('cms.visi_misi.tambah')->with([
             'title' => $this->title,
+            'website' => $result,
             'menu' => $this->menu,
             'submenu' => $this->submenu,
         ]);
@@ -40,6 +46,7 @@ class VisiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'nama_web'         => 'required',
             'keterangan'       => 'nullable|string',
             'visi'             => 'nullable|string',
             'misi'             => 'nullable|string',
@@ -51,6 +58,7 @@ class VisiController extends Controller
         DB::beginTransaction();
         try {
             $data = [
+                'id_web'     => $request->nama_web,
                 'keterangan' => $request->keterangan,
                 'visi'       => $request->visi,
                 'misi'       => $request->misi,
@@ -101,10 +109,15 @@ class VisiController extends Controller
     {
         $id_decrypt = Crypt::decryptString($id);
         $visimisi = VisiMisiModel::findOrFail($id_decrypt);
+        $result = DB::table('cms_profils')
+                    ->whereNull('deleted_at')
+                    ->select('id','sub_web', 'nama_web')
+                    ->get();
 
         return view('cms.visi_misi.edit', compact('visimisi'))
             ->with([
                 'title' => $this->title,
+                'website' => $result,
                 'menu' => $this->menu,
                 'submenu' => $this->submenu,
             ]);
@@ -115,6 +128,7 @@ class VisiController extends Controller
         $id_decrypt = Crypt::decryptString($id);
 
         $request->validate([
+            'nama_web'         => 'required',
             'keterangan'       => 'nullable|string',
             'visi'             => 'nullable|string',
             'misi'             => 'nullable|string',
@@ -128,6 +142,7 @@ class VisiController extends Controller
             $visimisi = VisiMisiModel::findOrFail($id_decrypt);
 
             $data = [
+                'id_web'     => $request->nama_web,
                 'keterangan' => $request->keterangan,
                 'visi'       => $request->visi,
                 'misi'       => $request->misi,

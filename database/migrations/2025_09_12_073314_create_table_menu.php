@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('cms_menus', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_web')->nullable();
+            $table->foreign('id_web')->references('id')->on('cms_profils');
             $table->string('menu', 20);
             $table->string('route_menu', 30)->nullable();
             $table->string('typemenu', 20)->nullable();

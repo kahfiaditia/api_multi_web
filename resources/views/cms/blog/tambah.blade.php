@@ -28,24 +28,37 @@
                             <form action="{{ route('blog_web.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row g-3">
+
+                                     <!-- Web -->
+                                    <div class="col-md-3">
+                                        <label for="judul" class="form-label">Nama Website <span class="text-danger">*</span></label>
+                                        <select name="nama_web" id="nama_web" class="form-control" required>
+                                            <option value="">-- Pilih --</option>
+                                            @foreach ($website as $web)
+                                                <option value="{{ $web->id }}">{{ $web->nama_web }} - {{ $web->sub_web }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
                                     <!-- Judul -->
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <label for="judul" class="form-label">Judul <span class="text-danger">*</span></label>
                                         <input type="text" name="judul" id="judul" class="form-control"
                                             placeholder="Masukkan judul blog" required>
                                     </div>
 
                                     <!-- Kategori -->
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <label for="kategori" class="form-label">Kategori <span class="text-danger">*</span></label>
                                         <input type="text" name="kategori" id="kategori" class="form-control"
                                             placeholder="Masukkan kategori blog" required>
                                     </div>
 
                                     <!-- Status -->
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <label for="status1" class="form-label">Status <span class="text-danger">*</span></label>
                                         <select name="status1" id="status1" class="form-select" required>
+                                            <option value="">-- Pilih --</option>
                                             <option value="aktif">Aktif</option>
                                             <option value="nonaktif">Nonaktif</option>
                                         </select>
@@ -118,5 +131,5 @@
 
 
     <!-- TinyMCE (contoh pakai cdn) -->
-   
+
 
