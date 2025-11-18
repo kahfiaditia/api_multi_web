@@ -20,7 +20,7 @@
  * produce a color rather than just crashing.
  */
 
-(function($) {
+(function ($) {
     $.color = {};
 
     // construct color object with some convenient chainable helpers
@@ -57,7 +57,7 @@
 
         o.normalize = function () {
             function clamp(min, value, max) {
-                return value < min ? min : (value > max ? max : value);
+                return value < min ? min : value > max ? max : value;
             }
 
             o.r = clamp(0, parseInt(o.r), 255);
@@ -72,7 +72,7 @@
         };
 
         return o.normalize();
-    }
+    };
 
     // extract CSS color property from element, going up in the DOM
     // if it's "transparent"
@@ -83,7 +83,7 @@
             c = elem.css(css).toLowerCase();
             // keep going until we find an element that has color, or
             // we hit the body or root (have no parent)
-            if (c !== '' && c !== 'transparent') {
+            if (c !== "" && c !== "transparent") {
                 break;
             }
 
@@ -96,48 +96,87 @@
         }
 
         return $.color.parse(c);
-    }
+    };
 
     // parse CSS color string (like "rgb(10, 32, 43)" or "#fff"),
     // returns color object, if parsing failed, you get black (0, 0,
     // 0) out
     $.color.parse = function (str) {
-        var res, m = $.color.make;
+        var res,
+            m = $.color.make;
 
         // Look for rgb(num,num,num)
-        res = /rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(str);
+        res =
+            /rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(
+                str,
+            );
         if (res) {
-            return m(parseInt(res[1], 10), parseInt(res[2], 10), parseInt(res[3], 10));
+            return m(
+                parseInt(res[1], 10),
+                parseInt(res[2], 10),
+                parseInt(res[3], 10),
+            );
         }
 
         // Look for rgba(num,num,num,num)
-        res = /rgba\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]+(?:\.[0-9]+)?)\s*\)/.exec(str)
+        res =
+            /rgba\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]+(?:\.[0-9]+)?)\s*\)/.exec(
+                str,
+            );
         if (res) {
-            return m(parseInt(res[1], 10), parseInt(res[2], 10), parseInt(res[3], 10), parseFloat(res[4]));
+            return m(
+                parseInt(res[1], 10),
+                parseInt(res[2], 10),
+                parseInt(res[3], 10),
+                parseFloat(res[4]),
+            );
         }
 
         // Look for rgb(num%,num%,num%)
-        res = /rgb\(\s*([0-9]+(?:\.[0-9]+)?)%\s*,\s*([0-9]+(?:\.[0-9]+)?)%\s*,\s*([0-9]+(?:\.[0-9]+)?)%\s*\)/.exec(str);
+        res =
+            /rgb\(\s*([0-9]+(?:\.[0-9]+)?)%\s*,\s*([0-9]+(?:\.[0-9]+)?)%\s*,\s*([0-9]+(?:\.[0-9]+)?)%\s*\)/.exec(
+                str,
+            );
         if (res) {
-            return m(parseFloat(res[1]) * 2.55, parseFloat(res[2]) * 2.55, parseFloat(res[3]) * 2.55);
+            return m(
+                parseFloat(res[1]) * 2.55,
+                parseFloat(res[2]) * 2.55,
+                parseFloat(res[3]) * 2.55,
+            );
         }
 
         // Look for rgba(num%,num%,num%,num)
-        res = /rgba\(\s*([0-9]+(?:\.[0-9]+)?)%\s*,\s*([0-9]+(?:\.[0-9]+)?)%\s*,\s*([0-9]+(?:\.[0-9]+)?)%\s*,\s*([0-9]+(?:\.[0-9]+)?)\s*\)/.exec(str);
+        res =
+            /rgba\(\s*([0-9]+(?:\.[0-9]+)?)%\s*,\s*([0-9]+(?:\.[0-9]+)?)%\s*,\s*([0-9]+(?:\.[0-9]+)?)%\s*,\s*([0-9]+(?:\.[0-9]+)?)\s*\)/.exec(
+                str,
+            );
         if (res) {
-            return m(parseFloat(res[1]) * 2.55, parseFloat(res[2]) * 2.55, parseFloat(res[3]) * 2.55, parseFloat(res[4]));
+            return m(
+                parseFloat(res[1]) * 2.55,
+                parseFloat(res[2]) * 2.55,
+                parseFloat(res[3]) * 2.55,
+                parseFloat(res[4]),
+            );
         }
 
         // Look for #a0b1c2
         res = /#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/.exec(str);
         if (res) {
-            return m(parseInt(res[1], 16), parseInt(res[2], 16), parseInt(res[3], 16));
+            return m(
+                parseInt(res[1], 16),
+                parseInt(res[2], 16),
+                parseInt(res[3], 16),
+            );
         }
 
         // Look for #fff
         res = /#([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])/.exec(str);
         if (res) {
-            return m(parseInt(res[1] + res[1], 16), parseInt(res[2] + res[2], 16), parseInt(res[3] + res[3], 16));
+            return m(
+                parseInt(res[1] + res[1], 16),
+                parseInt(res[2] + res[2], 16),
+                parseInt(res[3] + res[3], 16),
+            );
         }
 
         // Otherwise, we're most likely dealing with a named color
@@ -149,7 +188,7 @@
             res = lookupColors[name] || [0, 0, 0];
             return m(res[0], res[1], res[2]);
         }
-    }
+    };
 
     var lookupColors = {
         aqua: [0, 255, 255],
@@ -194,6 +233,6 @@
         red: [255, 0, 0],
         silver: [192, 192, 192],
         white: [255, 255, 255],
-        yellow: [255, 255, 0]
+        yellow: [255, 255, 0],
     };
 })(jQuery);

@@ -7,7 +7,8 @@ mark.im-caret-select {
 }
 
 @keyframes blink {
-    from, to {
+    from,
+    to {
         border-right-color: black;
     }
     50% {
@@ -28,7 +29,8 @@ div.im-colormask {
     cursor: text;
 }
 
-div.im-colormask > input, div.im-colormask > input:-webkit-autofill {
+div.im-colormask > input,
+div.im-colormask > input:-webkit-autofill {
     position: absolute !important;
     display: inline-block;
     background-color: transparent;

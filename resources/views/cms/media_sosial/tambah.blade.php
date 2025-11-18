@@ -25,37 +25,54 @@
                     <div class="card-body">
                         <h5 class="card-title mb-4 text-primary"><i class="fas fa-plus-circle"></i> Form Tambah Sosial Media</h5>
 
+                         <!-- Tampilkan Error Validasi -->
+                                @if($errors->any())
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <h6 class="alert-heading mb-3">
+                                            <i class="fas fa-exclamation-triangle me-2"></i>
+                                            Terdapat kesalahan dalam pengisian form:
+                                        </h6>
+                                        <ul class="mb-0 ps-3">
+                                            @foreach($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif
+                            <!-- Tampilkan Error Validasi -->
+
                         <form action="{{ route('sosial_web.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row g-3">
                                 <!-- Nama Media -->
                                 <div class="col-md-6">
                                     <label for="nama_media" class="form-label">Nama Media <span class="text-danger">*</span></label>
-                                    <input type="text" name="nama_media" id="nama_media" 
-                                           class="form-control" placeholder="Contoh: Facebook, Instagram" 
+                                    <input type="text" name="nama_media" id="nama_media"
+                                           class="form-control" placeholder="Contoh: Facebook, Instagram"
                                            value="{{ old('nama_media') }}" required>
                                 </div>
 
                                 <!-- Link -->
                                 <div class="col-md-6">
                                     <label for="link" class="form-label">Link <span class="text-danger">*</span></label>
-                                    <input type="url" name="link" id="link" 
-                                           class="form-control" placeholder="https://facebook.com/yourpage" 
+                                    <input type="url" name="link" id="link"
+                                           class="form-control" placeholder="https://facebook.com/yourpage"
                                            value="{{ old('link') }}" required>
                                 </div>
 
                                 <!-- Keterangan -->
                                 <div class="col-md-12">
                                     <label for="keterangan" class="form-label">Keterangan</label>
-                                    <textarea name="keterangan" id="keterangan" 
-                                              class="form-control" rows="3" 
+                                    <textarea name="keterangan" id="keterangan"
+                                              class="form-control" rows="3"
                                               placeholder="Tuliskan keterangan singkat">{{ old('keterangan') }}</textarea>
                                 </div>
 
                                 <!-- Logo -->
                                 <div class="col-md-6">
                                     <label for="path_logo" class="form-label">Logo Media</label>
-                                    <input type="file" name="path_logo" id="path_logo" 
+                                    <input type="file" name="path_logo" id="path_logo"
                                            class="form-control" accept=".jpg,.jpeg,.png">
                                     <small class="text-muted">Format: jpg, jpeg, png | Max 2MB</small>
                                 </div>

@@ -4,8 +4,8 @@ Docs & License: https://fullcalendar.io/
 (c) 2019 Adam Shaw
 */
 
-import { DateTime, Duration } from 'luxon';
-import { createPlugin, Calendar, NamedTimeZoneImpl } from '@fullcalendar/core';
+import { DateTime, Duration } from "luxon";
+import { createPlugin, Calendar, NamedTimeZoneImpl } from "@fullcalendar/core";
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -23,72 +23,103 @@ and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+var extendStatics = function (d, b) {
+    extendStatics =
+        Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array &&
+            function (d, b) {
+                d.__proto__ = b;
+            }) ||
+        function (d, b) {
+            for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        };
     return extendStatics(d, b);
 };
 
 function __extends(d, b) {
     extendStatics(d, b);
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    function __() {
+        this.constructor = d;
+    }
+    d.prototype =
+        b === null
+            ? Object.create(b)
+            : ((__.prototype = b.prototype), new __());
 }
 
-var __assign = function() {
-    __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-        return t;
-    };
+var __assign = function () {
+    __assign =
+        Object.assign ||
+        function __assign(t) {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
+                s = arguments[i];
+                for (var p in s)
+                    if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+            }
+            return t;
+        };
     return __assign.apply(this, arguments);
 };
 
 function toDateTime(date, calendar) {
     if (!(calendar instanceof Calendar)) {
-        throw new Error('must supply a Calendar instance');
+        throw new Error("must supply a Calendar instance");
     }
     return DateTime.fromJSDate(date, {
         zone: calendar.dateEnv.timeZone,
-        locale: calendar.dateEnv.locale.codes[0]
+        locale: calendar.dateEnv.locale.codes[0],
     });
 }
 function toDuration(duration, calendar) {
     if (!(calendar instanceof Calendar)) {
-        throw new Error('must supply a Calendar instance');
+        throw new Error("must supply a Calendar instance");
     }
-    return Duration.fromObject(__assign({}, duration, { locale: calendar.dateEnv.locale.codes[0] }));
+    return Duration.fromObject(
+        __assign({}, duration, { locale: calendar.dateEnv.locale.codes[0] }),
+    );
 }
 var LuxonNamedTimeZone = /** @class */ (function (_super) {
     __extends(LuxonNamedTimeZone, _super);
     function LuxonNamedTimeZone() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        return (_super !== null && _super.apply(this, arguments)) || this;
     }
     LuxonNamedTimeZone.prototype.offsetForArray = function (a) {
         return arrayToLuxon(a, this.timeZoneName).offset;
     };
     LuxonNamedTimeZone.prototype.timestampToArray = function (ms) {
-        return luxonToArray(DateTime.fromMillis(ms, {
-            zone: this.timeZoneName
-        }));
+        return luxonToArray(
+            DateTime.fromMillis(ms, {
+                zone: this.timeZoneName,
+            }),
+        );
     };
     return LuxonNamedTimeZone;
-}(NamedTimeZoneImpl));
+})(NamedTimeZoneImpl);
 function formatWithCmdStr(cmdStr, arg) {
     var cmd = parseCmdStr(cmdStr);
     if (arg.end) {
-        var start = arrayToLuxon(arg.start.array, arg.timeZone, arg.localeCodes[0]);
+        var start = arrayToLuxon(
+            arg.start.array,
+            arg.timeZone,
+            arg.localeCodes[0],
+        );
         var end = arrayToLuxon(arg.end.array, arg.timeZone, arg.localeCodes[0]);
-        return formatRange(cmd, start.toFormat.bind(start), end.toFormat.bind(end), arg.separator);
+        return formatRange(
+            cmd,
+            start.toFormat.bind(start),
+            end.toFormat.bind(end),
+            arg.separator,
+        );
     }
-    return arrayToLuxon(arg.date.array, arg.timeZone, arg.localeCodes[0]).toFormat(cmd.whole);
+    return arrayToLuxon(
+        arg.date.array,
+        arg.timeZone,
+        arg.localeCodes[0],
+    ).toFormat(cmd.whole);
 }
 var main = createPlugin({
     cmdFormatter: formatWithCmdStr,
-    namedTimeZonedImpl: LuxonNamedTimeZone
+    namedTimeZonedImpl: LuxonNamedTimeZone,
 });
 function luxonToArray(datetime) {
     return [
@@ -98,7 +129,7 @@ function luxonToArray(datetime) {
         datetime.hour,
         datetime.minute,
         datetime.second,
-        datetime.millisecond
+        datetime.millisecond,
     ];
 }
 function arrayToLuxon(arr, timeZone, locale) {
@@ -111,7 +142,7 @@ function arrayToLuxon(arr, timeZone, locale) {
         hour: arr[3],
         minute: arr[4],
         second: arr[5],
-        millisecond: arr[6]
+        millisecond: arr[6],
     });
 }
 function parseCmdStr(cmdStr) {
@@ -122,38 +153,50 @@ function parseCmdStr(cmdStr) {
             head: parts[1],
             middle: middle,
             tail: parts[3],
-            whole: parts[1] + middle.whole + parts[3]
+            whole: parts[1] + middle.whole + parts[3],
         };
-    }
-    else {
+    } else {
         return {
             head: null,
             middle: null,
             tail: null,
-            whole: cmdStr
+            whole: cmdStr,
         };
     }
 }
 function formatRange(cmd, formatStart, formatEnd, separator) {
     if (cmd.middle) {
         var startHead = formatStart(cmd.head);
-        var startMiddle = formatRange(cmd.middle, formatStart, formatEnd, separator);
+        var startMiddle = formatRange(
+            cmd.middle,
+            formatStart,
+            formatEnd,
+            separator,
+        );
         var startTail = formatStart(cmd.tail);
         var endHead = formatEnd(cmd.head);
-        var endMiddle = formatRange(cmd.middle, formatStart, formatEnd, separator);
+        var endMiddle = formatRange(
+            cmd.middle,
+            formatStart,
+            formatEnd,
+            separator,
+        );
         var endTail = formatEnd(cmd.tail);
         if (startHead === endHead && startTail === endTail) {
-            return startHead +
-                (startMiddle === endMiddle ? startMiddle : startMiddle + separator + endMiddle) +
-                startTail;
+            return (
+                startHead +
+                (startMiddle === endMiddle
+                    ? startMiddle
+                    : startMiddle + separator + endMiddle) +
+                startTail
+            );
         }
     }
     var startWhole = formatStart(cmd.whole);
     var endWhole = formatEnd(cmd.whole);
     if (startWhole === endWhole) {
         return startWhole;
-    }
-    else {
+    } else {
         return startWhole + separator + endWhole;
     }
 }

@@ -4,9 +4,9 @@ Docs & License: https://fullcalendar.io/
 (c) 2019 Adam Shaw
 */
 
-import * as momentNs from 'moment';
-import 'moment-timezone/builds/moment-timezone-with-data';
-import { createPlugin, NamedTimeZoneImpl } from '@fullcalendar/core';
+import * as momentNs from "moment";
+import "moment-timezone/builds/moment-timezone-with-data";
+import { createPlugin, NamedTimeZoneImpl } from "@fullcalendar/core";
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -24,24 +24,35 @@ and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+var extendStatics = function (d, b) {
+    extendStatics =
+        Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array &&
+            function (d, b) {
+                d.__proto__ = b;
+            }) ||
+        function (d, b) {
+            for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        };
     return extendStatics(d, b);
 };
 
 function __extends(d, b) {
     extendStatics(d, b);
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    function __() {
+        this.constructor = d;
+    }
+    d.prototype =
+        b === null
+            ? Object.create(b)
+            : ((__.prototype = b.prototype), new __());
 }
 
 var moment = momentNs; // the directly callable function
 var MomentNamedTimeZone = /** @class */ (function (_super) {
     __extends(MomentNamedTimeZone, _super);
     function MomentNamedTimeZone() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        return (_super !== null && _super.apply(this, arguments)) || this;
     }
     MomentNamedTimeZone.prototype.offsetForArray = function (a) {
         return moment.tz(a, this.timeZoneName).utcOffset();
@@ -50,9 +61,9 @@ var MomentNamedTimeZone = /** @class */ (function (_super) {
         return moment.tz(ms, this.timeZoneName).toArray();
     };
     return MomentNamedTimeZone;
-}(NamedTimeZoneImpl));
+})(NamedTimeZoneImpl);
 var main = createPlugin({
-    namedTimeZonedImpl: MomentNamedTimeZone
+    namedTimeZonedImpl: MomentNamedTimeZone,
 });
 
 export default main;

@@ -25,6 +25,23 @@
                     <div class="card-body">
                         <h5 class="card-title mb-4 text-warning"><i class="fas fa-edit"></i> Form Edit Client</h5>
 
+                        <!-- Tampilkan Error Validasi -->
+                                @if($errors->any())
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <h6 class="alert-heading mb-3">
+                                            <i class="fas fa-exclamation-triangle me-2"></i>
+                                            Terdapat kesalahan dalam pengisian form:
+                                        </h6>
+                                        <ul class="mb-0 ps-3">
+                                            @foreach($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif
+                        <!-- Tampilkan Error Validasi -->
+
                         <form action="{{ route('client_web.update', Crypt::encryptString($client->id)) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -33,7 +50,7 @@
                                 <!-- Nama Client -->
                                 <div class="col-md-6">
                                     <label for="client_name" class="form-label">Nama Client <span class="text-danger">*</span></label>
-                                    <input type="text" name="client_name" id="client_name" 
+                                    <input type="text" name="client_name" id="client_name"
                                            class="form-control @error('client_name') is-invalid @enderror"
                                            value="{{ old('client_name', $client->client_name) }}" required>
                                     @error('client_name')
@@ -44,7 +61,7 @@
                                 <!-- Deskripsi -->
                                 <div class="col-md-6">
                                     <label for="deskripsi" class="form-label">Deskripsi</label>
-                                    <input type="text" name="deskripsi" id="deskripsi" 
+                                    <input type="text" name="deskripsi" id="deskripsi"
                                            class="form-control @error('deskripsi') is-invalid @enderror"
                                            value="{{ old('deskripsi', $client->deskripsi) }}">
                                     @error('deskripsi')
@@ -55,7 +72,7 @@
                                 <!-- Status -->
                                 <div class="col-md-6">
                                     <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
-                                    <select name="status1" id="status1" 
+                                    <select name="status1" id="status1"
                                             class="form-select @error('status') is-invalid @enderror" required>
                                         <option value="aktif" {{ old('status', $client->status) == 'aktif' ? 'selected' : '' }}>Aktif</option>
                                         <option value="nonaktif" {{ old('status', $client->status) == 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
@@ -68,7 +85,7 @@
                                 <!-- Upload Gambar -->
                                 <div class="col-md-6">
                                     <label for="path_gambar" class="form-label">Gambar</label>
-                                    <input type="file" name="path_gambar" id="path_gambar" 
+                                    <input type="file" name="path_gambar" id="path_gambar"
                                            class="form-control @error('path_gambar') is-invalid @enderror"
                                            accept=".jpg,.jpeg,.png">
                                     @error('path_gambar')

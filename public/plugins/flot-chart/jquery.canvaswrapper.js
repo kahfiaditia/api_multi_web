@@ -12,30 +12,30 @@ don't work unless the canvas is attached to the DOM.
 ### jquery.canvaswrapper.js API functions
 */
 
-(function($) {
-    var Canvas = function(cls, container) {
+(function ($) {
+    var Canvas = function (cls, container) {
         var element = container.getElementsByClassName(cls)[0];
 
         if (!element) {
-            element = document.createElement('canvas');
+            element = document.createElement("canvas");
             element.className = cls;
-            element.style.direction = 'ltr';
-            element.style.position = 'absolute';
-            element.style.left = '0px';
-            element.style.top = '0px';
+            element.style.direction = "ltr";
+            element.style.position = "absolute";
+            element.style.left = "0px";
+            element.style.top = "0px";
 
             container.appendChild(element);
 
             // If HTML5 Canvas isn't available, throw
 
             if (!element.getContext) {
-                throw new Error('Canvas is not available.');
+                throw new Error("Canvas is not available.");
             }
         }
 
         this.element = element;
 
-        var context = this.context = element.getContext('2d');
+        var context = (this.context = element.getContext("2d"));
         this.pixelRatio = $.plot.browser.getPixelRatio(context);
 
         // Size the canvas to match the internal dimensions of its container
@@ -52,7 +52,7 @@ don't work unless the canvas is attached to the DOM.
         // re-calculating them when the plot is re-rendered in a loop.
 
         this._textCache = {};
-    }
+    };
 
     /**
     - resize(width, height)
@@ -62,7 +62,7 @@ don't work unless the canvas is attached to the DOM.
      is the new height of the canvas, both of them in pixels.
     */
 
-    Canvas.prototype.resize = function(width, height) {
+    Canvas.prototype.resize = function (width, height) {
         var minSize = 10;
         width = width < minSize ? minSize : width;
         height = height < minSize ? minSize : height;
@@ -80,13 +80,13 @@ don't work unless the canvas is attached to the DOM.
 
         if (this.width !== width) {
             element.width = width * pixelRatio;
-            element.style.width = width + 'px';
+            element.style.width = width + "px";
             this.width = width;
         }
 
         if (this.height !== height) {
             element.height = height * pixelRatio;
-            element.style.height = height + 'px';
+            element.style.height = height + "px";
             this.height = height;
         }
 
@@ -109,7 +109,7 @@ don't work unless the canvas is attached to the DOM.
 
      Clears the entire canvas area, not including any overlaid HTML text
     */
-    Canvas.prototype.clear = function() {
+    Canvas.prototype.clear = function () {
         this.context.clearRect(0, 0, this.width, this.height);
     };
 
@@ -118,7 +118,7 @@ don't work unless the canvas is attached to the DOM.
 
      Finishes rendering the canvas, including managing the text overlay.
     */
-    Canvas.prototype.render = function() {
+    Canvas.prototype.render = function () {
         var cache = this._textCache;
 
         // For each text layer, add elements marked as active that haven't
@@ -130,7 +130,7 @@ don't work unless the canvas is attached to the DOM.
                     layerCache = cache[layerKey];
 
                 var display = layer.style.display;
-                layer.style.display = 'none';
+                layer.style.display = "none";
 
                 for (var styleKey in layerCache) {
                     if (hasOwnProperty.call(layerCache, styleKey)) {
@@ -150,10 +150,16 @@ don't work unless the canvas is attached to the DOM.
                                     } else {
                                         positions.splice(i--, 1);
                                         if (position.rendered) {
-                                            while (position.element.firstChild) {
-                                                position.element.removeChild(position.element.firstChild);
+                                            while (
+                                                position.element.firstChild
+                                            ) {
+                                                position.element.removeChild(
+                                                    position.element.firstChild,
+                                                );
                                             }
-                                            position.element.parentNode.removeChild(position.element);
+                                            position.element.parentNode.removeChild(
+                                                position.element,
+                                            );
                                         }
                                     }
                                 }
@@ -182,7 +188,7 @@ don't work unless the canvas is attached to the DOM.
      The classes string represents the string of space-separated CSS classes
      used to uniquely identify the text layer. It return the svg-layer div.
     */
-    Canvas.prototype.getSVGLayer = function(classes) {
+    Canvas.prototype.getSVGLayer = function (classes) {
         var layer = this.SVG[classes];
 
         // Create the SVG layer if it doesn't exist
@@ -193,32 +199,35 @@ don't work unless the canvas is attached to the DOM.
             var svgElement;
 
             if (!this.SVGContainer) {
-                this.SVGContainer = document.createElement('div');
-                this.SVGContainer.className = 'flot-svg';
-                this.SVGContainer.style.position = 'absolute';
-                this.SVGContainer.style.top = '0px';
-                this.SVGContainer.style.left = '0px';
-                this.SVGContainer.style.height = '100%';
-                this.SVGContainer.style.width = '100%';
-                this.SVGContainer.style.pointerEvents = 'none';
+                this.SVGContainer = document.createElement("div");
+                this.SVGContainer.className = "flot-svg";
+                this.SVGContainer.style.position = "absolute";
+                this.SVGContainer.style.top = "0px";
+                this.SVGContainer.style.left = "0px";
+                this.SVGContainer.style.height = "100%";
+                this.SVGContainer.style.width = "100%";
+                this.SVGContainer.style.pointerEvents = "none";
                 this.element.parentNode.appendChild(this.SVGContainer);
 
-                svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-                svgElement.style.width = '100%';
-                svgElement.style.height = '100%';
+                svgElement = document.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "svg",
+                );
+                svgElement.style.width = "100%";
+                svgElement.style.height = "100%";
 
                 this.SVGContainer.appendChild(svgElement);
             } else {
                 svgElement = this.SVGContainer.firstChild;
             }
 
-            layer = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            layer.setAttribute('class', classes);
-            layer.style.position = 'absolute';
-            layer.style.top = '0px';
-            layer.style.left = '0px';
-            layer.style.bottom = '0px';
-            layer.style.right = '0px';
+            layer = document.createElementNS("http://www.w3.org/2000/svg", "g");
+            layer.setAttribute("class", classes);
+            layer.style.position = "absolute";
+            layer.style.top = "0px";
+            layer.style.left = "0px";
+            layer.style.bottom = "0px";
+            layer.style.right = "0px";
             svgElement.appendChild(layer);
             this.SVG[classes] = layer;
         }
@@ -268,17 +277,28 @@ don't work unless the canvas is attached to the DOM.
      The last parameter is the Maximum width of the text before it wraps.
      The method returns a text info object.
     */
-    Canvas.prototype.getTextInfo = function(layer, text, font, angle, width) {
+    Canvas.prototype.getTextInfo = function (layer, text, font, angle, width) {
         var textStyle, layerCache, styleCache, info;
 
         // Cast the value to a string, in case we were given a number or such
 
-        text = '' + text;
+        text = "" + text;
 
         // If the font is a font-spec object, generate a CSS font definition
 
-        if (typeof font === 'object') {
-            textStyle = font.style + ' ' + font.variant + ' ' + font.weight + ' ' + font.size + 'px/' + font.lineHeight + 'px ' + font.family;
+        if (typeof font === "object") {
+            textStyle =
+                font.style +
+                " " +
+                font.variant +
+                " " +
+                font.weight +
+                " " +
+                font.size +
+                "px/" +
+                font.lineHeight +
+                "px " +
+                font.family;
         } else {
             textStyle = font;
         }
@@ -303,24 +323,27 @@ don't work unless the canvas is attached to the DOM.
         // If we can't find a matching element in our cache, create a new one
 
         if (!info) {
-            var element = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-            if (text.indexOf('<br>') !== -1) {
+            var element = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "text",
+            );
+            if (text.indexOf("<br>") !== -1) {
                 addTspanElements(text, element, -9999);
             } else {
                 var textNode = document.createTextNode(text);
                 element.appendChild(textNode);
             }
 
-            element.style.position = 'absolute';
+            element.style.position = "absolute";
             element.style.maxWidth = width;
-            element.setAttributeNS(null, 'x', -9999);
-            element.setAttributeNS(null, 'y', -9999);
+            element.setAttributeNS(null, "x", -9999);
+            element.setAttributeNS(null, "y", -9999);
 
-            if (typeof font === 'object') {
+            if (typeof font === "object") {
                 element.style.font = textStyle;
                 element.style.fill = font.fill;
-            } else if (typeof font === 'string') {
-                element.setAttribute('class', font);
+            } else if (typeof font === "string") {
+                element.setAttribute("class", font);
             }
 
             this.getSVGLayer(layer).appendChild(element);
@@ -331,7 +354,7 @@ don't work unless the canvas is attached to the DOM.
                 height: elementRect.height,
                 measured: true,
                 element: element,
-                positions: []
+                positions: [],
             };
 
             //remove elements from dom
@@ -345,10 +368,10 @@ don't work unless the canvas is attached to the DOM.
         return info;
     };
 
-    function updateTransforms (element, transforms) {
+    function updateTransforms(element, transforms) {
         element.transform.baseVal.clear();
         if (transforms) {
-            transforms.forEach(function(t) {
+            transforms.forEach(function (t) {
                 element.transform.baseVal.appendItem(t);
             });
         }
@@ -366,33 +389,47 @@ don't work unless the canvas is attached to the DOM.
      X and Y represents the X and Y coordinate at which to draw the text.
      and text is the string to draw
     */
-    Canvas.prototype.addText = function(layer, x, y, text, font, angle, width, halign, valign, transforms) {
+    Canvas.prototype.addText = function (
+        layer,
+        x,
+        y,
+        text,
+        font,
+        angle,
+        width,
+        halign,
+        valign,
+        transforms,
+    ) {
         var info = this.getTextInfo(layer, text, font, angle, width),
             positions = info.positions;
 
         // Tweak the div's position to match the text's alignment
 
-        if (halign === 'center') {
+        if (halign === "center") {
             x -= info.width / 2;
-        } else if (halign === 'right') {
+        } else if (halign === "right") {
             x -= info.width;
         }
 
-        if (valign === 'middle') {
+        if (valign === "middle") {
             y -= info.height / 2;
-        } else if (valign === 'bottom') {
+        } else if (valign === "bottom") {
             y -= info.height;
         }
 
         y += 0.75 * info.height;
-
 
         // Determine whether this text already exists at this position.
         // If so, mark it for inclusion in the next render pass.
 
         for (var i = 0, position; positions[i]; i++) {
             position = positions[i];
-            if (position.x === x && position.y === y && position.text === text) {
+            if (
+                position.x === x &&
+                position.y === y &&
+                position.text === text
+            ) {
                 position.active = true;
                 // update the transforms
                 updateTransforms(position.element, transforms);
@@ -401,14 +438,14 @@ don't work unless the canvas is attached to the DOM.
             } else if (position.active === false) {
                 position.active = true;
                 position.text = text;
-                if (text.indexOf('<br>') !== -1) {
+                if (text.indexOf("<br>") !== -1) {
                     y -= 0.25 * info.height;
                     addTspanElements(text, position.element, x);
                 } else {
                     position.element.textContent = text;
                 }
-                position.element.setAttributeNS(null, 'x', x);
-                position.element.setAttributeNS(null, 'y', y);
+                position.element.setAttributeNS(null, "x", x);
+                position.element.setAttributeNS(null, "y", y);
                 position.x = x;
                 position.y = y;
                 // update the transforms
@@ -429,12 +466,12 @@ don't work unless the canvas is attached to the DOM.
             element: positions.length ? info.element.cloneNode() : info.element,
             text: text,
             x: x,
-            y: y
+            y: y,
         };
 
         positions.push(position);
 
-        if (text.indexOf('<br>') !== -1) {
+        if (text.indexOf("<br>") !== -1) {
             y -= 0.25 * info.height;
             addTspanElements(text, position.element, x);
         } else {
@@ -442,30 +479,35 @@ don't work unless the canvas is attached to the DOM.
         }
 
         // Move the element to its final position within the container
-        position.element.setAttributeNS(null, 'x', x);
-        position.element.setAttributeNS(null, 'y', y);
+        position.element.setAttributeNS(null, "x", x);
+        position.element.setAttributeNS(null, "y", y);
         position.element.style.textAlign = halign;
         // update the transforms
         updateTransforms(position.element, transforms);
-   };
+    };
 
-    var addTspanElements = function(text, element, x) {
-        var lines = text.split('<br>'),
-            tspan, i, offset;
+    var addTspanElements = function (text, element, x) {
+        var lines = text.split("<br>"),
+            tspan,
+            i,
+            offset;
 
         for (i = 0; i < lines.length; i++) {
             if (!element.childNodes[i]) {
-                tspan = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+                tspan = document.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "tspan",
+                );
                 element.appendChild(tspan);
             } else {
                 tspan = element.childNodes[i];
             }
             tspan.textContent = lines[i];
-            offset = i * 1 + 'em';
-            tspan.setAttributeNS(null, 'dy', offset);
-            tspan.setAttributeNS(null, 'x', x);
+            offset = i * 1 + "em";
+            tspan.setAttributeNS(null, "dy", offset);
+            tspan.setAttributeNS(null, "x", x);
         }
-    }
+    };
 
     /**
     - removeText (layer, x, y, text, font, angle)
@@ -485,7 +527,7 @@ don't work unless the canvas is attached to the DOM.
       Text is the string to remove, while the font is either a string of space-separated CSS
       classes or a font-spec object, defining the text's font and style.
      */
-    Canvas.prototype.removeText = function(layer, x, y, text, font, angle) {
+    Canvas.prototype.removeText = function (layer, x, y, text, font, angle) {
         var info, htmlYCoord;
         if (text == null) {
             var layerCache = this._textCache[layer];
@@ -496,7 +538,7 @@ don't work unless the canvas is attached to the DOM.
                         for (var key in styleCache) {
                             if (hasOwnProperty.call(styleCache, key)) {
                                 var positions = styleCache[key].positions;
-                                positions.forEach(function(position) {
+                                positions.forEach(function (position) {
                                     position.active = false;
                                 });
                             }
@@ -507,9 +549,13 @@ don't work unless the canvas is attached to the DOM.
         } else {
             info = this.getTextInfo(layer, text, font, angle);
             positions = info.positions;
-            positions.forEach(function(position) {
+            positions.forEach(function (position) {
                 htmlYCoord = y + 0.75 * info.height;
-                if (position.x === x && position.y === htmlYCoord && position.text === text) {
+                if (
+                    position.x === x &&
+                    position.y === htmlYCoord &&
+                    position.text === text
+                ) {
                     position.active = false;
                 }
             });
@@ -524,7 +570,7 @@ don't work unless the canvas is attached to the DOM.
      Use this function before plot.setupGrid() and plot.draw() if the plot just
      became visible or the styles changed.
     */
-    Canvas.prototype.clearCache = function() {
+    Canvas.prototype.clearCache = function () {
         var cache = this._textCache;
         for (var layerKey in cache) {
             if (hasOwnProperty.call(cache, layerKey)) {
@@ -533,13 +579,13 @@ don't work unless the canvas is attached to the DOM.
                     layer.removeChild(layer.firstChild);
                 }
             }
-        };
+        }
 
         this._textCache = {};
     };
 
     function generateKey(text) {
-        return text.replace(/0|1|2|3|4|5|6|7|8|9/g, '0');
+        return text.replace(/0|1|2|3|4|5|6|7|8|9/g, "0");
     }
 
     if (!window.Flot) {

@@ -18,7 +18,7 @@
                         <i data-feather="chevrons-left" class="align-self-center icon-xs"></i>
                     </a>
                 </div>
-            </div>                                                             
+            </div>
         </div>
     </div>
 </div>
@@ -31,8 +31,25 @@
                 <p class="text-muted mb-0">Silakan isi data blog di bawah ini.</p>
             </div>
             <div class="card-body">
+                 <!-- Tampilkan Error Validasi -->
+                                @if($errors->any())
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <h6 class="alert-heading mb-3">
+                                            <i class="fas fa-exclamation-triangle me-2"></i>
+                                            Terdapat kesalahan dalam pengisian form:
+                                        </h6>
+                                        <ul class="mb-0 ps-3">
+                                            @foreach($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif
+                            <!-- Tampilkan Error Validasi -->
+
                 <form id="formUpload" enctype="multipart/form-data">
-                    
+
                     <div class="row">
 
                         <div class="col-md-6 mt-3">
@@ -45,10 +62,10 @@
                             <input type="text" name="kategori" id="kategori" value="Kegiatan" class="form-control" placeholder="Masukkan Judul Blog" disabled>
                         </div>
 
-                        <div class="col-md-12 mt-3">                                                  
-                           
+                        <div class="col-md-12 mt-3">
+
                                 <textarea id="elm1" name="area"></textarea>
-                           
+
                         </div>
 
                         <div class="col-md-6 mt-3">
@@ -128,7 +145,7 @@
                 processData: false,
                 contentType: false,
                 success: (response) => {
-                    
+
                     if (response.code === 200) {
                         Swal.fire(
                             'Success',

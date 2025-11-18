@@ -28,9 +28,27 @@
                             </h5>
                         </div>
                         <div class="card-body">
+
+                             <!-- Tampilkan Error Validasi -->
+                                @if($errors->any())
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <h6 class="alert-heading mb-3">
+                                            <i class="fas fa-exclamation-triangle me-2"></i>
+                                            Terdapat kesalahan dalam pengisian form:
+                                        </h6>
+                                        <ul class="mb-0 ps-3">
+                                            @foreach($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif
+                            <!-- Tampilkan Error Validasi -->
+
                             <form action="{{ route('profil_web.store') }}" method="POST" enctype="multipart/form-data" id="form-profil">
                                 @csrf
-                                
+
                                 <div class="row g-3">
                                     <!-- Informasi Perusahaan -->
                                     <div class="col-12">
@@ -43,7 +61,7 @@
                                         <label for="nama_pt" class="form-label fw-semibold">
                                             Nama Perusahaan <span class="text-danger">*</span>
                                         </label>
-                                        <input type="text" name="nama_pt" id="nama_pt" class="form-control" 
+                                        <input type="text" name="nama_pt" id="nama_pt" class="form-control"
                                                placeholder="Masukkan nama perusahaan" required>
                                     </div>
 
@@ -51,7 +69,7 @@
                                         <label for="nama_web" class="form-label fw-semibold">Domain</label>
                                         <div class="input-group">
                                             <span class="input-group-text">https://</span>
-                                            <input type="text" name="nama_web" id="nama_web" class="form-control" 
+                                            <input type="text" name="nama_web" id="nama_web" class="form-control"
                                                    placeholder="perusahaan.com">
                                         </div>
                                     </div>
@@ -60,7 +78,7 @@
                                         <label for="sub_web" class="form-label fw-semibold">Sub Domain</label>
                                         <div class="input-group">
                                             <span class="input-group-text">https://</span>
-                                            <input type="text" name="sub_web" id="sub_web" class="form-control" 
+                                            <input type="text" name="sub_web" id="sub_web" class="form-control"
                                                    placeholder="subdomain.perusahaan.com">
                                         </div>
                                     </div>
@@ -105,25 +123,25 @@
 
                                     <div class="col-md-6">
                                         <label for="telepon_1" class="form-label fw-semibold">Telepon</label>
-                                        <input type="text" name="telepon_1" id="telepon_1" class="form-control" 
+                                        <input type="text" name="telepon_1" id="telepon_1" class="form-control"
                                                placeholder="Contoh: (021) 1234567">
                                     </div>
 
                                     <div class="col-md-6">
                                         <label for="telepon_2" class="form-label fw-semibold">Nomor HP/WhatsApp</label>
-                                        <input type="text" name="telepon_2" id="telepon_2" class="form-control" 
+                                        <input type="text" name="telepon_2" id="telepon_2" class="form-control"
                                                placeholder="Contoh: 0812-3456-7890">
                                     </div>
 
                                     <div class="col-md-6">
                                         <label for="email_1" class="form-label fw-semibold">Email Utama</label>
-                                        <input type="email" name="email_1" id="email_1" class="form-control" 
+                                        <input type="email" name="email_1" id="email_1" class="form-control"
                                                placeholder="email@utama.com">
                                     </div>
 
                                     <div class="col-md-6">
                                         <label for="email_2" class="form-label fw-semibold">Email Cadangan</label>
-                                        <input type="email" name="email_2" id="email_2" class="form-control" 
+                                        <input type="email" name="email_2" id="email_2" class="form-control"
                                                placeholder="email@cadangan.com">
                                     </div>
 
@@ -150,7 +168,7 @@
 
                                     <div class="col-md-6">
                                         <label for="gambar" class="form-label fw-semibold">Logo Perusahaan</label>
-                                        <input type="file" name="gambar" id="gambar" class="form-control" 
+                                        <input type="file" name="gambar" id="gambar" class="form-control"
                                                accept=".jpg,.jpeg,.png,.gif">
                                         <div class="form-text">Format: JPG, PNG, GIF (Maks. 2MB)</div>
                                     </div>

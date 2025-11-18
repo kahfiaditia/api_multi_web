@@ -26,14 +26,14 @@
                 <div class="card card-animate">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
-                            <div class="flex-grow-1">
+                            <div class="grow">
                                 <p class="text-uppercase fw-medium text-muted mb-0">Total Pengunjung</p>
                                 <h4 class="mt-2 mb-0">12,458</h4>
                                 <p class="text-success mb-0 mt-2">
                                     <span class="badge bg-success-subtle text-success p-1"><i class="fas fa-arrow-up"></i> 18.25%</span> vs bulan lalu
                                 </p>
                             </div>
-                            <div class="flex-shrink-0">
+                            <div class="shrink-0">
                                 <div class="avatar-sm rounded-circle bg-primary bg-opacity-10 text-center">
                                     <i class="fas fa-users text-primary font-size-24"></i>
                                 </div>
@@ -47,14 +47,14 @@
                 <div class="card card-animate">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
-                            <div class="flex-grow-1">
+                            <div class="grow">
                                 <p class="text-uppercase fw-medium text-muted mb-0">Total Banner</p>
                                 <h4 class="mt-2 mb-0">48</h4>
                                 <p class="text-success mb-0 mt-2">
                                     <span class="badge bg-success-subtle text-success p-1"><i class="fas fa-arrow-up"></i> 5.2%</span> aktif
                                 </p>
                             </div>
-                            <div class="flex-shrink-0">
+                            <div class="shrink-0">
                                 <div class="avatar-sm rounded-circle bg-success bg-opacity-10 text-center">
                                     <i class="fas fa-image text-success font-size-24"></i>
                                 </div>
@@ -68,14 +68,14 @@
                 <div class="card card-animate">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
-                            <div class="flex-grow-1">
+                            <div class="grow">
                                 <p class="text-uppercase fw-medium text-muted mb-0">Klik Banner</p>
                                 <h4 class="mt-2 mb-0">2,548</h4>
                                 <p class="text-danger mb-0 mt-2">
                                     <span class="badge bg-danger-subtle text-danger p-1"><i class="fas fa-arrow-down"></i> 2.1%</span> vs bulan lalu
                                 </p>
                             </div>
-                            <div class="flex-shrink-0">
+                            <div class="shrink-0">
                                 <div class="avatar-sm rounded-circle bg-warning bg-opacity-10 text-center">
                                     <i class="fas fa-mouse text-warning font-size-24"></i>
                                 </div>
@@ -89,14 +89,14 @@
                 <div class="card card-animate">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
-                            <div class="flex-grow-1">
+                            <div class="grow">
                                 <p class="text-uppercase fw-medium text-muted mb-0">Konversi</p>
                                 <h4 class="mt-2 mb-0">8.45%</h4>
                                 <p class="text-success mb-0 mt-2">
                                     <span class="badge bg-success-subtle text-success p-1"><i class="fas fa-arrow-up"></i> 1.25%</span> vs bulan lalu
                                 </p>
                             </div>
-                            <div class="flex-shrink-0">
+                            <div class="shrink-0">
                                 <div class="avatar-sm rounded-circle bg-info bg-opacity-10 text-center">
                                     <i class="fas fa-chart-line text-info font-size-24"></i>
                                 </div>
@@ -139,50 +139,50 @@
                     <div class="card-body">
                         <h4 class="card-title mb-4">Banner Terpopuler</h4>
                         <div class="d-flex align-items-center mb-4">
-                            <div class="flex-shrink-0">
+                            <div class="shrink-0">
                                 <img src="https://via.placeholder.com/60" alt="banner" class="rounded" width="60">
                             </div>
-                            <div class="flex-grow-1 ms-3">
+                            <div class="grow ms-3">
                                 <h5 class="font-size-16 mb-1">Promo Spesial</h5>
                                 <p class="text-muted mb-0">1,245 klik</p>
                             </div>
-                            <div class="flex-shrink-0">
+                            <div class="shrink-0">
                                 <span class="badge bg-success">Aktif</span>
                             </div>
                         </div>
                         <div class="d-flex align-items-center mb-4">
-                            <div class="flex-shrink-0">
+                            <div class="shrink-0">
                                 <img src="https://via.placeholder.com/60" alt="banner" class="rounded" width="60">
                             </div>
-                            <div class="flex-grow-1 ms-3">
+                            <div class="grow ms-3">
                                 <h5 class="font-size-16 mb-1">New Collection</h5>
                                 <p class="text-muted mb-0">987 klik</p>
                             </div>
-                            <div class="flex-shrink-0">
+                            <div class="shrink-0">
                                 <span class="badge bg-success">Aktif</span>
                             </div>
                         </div>
                         <div class="d-flex align-items-center mb-4">
-                            <div class="flex-shrink-0">
+                            <div class="shrink-0">
                                 <img src="https://via.placeholder.com/60" alt="banner" class="rounded" width="60">
                             </div>
-                            <div class="flex-grow-1 ms-3">
+                            <div class="grow ms-3">
                                 <h5 class="font-size-16 mb-1">Summer Sale</h5>
                                 <p class="text-muted mb-0">756 klik</p>
                             </div>
-                            <div class="flex-shrink-0">
+                            <div class="shrink-0">
                                 <span class="badge bg-warning">Paused</span>
                             </div>
                         </div>
                         <div class="d-flex align-items-center">
-                            <div class="flex-shrink-0">
+                            <div class="shrink-0">
                                 <img src="https://via.placeholder.com/60" alt="banner" class="rounded" width="60">
                             </div>
-                            <div class="flex-grow-1 ms-3">
+                            <div class="grow ms-3">
                                 <h5 class="font-size-16 mb-1">Flash Sale</h5>
                                 <p class="text-muted mb-0">543 klik</p>
                             </div>
-                            <div class="flex-shrink-0">
+                            <div class="shrink-0">
                                 <span class="badge bg-success">Aktif</span>
                             </div>
                         </div>
@@ -216,7 +216,7 @@
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <img src="https://via.placeholder.com/40" alt="banner" class="rounded me-3" width="40">
-                                                <div>
+                                                <div class="grow">
                                                     <h5 class="font-size-14 mb-1">Promo Spesial</h5>
                                                     <p class="text-muted mb-0">Homepage</p>
                                                 </div>
@@ -236,7 +236,7 @@
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <img src="https://via.placeholder.com/40" alt="banner" class="rounded me-3" width="40">
-                                                <div>
+                                                <div class="grow">
                                                     <h5 class="font-size-14 mb-1">New Collection</h5>
                                                     <p class="text-muted mb-0">Category Page</p>
                                                 </div>
@@ -256,7 +256,7 @@
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <img src="https://via.placeholder.com/40" alt="banner" class="rounded me-3" width="40">
-                                                <div>
+                                                <div class="grow">
                                                     <h5 class="font-size-14 mb-1">Summer Sale</h5>
                                                     <p class="text-muted mb-0">Homepage</p>
                                                 </div>

@@ -26,8 +26,25 @@
                             <h5 class="card-title mb-4 text-warning">
                                 <i class="fas fa-edit"></i> Form Edit Promo
                             </h5>
+                             <!-- Tampilkan Error Validasi -->
+                                @if($errors->any())
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <h6 class="alert-heading mb-3">
+                                            <i class="fas fa-exclamation-triangle me-2"></i>
+                                            Terdapat kesalahan dalam pengisian form:
+                                        </h6>
+                                        <ul class="mb-0 ps-3">
+                                            @foreach($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif
+                            <!-- Tampilkan Error Validasi -->
 
-                            <form action="{{ route('promo_web.update', Crypt::encryptString($promo->id)) }}" 
+
+                            <form action="{{ route('promo_web.update', Crypt::encryptString($promo->id)) }}"
                                   method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
@@ -81,7 +98,7 @@
 
                                         @if($promo->path_gambar)
                                             <div class="mt-2">
-                                                <img src="{{ asset($promo->path_gambar) }}" alt="gambar promo" 
+                                                <img src="{{ asset($promo->path_gambar) }}" alt="gambar promo"
                                                      class="img-thumbnail border" width="120">
                                             </div>
                                         @endif

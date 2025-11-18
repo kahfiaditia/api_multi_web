@@ -5,10 +5,18 @@ Docs & License: https://fullcalendar.io/
 */
 
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('rrule'), require('@fullcalendar/core')) :
-    typeof define === 'function' && define.amd ? define(['exports', 'rrule', '@fullcalendar/core'], factory) :
-    (global = global || self, factory(global.FullCalendarRrule = {}, global.rrule, global.FullCalendar));
-}(this, function (exports, rrule, core) { 'use strict';
+    typeof exports === "object" && typeof module !== "undefined"
+        ? factory(exports, require("rrule"), require("@fullcalendar/core"))
+        : typeof define === "function" && define.amd
+          ? define(["exports", "rrule", "@fullcalendar/core"], factory)
+          : ((global = global || self),
+            factory(
+                (global.FullCalendarRrule = {}),
+                global.rrule,
+                global.FullCalendar,
+            ));
+})(this, function (exports, rrule, core) {
+    "use strict";
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -25,31 +33,40 @@ Docs & License: https://fullcalendar.io/
     and limitations under the License.
     ***************************************************************************** */
 
-    var __assign = function() {
-        __assign = Object.assign || function __assign(t) {
-            for (var s, i = 1, n = arguments.length; i < n; i++) {
-                s = arguments[i];
-                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-            }
-            return t;
-        };
+    var __assign = function () {
+        __assign =
+            Object.assign ||
+            function __assign(t) {
+                for (var s, i = 1, n = arguments.length; i < n; i++) {
+                    s = arguments[i];
+                    for (var p in s)
+                        if (Object.prototype.hasOwnProperty.call(s, p))
+                            t[p] = s[p];
+                }
+                return t;
+            };
         return __assign.apply(this, arguments);
     };
 
     var EVENT_DEF_PROPS = {
         rrule: null,
-        duration: core.createDuration
+        duration: core.createDuration,
     };
     var recurring = {
         parse: function (rawEvent, leftoverProps, dateEnv) {
             if (rawEvent.rrule != null) {
-                var props = core.refineProps(rawEvent, EVENT_DEF_PROPS, {}, leftoverProps);
+                var props = core.refineProps(
+                    rawEvent,
+                    EVENT_DEF_PROPS,
+                    {},
+                    leftoverProps,
+                );
                 var parsed = parseRRule(props.rrule, dateEnv);
                 if (parsed) {
                     return {
                         typeData: parsed.rrule,
                         allDayGuess: parsed.allDayGuess,
-                        duration: props.duration
+                        duration: props.duration,
                     };
                 }
             }
@@ -59,34 +76,34 @@ Docs & License: https://fullcalendar.io/
             // we WANT an inclusive start and in exclusive end, but the js rrule lib will only do either BOTH
             // inclusive or BOTH exclusive, which is stupid: https://github.com/jakubroztocil/rrule/issues/84
             // Workaround: make inclusive, which will generate extra occurences, and then trim.
-            return rrule.between(framingRange.start, framingRange.end, true)
+            return rrule
+                .between(framingRange.start, framingRange.end, true)
                 .filter(function (date) {
-                return date.valueOf() < framingRange.end.valueOf();
-            });
-        }
+                    return date.valueOf() < framingRange.end.valueOf();
+                });
+        },
     };
     var main = core.createPlugin({
-        recurringTypes: [recurring]
+        recurringTypes: [recurring],
     });
     function parseRRule(input, dateEnv) {
         var allDayGuess = null;
         var rrule$1;
-        if (typeof input === 'string') {
+        if (typeof input === "string") {
             rrule$1 = rrule.rrulestr(input);
-        }
-        else if (typeof input === 'object' && input) { // non-null object
+        } else if (typeof input === "object" && input) {
+            // non-null object
             var refined = __assign({}, input); // copy
-            if (typeof refined.dtstart === 'string') {
+            if (typeof refined.dtstart === "string") {
                 var dtstartMeta = dateEnv.createMarkerMeta(refined.dtstart);
                 if (dtstartMeta) {
                     refined.dtstart = dtstartMeta.marker;
                     allDayGuess = dtstartMeta.isTimeUnspecified;
-                }
-                else {
+                } else {
                     delete refined.dtstart;
                 }
             }
-            if (typeof refined.until === 'string') {
+            if (typeof refined.until === "string") {
                 refined.until = dateEnv.createMarker(refined.until);
             }
             if (refined.freq != null) {
@@ -94,8 +111,7 @@ Docs & License: https://fullcalendar.io/
             }
             if (refined.wkst != null) {
                 refined.wkst = convertConstant(refined.wkst);
-            }
-            else {
+            } else {
                 refined.wkst = (dateEnv.weekDow - 1 + 7) % 7; // convert Sunday-first to Monday-first
             }
             if (refined.byweekday != null) {
@@ -115,7 +131,7 @@ Docs & License: https://fullcalendar.io/
         return convertConstant(input);
     }
     function convertConstant(input) {
-        if (typeof input === 'string') {
+        if (typeof input === "string") {
             return rrule.RRule[input.toUpperCase()];
         }
         return input;
@@ -123,6 +139,5 @@ Docs & License: https://fullcalendar.io/
 
     exports.default = main;
 
-    Object.defineProperty(exports, '__esModule', { value: true });
-
-}));
+    Object.defineProperty(exports, "__esModule", { value: true });
+});

@@ -29,10 +29,28 @@
                             </h5>
                         </div>
                         <div class="card-body">
+
+                            <!-- Tampilkan Error Validasi -->
+                                @if($errors->any())
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <h6 class="alert-heading mb-3">
+                                            <i class="fas fa-exclamation-triangle me-2"></i>
+                                            Terdapat kesalahan dalam pengisian form:
+                                        </h6>
+                                        <ul class="mb-0 ps-3">
+                                            @foreach($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif
+                            <!-- Tampilkan Error Validasi -->
+
                             <form action="{{ route('profil_web.update', Crypt::encryptString($profil->id)) }}" method="POST" enctype="multipart/form-data" id="form-profil">
                                 @csrf
                                 @method('PUT')
-                                
+
                                 <div class="row g-3">
                                     <!-- Informasi Perusahaan -->
                                     <div class="col-12">
@@ -45,8 +63,8 @@
                                         <label for="nama_pt" class="form-label fw-semibold">
                                             Nama Perusahaan <span class="text-danger">*</span>
                                         </label>
-                                        <input type="text" name="nama_pt" id="nama_pt" class="form-control" 
-                                               value="{{ old('nama_pt', $profil->nama_pt) }}" 
+                                        <input type="text" name="nama_pt" id="nama_pt" class="form-control"
+                                               value="{{ old('nama_pt', $profil->nama_pt) }}"
                                                placeholder="Masukkan nama perusahaan" required>
                                         @error('nama_pt')
                                             <div class="text-danger small mt-1">{{ $message }}</div>
@@ -57,8 +75,8 @@
                                         <label for="nama_web" class="form-label fw-semibold">Domain</label>
                                         <div class="input-group">
                                             <span class="input-group-text">https://</span>
-                                            <input type="text" name="nama_web" id="nama_web" class="form-control" 
-                                                   value="{{ old('nama_web', $profil->nama_web) }}" 
+                                            <input type="text" name="nama_web" id="nama_web" class="form-control"
+                                                   value="{{ old('nama_web', $profil->nama_web) }}"
                                                    placeholder="perusahaan.com">
                                         </div>
                                         @error('nama_web')
@@ -70,8 +88,8 @@
                                         <label for="sub_web" class="form-label fw-semibold">Sub Domain</label>
                                         <div class="input-group">
                                             <span class="input-group-text">https://</span>
-                                            <input type="text" name="sub_web" id="sub_web" class="form-control" 
-                                                   value="{{ old('sub_web', $profil->sub_web) }}" 
+                                            <input type="text" name="sub_web" id="sub_web" class="form-control"
+                                                   value="{{ old('sub_web', $profil->sub_web) }}"
                                                    placeholder="subdomain.perusahaan.com">
                                         </div>
                                         @error('sub_web')
@@ -131,8 +149,8 @@
 
                                     <div class="col-md-6">
                                         <label for="telepon_1" class="form-label fw-semibold">Telepon</label>
-                                        <input type="text" name="telepon_1" id="telepon_1" class="form-control" 
-                                               value="{{ old('telepon_1', $profil->telepon_1) }}" 
+                                        <input type="text" name="telepon_1" id="telepon_1" class="form-control"
+                                               value="{{ old('telepon_1', $profil->telepon_1) }}"
                                                placeholder="Contoh: (021) 1234567">
                                         @error('telepon_1')
                                             <div class="text-danger small mt-1">{{ $message }}</div>
@@ -141,8 +159,8 @@
 
                                     <div class="col-md-6">
                                         <label for="telepon_2" class="form-label fw-semibold">Nomor HP/WhatsApp</label>
-                                        <input type="text" name="telepon_2" id="telepon_2" class="form-control" 
-                                               value="{{ old('telepon_2', $profil->telepon_2) }}" 
+                                        <input type="text" name="telepon_2" id="telepon_2" class="form-control"
+                                               value="{{ old('telepon_2', $profil->telepon_2) }}"
                                                placeholder="Contoh: 0812-3456-7890">
                                         @error('telepon_2')
                                             <div class="text-danger small mt-1">{{ $message }}</div>
@@ -151,8 +169,8 @@
 
                                     <div class="col-md-6">
                                         <label for="email_1" class="form-label fw-semibold">Email Utama</label>
-                                        <input type="email" name="email_1" id="email_1" class="form-control" 
-                                               value="{{ old('email_1', $profil->email_1) }}" 
+                                        <input type="email" name="email_1" id="email_1" class="form-control"
+                                               value="{{ old('email_1', $profil->email_1) }}"
                                                placeholder="email@utama.com">
                                         @error('email_1')
                                             <div class="text-danger small mt-1">{{ $message }}</div>
@@ -161,8 +179,8 @@
 
                                     <div class="col-md-6">
                                         <label for="email_2" class="form-label fw-semibold">Email Cadangan</label>
-                                        <input type="email" name="email_2" id="email_2" class="form-control" 
-                                               value="{{ old('email_2', $profil->email_2) }}" 
+                                        <input type="email" name="email_2" id="email_2" class="form-control"
+                                               value="{{ old('email_2', $profil->email_2) }}"
                                                placeholder="email@cadangan.com">
                                         @error('email_2')
                                             <div class="text-danger small mt-1">{{ $message }}</div>
@@ -198,18 +216,18 @@
 
                                     <div class="col-md-6">
                                         <label for="gambar" class="form-label fw-semibold">Logo Perusahaan</label>
-                                        <input type="file" name="gambar" id="gambar" class="form-control" 
+                                        <input type="file" name="gambar" id="gambar" class="form-control"
                                                accept=".jpg,.jpeg,.png,.gif">
                                         <div class="form-text">Format: JPG, PNG, GIF (Maks. 2MB)</div>
-                                        
+
                                         <!-- Preview Logo Saat Ini -->
                                         @if($profil->gambar)
                                             <div class="mt-2">
                                                 <label class="form-label fw-semibold">Logo Saat Ini:</label>
                                                 <div class="d-flex align-items-center gap-3">
-                                                    <img src="{{ asset('storage/' . $profil->gambar) }}" 
-                                                         alt="Logo Perusahaan" 
-                                                         class="img-thumbnail" 
+                                                    <img src="{{ asset('storage/' . $profil->gambar) }}"
+                                                         alt="Logo Perusahaan"
+                                                         class="img-thumbnail"
                                                          style="max-width: 100px; max-height: 100px;">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox" name="hapus_gambar" id="hapus_gambar" value="1">
@@ -222,7 +240,7 @@
                                         @else
                                             <div class="text-muted small mt-1">Tidak ada logo yang diupload</div>
                                         @endif
-                                        
+
                                         @error('gambar')
                                             <div class="text-danger small mt-1">{{ $message }}</div>
                                         @enderror
@@ -268,7 +286,7 @@
                     if (existingPreview) {
                         existingPreview.remove();
                     }
-                    
+
                     // Buat preview baru
                     const previewDiv = document.createElement('div');
                     previewDiv.id = 'preview-gambar';
